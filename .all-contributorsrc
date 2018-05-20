@@ -1,0 +1,23 @@
+{
+  "projectName": "react-adaptive-image",
+  "projectOwner": "stereobooster",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "stereobooster",
+      "name": "stereobooster",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/179534?s=460&v=4",
+      "profile": "https://github.com/stereobooster",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test"
+      ]
+    }
+  ]
+}

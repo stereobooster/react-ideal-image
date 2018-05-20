@@ -1,0 +1,50 @@
+{
+  "name": "react-adaptive-image",
+  "version": "0.0.0-semantically-released",
+  "description": "Adaptive image component",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "> 4",
+    "npm": "> 3"
+  },
+  "scripts": {
+    "add-contributor": "kcd-scripts contributors add",
+    "build": "kcd-scripts build",
+    "lint": "kcd-scripts lint",
+    "test": "kcd-scripts test",
+    "test:update": "npm test -- --updateSnapshot --coverage",
+    "validate": "kcd-scripts validate",
+    "setup": "npm install && npm run validate -s",
+    "precommit": "kcd-scripts precommit"
+  },
+  "files": ["dist"],
+  "keywords": [],
+  "author": "stereobooster <stereobooster@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.3.2",
+    "react-testing-library": "^2.3.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">=15",
+    "react": ">=0.14.x"
+  },
+  "devDependencies": {
+    "kcd-scripts": "^0.37"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/kcd-scripts/eslint.js"
+  },
+  "eslintIgnore": ["node_modules", "coverage", "dist"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stereobooster/react-adaptive-image.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stereobooster/react-adaptive-image/issues"
+  },
+  "homepage": "https://github.com/stereobooster/react-adaptive-image#readme"
+}
