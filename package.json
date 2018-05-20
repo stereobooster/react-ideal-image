@@ -33,7 +33,7 @@
     "react": ">=0.14.x"
   },
   "devDependencies": {
-    "kcd-scripts": "0.37.0"
+    "kcd-scripts": "0.38.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
