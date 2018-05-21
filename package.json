@@ -21,22 +21,26 @@
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
+    "prop-types": ">=15",
+    "react": ">=0.14.x",
+    "react-waypoint": ">=8.0.0"
+  },
+  "devDependencies": {
+    "kcd-scripts": "0.38.1",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.3.2",
-    "react-testing-library": "^2.3.0"
-  },
-  "peerDependencies": {
-    "prop-types": ">=15",
-    "react": ">=0.14.x"
-  },
-  "devDependencies": {
-    "kcd-scripts": "0.38.1"
+    "react-testing-library": "^2.3.0",
+    "react-waypoint": "^8.0.1"
   },
   "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js"
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "complexity": ["error", 12]
+    }
   },
   "eslintIgnore": ["node_modules", "coverage", "dist"],
   "repository": {

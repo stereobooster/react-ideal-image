@@ -22,11 +22,23 @@
 
 ## The problem
 
-// TODO
+I need React component to asynchronously load images, which will adapt based on network, which will allow a user to control, which image to load.
 
 ## This solution
 
-// TODO
+Image component which will lazy load images:
+
+* Do not load images if they are not visible
+* Require image dimensions to generate placeholders, to prevent browsers layout bounce when images get loaded
+* Require placeholder (lqip, sqip or solid color) to improve perceived load speed.
+* If a client has a good internet connection, a component will load images as soon as user scrolls to it, no additional action required from the user.
+* If a client has a bad internet connection, a component will generate placeholder and "button", which will let a user decide if they want to load an image or not.
+
+Additionally:
+
+* When load starts there is no additional indicator of loading state (clean placeholder), but if it takes more than specified threshold additional indicator appears and a user can cancel the download
+* If an error occurred while downloading an image, a component will provide a visual indication and will allow retry load
+* If a browser is offline and an image is not loaded yet, a component will provide a visual indicator of this case, so a user would know an image is not loaded and there is no way to load it at the moment
 
 ## Table of Contents
 
@@ -36,6 +48,7 @@
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [Technical limitations](#technical-limitations)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
 * [Contributors](#contributors)
@@ -54,16 +67,49 @@ npm install --save-dev react-precious-image
 
 ## Usage
 
-// TODO
+```js
+import React from 'react'
+import lqip from 'lqip.macro'
+import {AdaptiveLoad} from 'react-precious-image'
+
+import image from './images/doggo.jpg'
+const lqip = lqip('./images/doggo.jpg')
+
+const App = () => (
+  <AdaptiveLoad
+    lqip={lqip}
+    src={image}
+    alt="doggo"
+    width={3500}
+    height={2095}
+  />
+)
+```
+
+### Technical limitations
+
+There is no way to reliably measure a speed of the connection unless browser provides [facility for it](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType). Theoretically, we can take the size of an image (provided upfront or read from HTTP headers) and divide by time spent downloading it, but connection capacity will be equally split between all parallel downloads, so this is not precise, and we need to wait for the finish of download to get the final value.
+
+If browser provides `navigator.connection.effectiveType` it will be used to detect a speed of connection: 'slow-2g', '2g' are considered to be slow; '3g' is (sometimes) considered slow, '4g' and everything else is considered as fast.
+
+If a browser doesn't provide `navigator.connection.effectiveType` and threshold provided component will broadcast event (to other components) in case of surpassing threshold and all components which haven't started download yet will treat current browser connection as slow. The threshold is the time (in ms) till component considers a load of image fast enough, if a component gets over the threshold it will show an indicator of slow load and user will be able to cancel the download.
+
+If current browser connection considered to be **slow** all components fallback to manual-load mode.
+
+If current browser connection considered to be **fast** all components use lazy-load mode, e.g. they will start download as soon as user scrolls to it.
 
 ## Inspiration
 
-// TODO
+* Lazy load - this is a technique known from jQuery ages.
+* Specify image dimensions - a recommendation from PageSpeed and later AMP project
+* Use placeholder to improve perceived load speed. LQIP - the technique used by Facebook and Medium. Solid color placeholder - the technique used by Google, Twitter and Pinterest.
+* Overlay icons - to indicate the state of the image and give the user control over it. The technique used by Twitter.
+* Use WebP format, if it is supported by the browser. Recommendation from PageSpeed
+* Use image size according to the screen size. The idea comes from `srcset` and `@media` queries
 
 ## Other Solutions
 
-I'm not aware of any, if you are please [make a pull request][prs] and add it
-here!
+I'm not aware of any which supports all features, if you are please [make a pull request][prs] and add it here!
 
 ## Contributors
 
