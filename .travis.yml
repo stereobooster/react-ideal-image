@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 cache:
   directories:
-    - ~/.npm
+  - "~/.npm"
 notifications:
   email: false
 node_js: '8'
@@ -11,3 +11,6 @@ script: npm run validate
 after_success: kcd-scripts travis-after-success
 branches:
   only: master
+env:
+  global:
+    secure: hG6olL1YgWWkvDW+oVQ4BNIape5GsI9uOqPG6WAP2t1LjG5McqFCP6N0HJLfGI/iiTjbhDhBi69lFXyBzWGEM8Smvmnh1iekRQ+Vrt1L9Q+aXEoRm97LtAbIlKNat4QP9ZW1gaNAPgWrzE0mlPxtOYUNjpR8+T6Ivt2Q04iT2cP7kqgC6CmGVVEk3hOAQqWXkkzUUNifcRs9IdeJrBQzWBE2s1Pw+e2GSvb75fW0hXT9AzfFbl5Q1Nw4R2Mai8uDcqaTEROYxdipz1NJTxvEzix71a2vNEXDGMocnLJldd6SCIJ4SzTwq2qcTnlH0PizvK7ym9yRqDbUudxq09/hqf/q8UzjbWMxImB6Aa7E6KH0zfguJUb0jlOd5mkGnJBE67G+yYrgfCutmGIho4UzWgwpu5PJsENzy1xUN/syKtgCc7Nu1l4tag+3U1vo45GcN+CcY05gKWj7rK9RkXTwBvloXJXhocXfVP3hoQq+WDqFyfEdg74U97Rn6bJ7kluC14m7IAoKRwLjJpLx8BRGCVhMwvPlCdW2ZkBkLgkQVHuNXXZ41sSVxq4PEI+04CncEvmrrWbyBJSApq998hKVkVLwtl1RtVxBN5jJJk59JuDjpq4WTN5GIDNs7x6/oyuGFAQzPJ4/tKxXPA6Jls+TzruY837oG5hfhk2vUY1NzHg=
