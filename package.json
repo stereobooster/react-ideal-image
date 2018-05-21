@@ -17,9 +17,13 @@
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "predeploy": "styleguidist build",
+    "deploy": "gh-pages -d styleguide"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
@@ -35,6 +39,7 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
+    "gh-pages": "^1.1.0",
     "kcd-scripts": "0.38.1",
     "prop-types": "15.6.1",
     "react": "16.3.2",
@@ -48,10 +53,17 @@
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "complexity": ["error", 8]
+      "complexity": [
+        "error",
+        8
+      ]
     }
   },
-  "eslintIgnore": ["node_modules", "coverage", "dist"],
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/stereobooster/react-precious-image.git"
