@@ -130,7 +130,7 @@ Contributions of any kind welcome!
 
 Code - MIT
 
-Icons - [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE_
+Icons - [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
