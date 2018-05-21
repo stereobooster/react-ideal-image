@@ -33,13 +33,13 @@
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-test-renderer": "16.3.2",
-    "react-testing-library": "2.5.2",
+    "react-testing-library": "3.0.0",
     "react-waypoint": "8.0.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "complexity": ["error", 12]
+      "complexity": ["error", 8]
     }
   },
   "eslintIgnore": ["node_modules", "coverage", "dist"],
