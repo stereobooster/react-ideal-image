@@ -62,7 +62,8 @@
   "eslintIgnore": [
     "node_modules",
     "coverage",
-    "dist"
+    "dist",
+    "styleguide"
   ],
   "repository": {
     "type": "git",
