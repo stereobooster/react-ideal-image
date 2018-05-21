@@ -16,7 +16,7 @@ const lqip =
         <ManualLoad
           width={3500}
           height={2095}
-          placeholder={{preview: lqip}}
+          placeholder={{lqip: lqip}}
           style={{maxWidth: 200}}
           onLine={true}
           src="andre-spieker-238-unsplash.jpg"
@@ -26,7 +26,7 @@ const lqip =
         <ManualLoad
           width={3500}
           height={2095}
-          placeholder={{preview: lqip}}
+          placeholder={{lqip: lqip}}
           style={{maxWidth: 200}}
           onLine={false}
           src="andre-spieker-238-unsplash.jpg"
@@ -39,7 +39,7 @@ const lqip =
         <ManualLoad
           width={3500}
           height={2095}
-          placeholder={{preview: lqip}}
+          placeholder={{lqip: lqip}}
           style={{maxWidth: 200}}
           onLine={true}
           src="/404.jpg"
@@ -49,7 +49,7 @@ const lqip =
         <ManualLoad
           width={3500}
           height={2095}
-          placeholder={{preview: lqip}}
+          placeholder={{lqip: lqip}}
           style={{maxWidth: 200}}
           onLine={false}
           src="/404.jpg"

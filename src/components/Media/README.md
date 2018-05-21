@@ -4,7 +4,7 @@ const lqip =
 ;<Media
   width={3500}
   height={2095}
-  placeholder={{preview: lqip}}
+  placeholder={{lqip: lqip}}
   src="andre-spieker-238-unsplash.jpg"
   style={{maxWidth: 200}}
   icon={'loaded'}

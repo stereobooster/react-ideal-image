@@ -26,7 +26,7 @@ export default class Media extends PureComponent {
          * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
          * base64 encoded image of low quality
          */
-        preview: PropTypes.string.isRequired,
+        lqip: PropTypes.string.isRequired,
       }),
     ]).isRequired,
     /** Alternative text */
@@ -107,9 +107,9 @@ export default class Media extends PureComponent {
     const props = this.props
     const {placeholder} = props
     let background
-    if (placeholder.preview) {
+    if (placeholder.lqip) {
       background = {
-        backgroundImage: `url("${placeholder.preview}")`,
+        backgroundImage: `url("${placeholder.lqip}")`,
       }
     } else {
       background = {

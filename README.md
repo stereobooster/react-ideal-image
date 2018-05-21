@@ -77,7 +77,7 @@ const lqip = lqip('./images/doggo.jpg')
 
 const App = () => (
   <AdaptiveLoad
-    lqip={lqip}
+    lqip={{lqip}}
     src={image}
     alt="doggo"
     width={3500}

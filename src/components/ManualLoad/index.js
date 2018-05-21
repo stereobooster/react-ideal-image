@@ -20,7 +20,7 @@ export default class ManualLoad extends Component {
         color: PropTypes.string.isRequired,
       }),
       PropTypes.shape({
-        preview: PropTypes.string.isRequired,
+        lqip: PropTypes.string.isRequired,
       }),
     ]).isRequired,
     /** Alternative text */

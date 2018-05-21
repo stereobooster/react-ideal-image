@@ -21,35 +21,35 @@ const image5 = 'nidhin-mundackal-281287-unsplash.jpg'
 const src = 'andre-spieker-238-unsplash.jpg'
 ;<React.Fragment>
   <LazyLoad
-    placeholder={{preview: lqip1}}
+    placeholder={{lqip: lqip1}}
     src={image1}
     alt="doggo 1"
     width={3500}
     height={2095}
   />
   <LazyLoad
-    placeholder={{preview: lqip2}}
+    placeholder={{lqip: lqip2}}
     src={image2}
     alt="doggo 2"
     width={3534}
     height={2366}
   />
   <LazyLoad
-    placeholder={{preview: lqip3}}
+    placeholder={{lqip: lqip3}}
     src={image3}
     alt="doggo 3"
     width={3204}
     height={4800}
   />
   <LazyLoad
-    placeholder={{preview: lqip4}}
+    placeholder={{lqip: lqip4}}
     src={image4}
     alt="doggo 4"
     width={7952}
     height={5304}
   />
   <LazyLoad
-    placeholder={{preview: lqip5}}
+    placeholder={{lqip: lqip5}}
     src={image5}
     alt="doggo 5"
     width={6016}
