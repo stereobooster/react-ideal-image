@@ -11,11 +11,12 @@ export function UnfetchAbortController() {
 export const unfetch = (url, options) => {
   options = options || {}
   return new Promise((resolve, reject) => {
-    let request = new XMLHttpRequest()
+    const request = new XMLHttpRequest()
 
     request.open(options.method || 'get', url, true)
 
-    for (let i in options.headers) {
+    // eslint-disable-next-line guard-for-in
+    for (const i in options.headers) {
       request.setRequestHeader(i, options.headers[i])
     }
 
@@ -29,6 +30,7 @@ export const unfetch = (url, options) => {
 
     if (options.signal)
       options.signal.onabort = () => {
+        // eslint-disable-next-line no-multi-assign
         request.onerror = request.onload = undefined
         request.abort()
       }
@@ -36,10 +38,10 @@ export const unfetch = (url, options) => {
     request.send(options.body)
 
     function response() {
-      let keys = [],
-        all = [],
-        headers = {},
-        header
+      const keys = []
+      const all = []
+      const headers = {}
+      let header
 
       request
         .getAllResponseHeaders()
@@ -51,6 +53,7 @@ export const unfetch = (url, options) => {
         })
 
       return {
+        // eslint-disable-next-line no-bitwise
         ok: ((request.status / 100) | 0) === 2, // 200-299
         status: request.status,
         statusText: request.statusText,

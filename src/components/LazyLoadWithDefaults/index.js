@@ -11,6 +11,7 @@ LazyLoadWithDefaults.defaultProps = {
   theme,
 }
 
+// eslint-disable-next-line react/forbid-foreign-prop-types
 LazyLoadWithDefaults.propTypes = LazyLoad.propTypes
 
 export default LazyLoadWithDefaults

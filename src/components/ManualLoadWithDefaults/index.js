@@ -11,6 +11,7 @@ ManualLoadWithDefaults.defaultProps = {
   theme,
 }
 
+// eslint-disable-next-line react/forbid-foreign-prop-types
 ManualLoadWithDefaults.propTypes = ManualLoad.propTypes
 
 export default ManualLoadWithDefaults

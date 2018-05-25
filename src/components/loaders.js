@@ -9,8 +9,9 @@ import {unfetch, UnfetchAbortController} from './unfetch'
  * If first promise resolved, rejected or canceled
  * second promise will be caneled
  *
- * @param {Promise} p1
- * @param {Promise} p2
+ * @param {Promise} p1 - first promise with cancel
+ * @param {Promise} p2 - second promise with cancel
+ * @returns {Promise} - new promise with cancel
  */
 export const cancelSecond = (p1, p2) => {
   if (!p2) return p1
@@ -49,17 +50,19 @@ export const timeout = threshold => {
 }
 
 export const image = src => {
-  let image = new Image()
+  let img = new Image()
   const result = new Promise((resolve, reject) => {
-    image.onload = resolve
-    image.onabort = image.onerror = () => reject({})
-    image.src = src
+    img.onload = resolve
+    // eslint-disable-next-line no-multi-assign
+    img.onabort = img.onerror = () => reject({})
+    img.src = src
   })
   result.cancel = () => {
-    if (!image) throw new Error('Already canceled')
-    image.onload = image.onabort = image.onerror = undefined
-    image.src = ''
-    image = undefined
+    if (!img) throw new Error('Already canceled')
+    // eslint-disable-next-line no-multi-assign
+    img.onload = img.onabort = img.onerror = undefined
+    img.src = ''
+    img = undefined
   }
   return result
 }

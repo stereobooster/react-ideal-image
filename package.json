@@ -55,7 +55,7 @@
     "rules": {
       "complexity": [
         "error",
-        8
+        12
       ]
     }
   },

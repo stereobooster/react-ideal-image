@@ -51,6 +51,12 @@ export default class AdaptiveLoad extends Component {
     webpSize: PropTypes.number,
     /** function which decides if image should be downloaded */
     shouldAutoDownload: PropTypes.func,
+    /** URL of the image in webp format */
+    webp: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+      PropTypes.bool,
+    ]),
 
     // for testing
     /** If you will not pass this value, component will detect onLine status based on browser API, otherwise will use passed value */
@@ -191,7 +197,7 @@ export default class AdaptiveLoad extends Component {
     })
   }
 
-  load = async userTriggered => {
+  load = userTriggered => {
     const {loadState} = this.state
     if (ssr || loaded === loadState || loading === loadState) return
     this.loadStateChange(loading, userTriggered)
@@ -260,19 +266,21 @@ export default class AdaptiveLoad extends Component {
       case loading:
         return overThreshold ? icons.loading : icons.noicon
       case initial:
-        return !onLine
-          ? icons.offline
-          : userTriggered || !shouldAutoDownload
+        if (onLine) {
+          return userTriggered || !shouldAutoDownload
             ? icons.load
             : icons.noicon
+        } else {
+          return icons.offline
+        }
       case error:
-        return !onLine ? icons.offline : icons.error
+        return onLine ? icons.error : icons.offline
       default:
         throw new Error(`Wrong state: ${loadState}`)
     }
   }
 
-  onEnter = async () => {
+  onEnter = () => {
     if (this.state.inViewport) return
     this.setState({inViewport: true})
     if (this.shouldAutoDownload()) this.load(false)

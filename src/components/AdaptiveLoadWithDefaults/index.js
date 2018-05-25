@@ -11,6 +11,7 @@ AdaptiveLoadWithDefaults.defaultProps = {
   theme,
 }
 
+// eslint-disable-next-line react/forbid-foreign-prop-types
 AdaptiveLoadWithDefaults.propTypes = AdaptiveLoad.propTypes
 
 export default AdaptiveLoadWithDefaults

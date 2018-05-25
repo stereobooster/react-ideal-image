@@ -14,7 +14,7 @@
  *
  * <a {...compose(theme.link, theme.active, {color: "#000"})}>link</a>
  *
- * @returns {{className: string, style: object}}
+ * @returns {{className: string, style: object}} - params for React component
  */
 export default (...stylesOrClasses) => {
   const classes = []
@@ -22,7 +22,8 @@ export default (...stylesOrClasses) => {
   for (const obj of stylesOrClasses) {
     if (obj instanceof Object) {
       Object.assign(style || (style = {}), obj)
-    } else if (obj === undefined) { // ignore false?
+    } else if (obj === undefined) {
+      // ignore false?
       // ignore
     } else if (typeof obj === 'string') {
       classes.push(obj)
