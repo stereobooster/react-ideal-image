@@ -25,9 +25,9 @@ export default class LazyLoad extends Component {
     return (
       <Waypoint onEnter={this.onEnter}>
         <ManualLoad
-          {...this.props}
           load={this.state.inViewport}
           stateToIcon={this.stateToIcon}
+          {...this.props}
         />
       </Waypoint>
     )

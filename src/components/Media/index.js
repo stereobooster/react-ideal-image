@@ -1,9 +1,7 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import universalStyle from '../universalStyle'
+import compose from '../composeStyle'
 import {icons as defaultIcons} from '../constants'
-// import styles from "./index.module.css";
-import styles from './index.module'
 
 const {load, loading, loaded, error, noicon, offline} = defaultIcons
 
@@ -48,6 +46,7 @@ export default class Media extends PureComponent {
     /** Map of icons */
     icons: PropTypes.object,
     innerRef: PropTypes.any,
+    theme: PropTypes.object,
   }
 
   static defaultProps = {
@@ -56,12 +55,12 @@ export default class Media extends PureComponent {
   }
 
   renderIcon(props) {
-    const {icon, icons, iconColor: fill, iconSize: size} = props
+    const {icon, icons, iconColor: fill, iconSize: size, theme} = props
     const iconToRender = icons[icon]
     if (!iconToRender) return null
-    const styleOrClass = universalStyle(
+    const styleOrClass = compose(
       {width: size, height: size},
-      styles.icon,
+      theme.icon,
       props.noscript,
     )
     return React.createElement(
@@ -74,7 +73,7 @@ export default class Media extends PureComponent {
   renderImage(props) {
     return props.icon === loaded ? (
       <img
-        {...universalStyle(styles.img, props.noscript)}
+        {...compose(props.theme.img, props.noscript)}
         src={props.src}
         alt={props.alt}
         width={props.width}
@@ -82,30 +81,34 @@ export default class Media extends PureComponent {
       />
     ) : (
       <svg
-        {...universalStyle(styles.img, props.noscript)}
+        {...compose(props.theme.img, props.noscript)}
         width={props.width}
         height={props.height}
       />
     )
   }
 
-  renderNoscript(props) {
-    return props.noscript ? (
-      <noscript>
-        <img
-          {...universalStyle(styles.img)}
-          src={props.src}
-          alt={props.alt}
-          width={props.width}
-          height={props.height}
-        />
-      </noscript>
-    ) : null
+  renderNoscript() {
+    return null
+    // img inside noscript will trigger download
+    // even if JS is disabled
+    // TODO: use icon instead with link to the original image
+    // return props.noscript ? (
+    //   <noscript>
+    //     <img
+    //       {...compose(props.theme.img)}
+    //       src={props.src}
+    //       alt={props.alt}
+    //       width={props.width}
+    //       height={props.height}
+    //     />
+    //   </noscript>
+    // ) : null
   }
 
   render() {
     const props = this.props
-    const {placeholder} = props
+    const {placeholder, theme} = props
     let background
     if (placeholder.lqip) {
       background = {
@@ -118,12 +121,7 @@ export default class Media extends PureComponent {
     }
     return (
       <div
-        {...universalStyle(
-          styles.adaptive,
-          background,
-          props.style,
-          props.className,
-        )}
+        {...compose(theme.adaptive, background, props.style, props.className)}
         title={props.alt}
         onClick={this.props.onClick}
         onKeyPress={this.props.onClick}

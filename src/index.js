@@ -1,9 +1,3 @@
-import AdaptiveLoad from './components/AdaptiveLoad'
-import LazyLoad from './components/LazyLoad'
-import ManualLoad from './components/ManualLoad'
-
-export {AdaptiveLoad}
-export {LazyLoad}
-export {ManualLoad}
+import AdaptiveLoad from './components/AdaptiveLoadWithDefaults'
 
 export default AdaptiveLoad

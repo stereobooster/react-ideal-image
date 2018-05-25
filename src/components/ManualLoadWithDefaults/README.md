@@ -13,7 +13,7 @@ const lqip =
     <tr>
       <th align="left">Ok</th>
       <td>
-        <ManualLoad
+        <ManualLoadWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -23,7 +23,7 @@ const lqip =
         />
       </td>
       <td>
-        <ManualLoad
+        <ManualLoadWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -36,7 +36,7 @@ const lqip =
     <tr>
       <th align="left">Error</th>
       <td>
-        <ManualLoad
+        <ManualLoadWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -46,7 +46,7 @@ const lqip =
         />
       </td>
       <td>
-        <ManualLoad
+        <ManualLoadWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}

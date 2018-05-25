@@ -2,55 +2,30 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Media from '../Media'
 import {icons, loadStates} from '../constants'
-import defaultIcons from '../defaultIcons'
+import {image, timeout, cancelSecond} from '../loaders'
 
 const {initial, loading, loaded, error} = loadStates
 
+const ssr =
+  typeof window === 'undefined' || window.navigator.userAgent === 'ReactSnap'
+
 export default class ManualLoad extends Component {
   static propTypes = {
+    // core properties
     /** URL of the image */
     src: PropTypes.string.isRequired,
-    /** Width of the image in px */
-    width: PropTypes.number.isRequired,
-    /** Height of the image in px */
-    height: PropTypes.number.isRequired,
-
-    placeholder: PropTypes.oneOfType([
-      PropTypes.shape({
-        color: PropTypes.string.isRequired,
-      }),
-      PropTypes.shape({
-        lqip: PropTypes.string.isRequired,
-      }),
-    ]).isRequired,
-    /** Alternative text */
-    alt: PropTypes.string,
-    /** If you will not pass this value, component will detect onLine status based on browser API, otherwise will use passed value */
-    onLine: PropTypes.bool,
-    /** If you will pass true it will immediately load image otherwise load will be controlled by user */
-    load: PropTypes.bool,
-    /** Color of the icon */
-    iconColor: PropTypes.string,
-    /** Size of the icon in px */
-    iconSize: PropTypes.number,
-    /** CSS class which will hide elements if JS is disabled */
-    noscript: PropTypes.string,
-    /** React's style attribute for root element of the component */
-    style: PropTypes.object,
-    /** React's className attribute for root element of the component */
-    className: PropTypes.string,
-    /** callback for load state change */
-    onLoadStateChange: PropTypes.func,
-    /** size of image in bytes */
-    size: PropTypes.number,
     /** how much to wait in ms until concider download to slow */
     threshold: PropTypes.number,
-    interval: PropTypes.number,
-    stateToIcon: PropTypes.func,
-  }
 
-  static defaultProps = {
-    interval: 500,
+    // for testing
+    /** If you will not pass this value, component will detect onLine status based on browser API, otherwise will use passed value */
+    onLine: PropTypes.bool,
+
+    // for LazyLoad
+    /** function to convert state of the component to icon in Media */
+    stateToIcon: PropTypes.func,
+    /** If you will pass true it will immediately load image otherwise load will be controlled by user */
+    load: PropTypes.bool,
   }
 
   constructor(props) {
@@ -97,9 +72,9 @@ export default class ManualLoad extends Component {
         this.setState({onLine: nextProps.onLine})
       }
     }
+    if (nextProps.src !== this.props.src) this.cancel()
     if (nextProps.load === true) this.load()
     if (nextProps.load === false) this.cancel()
-    if (nextProps.src !== this.props.src) this.cancel()
   }
 
   onClick() {
@@ -122,70 +97,44 @@ export default class ManualLoad extends Component {
   }
 
   clear() {
-    let image = this.image
-    if (this.image) {
-      clearInterval(this.refreshIntervalId)
-      this.refreshIntervalId = undefined
-      // eslint-disable-next-line no-multi-assign
-      image.onabort = image.onerror = image.onload = undefined
-      this.image.src = ''
-      // eslint-disable-next-line no-multi-assign
-      this.image = image = undefined
+    if (this.loader) {
+      this.loader.cancel()
+      this.loader = undefined
     }
   }
 
   cancel() {
-    const {loadState} = this.state
-    if (loading !== loadState) return
+    if (loading !== this.state.loadState) return
     this.clear()
     this.loadStateChange(initial)
   }
 
   loadStateChange(loadState) {
     this.setState({loadState, overThreshold: false})
-    const onLoadStateChange = this.props.onLoadStateChange
-    if (onLoadStateChange) onLoadStateChange(loadState)
-  }
-
-  startTimer() {
-    const {threshold} = this.props
-    if (!threshold) return undefined
-    const startTime = new Date().getTime()
-    return setInterval(() => {
-      const time = new Date().getTime() - startTime
-      // window.document.dispatchEvent(
-      //   new CustomEvent("connection", {
-      //     detail: { time, size, overThreshold: threshold && time > threshold }
-      //   })
-      // );
-      if (time < threshold) return
-      this.setState({overThreshold: true})
-      window.document.dispatchEvent(
-        new CustomEvent('overThreshold', {detail: {overThreshold: true}}),
-      )
-    }, this.props.interval)
   }
 
   load() {
     const {loadState} = this.state
-    if (loaded === loadState || loading === loadState) return
+    if (ssr || loaded === loadState || loading === loadState) return
     this.loadStateChange(loading)
-    this.refreshIntervalId = this.startTimer()
-    const image = new Image()
-    image.onload = () => {
-      this.clear()
-      this.loadStateChange(loaded)
+
+    const {threshold, src} = this.props
+    const imageLoader = image(src)
+    imageLoader
+      .then(() => this.loadStateChange(loaded))
+      .catch(() => this.loadStateChange(error))
+
+    let timeoutLoader
+    if (threshold) {
+      timeoutLoader = timeout(threshold)
+      timeoutLoader.then(() => this.setState({overThreshold: true}))
     }
-    // eslint-disable-next-line no-multi-assign
-    image.onabort = image.onerror = () => {
-      this.clear()
-      this.loadStateChange(error)
-    }
-    image.src = this.props.src
-    this.image = image
+
+    this.loader = cancelSecond(imageLoader, timeoutLoader)
   }
 
   stateToIcon({loadState, onLine, overThreshold}) {
+    if (ssr) return icons.noicon
     switch (loadState) {
       case loaded:
         return icons.loaded
@@ -204,13 +153,6 @@ export default class ManualLoad extends Component {
     let icon
     if (this.props.stateToIcon) icon = this.props.stateToIcon(this.state)
     if (!icon) icon = this.stateToIcon(this.state)
-    return (
-      <Media
-        {...this.props}
-        onClick={() => this.onClick()}
-        icon={icon}
-        icons={defaultIcons}
-      />
-    )
+    return <Media {...this.props} onClick={() => this.onClick()} icon={icon} />
   }
 }

@@ -13,7 +13,7 @@ const sqip =
         load
       </th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -26,7 +26,7 @@ const sqip =
         noicon
       </th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -39,7 +39,7 @@ const sqip =
     <tr>
       <th align="left">loading</th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -50,7 +50,7 @@ const sqip =
       </td>
       <th align="left">offline</th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -63,7 +63,7 @@ const sqip =
     <tr>
       <th align="left">loaded</th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
@@ -74,7 +74,7 @@ const sqip =
       </td>
       <th align="left">error</th>
       <td>
-        <MediaWithDefaultIcons
+        <MediaWithDefaults
           width={3500}
           height={2095}
           placeholder={{lqip: lqip}}
