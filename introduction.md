@@ -2,6 +2,8 @@
 
 TL;DR. This started as an exercise - how to build ideal React image component. The focus was more on UX and browser capabilities, rather than React code. I created react component and published it to npm, but it has no tests and not battle tested in the wild, use it at your own risk.
 
+[Online example](https://stereobooster.github.io/react-ideal-image-experiments/).
+
 ## Lazy loading
 
 This is a straightforward feature - do not images which are outside of the screen. Do not need to reinvent a wheel, there is [react-waypoint](https://github.com/brigade/react-waypoint), to trigger actions in the component as soon as it appears on the screen (pseudo code):
@@ -12,7 +14,24 @@ This is a straightforward feature - do not images which are outside of the scree
 </Waypoint>
 ```
 
-<!-- screenshot: network requests classic vs lazy load -->
+<table>
+  <tr>
+    <td>
+      <b>Pic 1.</b> Browser's `img` loads all 5 images on the page, but only 3 are visible
+      <img src="other/introduction/waterfall-img.png" />
+    </td>
+    <td rowspan="2">
+      <b>Pic 3.</b> Screenshot of the page
+      <img src="other/introduction/screen.jpg" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Pic 2.</b> "Lazy-load" loads only 3 visible images
+      <img src="other/introduction/waterfall-lazy-load.png" />
+    </td>
+  </tr>
+</table>
 
 ## Placeholder
 
@@ -33,7 +52,9 @@ render() {
 }
 ```
 
-<!-- screenshot: the process of image load without sizes -->
+**Pic 4.** Load progress of images without dimension
+
+![](other/introduction/filmstrip-img.png)
 
 ### LQIP
 
@@ -70,7 +91,13 @@ Or in the component:
 <IdealImage width={100} height={100} placeholder={{lqip: ''}} />
 ```
 
-<!-- process: load with lqip vs without -->
+**Pic 5.** Load progress of images with LQIP, but without JS
+
+![](other/introduction/filmstrip-lqip.png)
+
+**Pic 6.** Load progress of images with LQIP and with JS
+
+![](other/introduction/filmstrip-lqip-react.png)
 
 ## Responsive
 
@@ -100,10 +127,10 @@ This feature is about reimplementing `srcset` property of [responsive image](htt
 
 To do this we will need:
 
-* Set of images resized for different devices. You can use sharp to resize images.
-* Data about how much space image takes on the screen. This is easy because we mount placeholder before the image, so the reference to the placeholder can be used to get dimensions
-* Some heuristic based on `screen.width`, `screen.height`, `window.devicePixelRatio`, `body.clientHeight` to guess maximum image size for given device
-* Would be nice to take into account `orientationchange` events, but will not do this for now.
+- Set of images resized for different devices. You can use sharp to resize images.
+- Data about how much space image takes on the screen. This is easy because we mount placeholder before the image, so the reference to the placeholder can be used to get dimensions
+- Some heuristic based on `screen.width`, `screen.height`, `window.devicePixelRatio`, `body.clientHeight` to guess maximum image size for given device
+- Would be nice to take into account `orientationchange` events, but will not do this for now.
 
 See exact implementation in the code (`guessMaxImageWidth`). Our component will look like this:
 
@@ -124,7 +151,7 @@ Also possible to reimplement `sizes` param with [css-mediaquery](https://github.
 
 ## Adaptive
 
-Most likely you haven't heard this term applied to the images, because I made it up. Adaptive image - an image which adapts to the environment, for example, if the browser supports WebP use it if the network to slow stop auto download images, if the browser is offline communicate to the user that download of the image is not possible at the moment.
+Most likely you haven't heard this term applied to the images, because I made it up. Adaptive image - an image which adapts to the environment, for example, if the browser supports WebP use it if the network to slow stop auto download images if the browser is offline communicate to the user that download of the image is not possible at the moment.
 
 ### WebP
 
@@ -156,7 +183,20 @@ Use component like this:
 />
 ```
 
-<!-- compare: jpeg vs webp -->
+Compare jpeg and WebP sizes
+
+```
+   825769 andre-spieker-238-unsplash-3500.jpg
+   406620 andre-spieker-238-unsplash-3500.webp
+   180825 andre-spieker-238-unsplash-1440.jpg
+   112456 andre-spieker-238-unsplash-1440.webp
+   292352 andre-spieker-238-unsplash-1920.jpg
+   173682 andre-spieker-238-unsplash-1920.webp
+    63236 andre-spieker-238-unsplash-750.jpg
+    45802 andre-spieker-238-unsplash-750.webp
+    19106 andre-spieker-238-unsplash-360.jpg
+    15718 andre-spieker-238-unsplash-360.webp
+```
 
 ### Slow network
 
@@ -164,21 +204,31 @@ If the network is slow it makes no sense to auto-download image (as soon as it a
 
 Instead, we can let the user decide if they want to download image or not. There should be an icon over placeholder, so the user can click it to start the download, and click again to cancel the download. As soon as the download starts there should be no icon, but if it takes to long some indicator of loading state should appear to inform the user that it is still working.
 
-<!-- screenshots: load icon, no icon, loading icon -->
+| load                             | no icon                            | loading                             |
+| -------------------------------- | ---------------------------------- | ----------------------------------- |
+| ![](other/introduction/load.png) | ![](other/introduction/noicon.png) | ![](other/introduction/loading.png) |
 
 In Chrome it is pretty easy to detect the slow network with `navigator.connection.effectiveType`. If it is 'slow-2g', '2g', '3g' then the component will not auto-download images.
+
+| Component detected slow network and didn't try to load images ![](other/introduction/waterfall-slow3g-chrome.png) | Component switched to manual mode ![](other/introduction/screen-slow3g-chrome.jpg) |
+| :---------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+
 
 For other browsers, we can try to guess if the download of the image takes too much time. How much time should be considered as too much is up-to developer, via `threshold` property (optional):
 
 ```js
-<IdealImage {...props} threshold={2000 /* ms */} />
+<IdealImage {...props} threshold={1000 /* ms */} />
 ```
 
 If image takes to long to download and the load was initiated by "Lazy loading" feature then:
 
-* load process will be canceled
-* component will show control, so the user can initiate the download of the image manually
-* component will broadcast event `possibly slow network`, so other components would not even try load images and will be switched to "Manual mode"
+- load process will be canceled
+- the component will show control, so the user can initiate the download of the image manually
+- the component will broadcast event `possibly slow network`, so other components would not even try load images and will be switched to "Manual mode"
+
+| Component tried to download images, but canceled load after 1 second ![](other/introduction/waterfall-slow3g-safari-1sec.png) | Component switched to manual mode ![](other/introduction/screen-slow3g-safari-1sec.jpg) |
+| :---------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+
 
 ### Cancel download
 
@@ -200,8 +250,8 @@ request.abort()
 
 Buuut:
 
-* if images are uncacheable this will not work - the browser will trigger another request for the image as soon as we insert an image in the DOM
-* if images are hosted on the different domain we will need to configure CORS properly
+- if images are uncacheable this will not work - the browser will trigger another request for the image as soon as we insert an image in the DOM
+- if images are hosted on the different domain we will need to configure CORS properly
 
 This is why I chose to let developer decide which approach to use (default is `xhr`):
 
@@ -217,19 +267,17 @@ It is also possible to use `fetch` with [`AbortController`](https://developer.mo
 
 If image network request errored we need to show user message that browser failed to download the image. The user should be able to recover from the error (in case of temporal issue), by clicking on the image user can trigger repetitive load.
 
-<!-- screenshot: error -->
-
 ### 404 error
 
 404 error is the special one. We use LQIP placeholder, which creates "impression" of content, but our component can outlive real image. We need clearly explain to the user that image doesn't exist anymore.
-
-<!-- screenshot: 404 -->
 
 ### Offline
 
 Because we are lazy loading images, it can happen that we have some unloaded images at the moment when the browser goes offline. We should not confuse users in this case with an error message, instead we should clearly identify that browser is offline and this is why browser cannot load images.
 
-<!-- screenshot: offline -->
+| Network error                     | 404 error                             | Offline                             |
+| --------------------------------- | ------------------------------------- | ----------------------------------- |
+| ![](other/introduction/error.png) | ![](other/introduction/error-404.png) | ![](other/introduction/offline.png) |
 
 ## SSR or prerendering
 
@@ -313,7 +361,7 @@ Need to improve this
 
 What is missing:
 
-* tests
-* proper handling of properties update
-* there seems a bug with setTimeout when the browser window is inactive
-* code doesn't take into account change of the screen size because of the device rotation
+- tests
+- proper handling of properties update
+- there seems a bug with setTimeout when the browser window is inactive
+- the code doesn't take into account change of the screen size because of the device rotation
