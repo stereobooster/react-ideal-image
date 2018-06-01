@@ -2,7 +2,7 @@
 
 TL;DR. This started as an exercise - how to build ideal React image component. The focus was more on UX and browser capabilities, rather than React code. I created react component and published it to npm, but it has no tests and not battle tested in the wild, use it at your own risk.
 
-[Online example](https://stereobooster.github.io/react-ideal-image-experiments/).
+[Online example](https://stereobooster.github.io/react-ideal-image-experiments/). [HN discussion](https://news.ycombinator.com/item?id=17210378)
 
 ## Lazy loading
 
