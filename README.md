@@ -61,7 +61,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev react-ideal-image
+npm install react-ideal-image
 ```
 
 ## Usage
