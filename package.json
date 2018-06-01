@@ -1,5 +1,5 @@
 {
-  "name": "react-precious-image",
+  "name": "react-ideal-image",
   "version": "0.0.0-semantically-released",
   "description": "Adaptive image component",
   "main": "dist/index.js",
@@ -21,9 +21,7 @@
     "predeploy": "styleguidist build",
     "deploy": "gh-pages -d styleguide"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
@@ -53,24 +51,17 @@
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "complexity": [
-        "error",
-        12
-      ]
+      "complexity": ["error", 12],
+      "no-case-declarations": "off"
     }
   },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage",
-    "dist",
-    "styleguide"
-  ],
+  "eslintIgnore": ["node_modules", "coverage", "dist", "styleguide"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/stereobooster/react-precious-image.git"
+    "url": "https://github.com/stereobooster/react-ideal-image.git"
   },
   "bugs": {
-    "url": "https://github.com/stereobooster/react-precious-image/issues"
+    "url": "https://github.com/stereobooster/react-ideal-image/issues"
   },
-  "homepage": "https://github.com/stereobooster/react-precious-image#readme"
+  "homepage": "https://github.com/stereobooster/react-ideal-image#readme"
 }

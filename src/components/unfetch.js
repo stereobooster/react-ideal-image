@@ -1,7 +1,7 @@
-export function UnfetchAbortController() {
-  this.signal = {onabort: () => {}}
-  this.abort = () => {
-    this.signal.onabort()
+export class UnfetchAbortController {
+  constructor() {
+    this.signal = {onabort: () => {}}
+    this.abort = () => this.signal.onabort()
   }
 }
 

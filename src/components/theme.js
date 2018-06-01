@@ -5,7 +5,7 @@ export default {
     position: 'relative',
   },
   img: {
-    width: 'auto',
+    width: '100%',
     height: 'auto',
     maxWidth: '100%',
     /* TODO: fix bug in styles */
@@ -16,5 +16,11 @@ export default {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    textAlign: 'center',
+  },
+  noscript: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 }

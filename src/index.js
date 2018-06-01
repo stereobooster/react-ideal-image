@@ -1,3 +1,3 @@
-import AdaptiveLoad from './components/AdaptiveLoadWithDefaults'
+import IdealImage from './components/IdealImageWithDefaults'
 
-export default AdaptiveLoad
+export default IdealImage

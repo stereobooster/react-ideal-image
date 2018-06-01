@@ -33,8 +33,6 @@ export default class Media extends PureComponent {
     iconColor: PropTypes.string,
     /** Size of the icon in px */
     iconSize: PropTypes.number,
-    /** CSS class which will hide elements if JS is disabled */
-    noscript: PropTypes.string,
     /** React's style attribute for root element of the component */
     style: PropTypes.object,
     /** React's className attribute for root element of the component */
@@ -45,8 +43,14 @@ export default class Media extends PureComponent {
     icon: PropTypes.oneOf([load, loading, loaded, error, noicon, offline]),
     /** Map of icons */
     icons: PropTypes.object,
-    innerRef: PropTypes.any,
+    /** theme object - CSS Modules or React styles */
     theme: PropTypes.object,
+    /** callback to get dimensions of the placeholder */
+    onDimensions: PropTypes.func,
+    /** message to show below the icon */
+    message: PropTypes.node,
+    /** reference for Waypoint */
+    innerRef: PropTypes.element,
   }
 
   static defaultProps = {
@@ -54,26 +58,33 @@ export default class Media extends PureComponent {
     iconSize: 64,
   }
 
+  componentDidMount() {
+    if (this.props.onDimensions && this.dimensionElement)
+      this.props.onDimensions({
+        width: this.dimensionElement.clientWidth,
+        height: this.dimensionElement.clientHeight,
+      })
+  }
+
   renderIcon(props) {
     const {icon, icons, iconColor: fill, iconSize: size, theme} = props
     const iconToRender = icons[icon]
     if (!iconToRender) return null
     const styleOrClass = compose(
-      {width: size, height: size},
+      {width: size + 100, height: size, color: fill},
       theme.icon,
-      props.noscript,
     )
-    return React.createElement(
-      'div',
-      styleOrClass,
-      React.createElement(iconToRender, {fill, size}),
-    )
+    return React.createElement('div', styleOrClass, [
+      React.createElement(iconToRender, {fill, size, key: 'icon'}),
+      React.createElement('br', {key: 'br'}),
+      this.props.message,
+    ])
   }
 
   renderImage(props) {
     return props.icon === loaded ? (
       <img
-        {...compose(props.theme.img, props.noscript)}
+        {...compose(props.theme.img)}
         src={props.src}
         alt={props.alt}
         width={props.width}
@@ -81,29 +92,27 @@ export default class Media extends PureComponent {
       />
     ) : (
       <svg
-        {...compose(props.theme.img, props.noscript)}
+        {...compose(props.theme.img)}
         width={props.width}
         height={props.height}
+        ref={ref => (this.dimensionElement = ref)}
       />
     )
   }
 
-  renderNoscript() {
-    return null
-    // img inside noscript will trigger download
-    // even if JS is disabled
-    // TODO: use icon instead with link to the original image
-    // return props.noscript ? (
-    //   <noscript>
-    //     <img
-    //       {...compose(props.theme.img)}
-    //       src={props.src}
-    //       alt={props.alt}
-    //       width={props.width}
-    //       height={props.height}
-    //     />
-    //   </noscript>
-    // ) : null
+  renderNoscript(props) {
+    return props.ssr ? (
+      <noscript>
+        <img
+          {...compose(props.theme.img, props.theme.noscript)}
+          src={props.nsSrc}
+          srcSet={props.nsSrcset}
+          alt={props.alt}
+          width={props.width}
+          height={props.height}
+        />
+      </noscript>
+    ) : null
   }
 
   render() {
@@ -122,7 +131,6 @@ export default class Media extends PureComponent {
     return (
       <div
         {...compose(theme.adaptive, background, props.style, props.className)}
-        title={props.alt}
         onClick={this.props.onClick}
         onKeyPress={this.props.onClick}
         ref={this.props.innerRef}

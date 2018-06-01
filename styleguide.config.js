@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'react-precious-image',
+  title: 'react-ideal-image',
   components: 'src/components/**/index.js',
   skipComponentsWithoutExample: true,
   assetsDir: 'other/images',

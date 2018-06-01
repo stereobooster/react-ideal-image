@@ -15,9 +15,6 @@ export const icons = {
 }
 
 const initial = 'initial'
-// const loading = "loading";
-// const loaded = "loaded";
-// const error = "error";
 
 export const loadStates = {
   initial,

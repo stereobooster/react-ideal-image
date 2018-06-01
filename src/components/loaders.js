@@ -6,28 +6,15 @@
 import {unfetch, UnfetchAbortController} from './unfetch'
 
 /**
- * If first promise resolved, rejected or canceled
- * second promise will be caneled
+ * returns new "promise" with cancel function combined
  *
- * @param {Promise} p1 - first promise with cancel
- * @param {Promise} p2 - second promise with cancel
- * @returns {Promise} - new promise with cancel
+ * @param {Promise} p1 - first "promise" with cancel
+ * @param {Promise} p2 - second "promise" with cancel
+ * @returns {Promise} - new "promise" with cancel
  */
-export const cancelSecond = (p1, p2) => {
+export const combineCancel = (p1, p2) => {
   if (!p2) return p1
-  // const result = p1.then(
-  //   x => {
-  //     p2.cancel()
-  //     return x
-  //   },
-  //   x => {
-  //     p2.cancel()
-  //     return x
-  //   },
-  // )
   const result = p1.then(x => x, x => x)
-  // TODO check if p1 already canceled
-  // then cancel p2 immediately
   result.cancel = () => {
     p1.cancel()
     p2.cancel()
@@ -49,7 +36,8 @@ export const timeout = threshold => {
   return result
 }
 
-export const image = src => {
+// Caveat: image loader can not cancel download in some browsers
+export const imageLoader = src => {
   let img = new Image()
   const result = new Promise((resolve, reject) => {
     img.onload = resolve
@@ -67,6 +55,9 @@ export const image = src => {
   return result
 }
 
+// Caveat: XHR loader can cause errors because of 'Access-Control-Allow-Origin'
+// Caveat: we still need imageLoader to do actual decoding,
+// but if images are uncachable this will lead to two requests
 export const xhrLoader = (url, options) => {
   let controller = new UnfetchAbortController()
   const signal = controller.signal
@@ -75,9 +66,7 @@ export const xhrLoader = (url, options) => {
       if (response.ok) {
         response
           .blob()
-          // we still need image to do actual decoding
-          // but if images are uncachable this will lead to two requests
-          .then(() => image(url))
+          .then(() => imageLoader(url))
           .then(resolve)
       } else {
         reject({status: response.status})
@@ -92,8 +81,10 @@ export const xhrLoader = (url, options) => {
   return result
 }
 
+// Caveat: AbortController only supported in Chrome 66+
+// Caveat: we still need imageLoader to do actual decoding,
+// but if images are uncachable this will lead to two requests
 // export const fetchLoader = (url, options) => {
-//   // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
 //   let controller = new AbortController()
 //   const signal = controller.signal
 //   const result = new Promise((resolve, reject) =>
@@ -102,9 +93,7 @@ export const xhrLoader = (url, options) => {
 //         options && options.onMeta && options.onMeta(response.headers)
 //         response
 //           .blob()
-//           // we still need image to do actual decoding
-//           // but if images are uncachable this will lead to two requests
-//           .then(() => image(url))
+//           .then(() => imageLoader(url))
 //           .then(resolve)
 //       } else {
 //         reject({status: response.status})
