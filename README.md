@@ -28,31 +28,30 @@ I need React component to asynchronously load images, which will adapt based on 
 
 Image component which will lazy load images:
 
-* Do not load images if they are not visible
-* Require image dimensions to generate placeholders, to prevent browsers layout bounce when images get loaded
-* Require placeholder (lqip, sqip or solid color) to improve perceived load speed.
-* If a client has a good internet connection, a component will load images as soon as user scrolls to it, no additional action required from the user.
-* If a client has a bad internet connection, a component will generate placeholder and "button", which will let a user decide if they want to load an image or not.
+- Do not load images if they are not visible
+- Require image dimensions to generate placeholders, to prevent browsers layout bounce when images get loaded
+- Require placeholder (lqip, sqip or solid color) to improve perceived load speed.
+- If a client has a good internet connection, a component will load images as soon as user scrolls to it, no additional action required from the user.
+- If a client has a bad internet connection, a component will generate placeholder and "button", which will let a user decide if they want to load an image or not.
 
 Additionally:
 
-* When load starts there is no additional indicator of loading state (clean placeholder), but if it takes more than specified threshold additional indicator appears and a user can cancel the download
-* If an error occurred while downloading an image, a component will provide a visual indication and will allow retry load
-* If a browser is offline and an image is not loaded yet, a component will provide a visual indicator of this case, so a user would know an image is not loaded and there is no way to load it at the moment
+- When load starts there is no additional indicator of loading state (clean placeholder), but if it takes more than specified threshold additional indicator appears and a user can cancel the download
+- If an error occurred while downloading an image, a component will provide a visual indication and will allow retry load
+- If a browser is offline and an image is not loaded yet, a component will provide a visual indicator of this case, so a user would know an image is not loaded and there is no way to load it at the moment
 
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Technical limitations](#technical-limitations)
-* [Inspiration](#inspiration)
-* [Other Solutions](#other-solutions)
-* [Contributors](#contributors)
-* [LICENSE](#license)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Technical limitations](#technical-limitations)
+- [Inspiration](#inspiration)
+- [Other Solutions](#other-solutions)
+- [Contributors](#contributors)
+- [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -70,15 +69,15 @@ npm install --save-dev react-ideal-image
 ```js
 import React from 'react'
 import lqip from 'lqip.macro'
-import AdaptiveLoad from 'react-ideal-image'
+import IdealImage from 'react-ideal-image'
 
 import image from './images/doggo.jpg'
 const lqip = lqip('./images/doggo.jpg')
 
 const App = () => (
-  <AdaptiveLoad
+  <IdealImage
     lqip={{lqip}}
-    src={image}
+    srcset={[{src: image, width: 3500}]}
     alt="doggo"
     width={3500}
     height={2095}
@@ -100,12 +99,12 @@ If current browser connection considered to be **fast** all components use lazy-
 
 ## Inspiration
 
-* Lazy load - this is a technique known from jQuery ages.
-* Specify image dimensions - a recommendation from PageSpeed and later AMP project
-* Use placeholder to improve perceived load speed. LQIP - the technique used by Facebook and Medium. Solid color placeholder - the technique used by Google, Twitter and Pinterest.
-* Overlay icons - to indicate the state of the image and give the user control over it. The technique used by Twitter.
-* Use WebP format, if it is supported by the browser. Recommendation from PageSpeed
-* Use image size according to the screen size. The idea comes from `srcset` and `@media` queries
+- Lazy load - this is a technique known from jQuery ages.
+- Specify image dimensions - a recommendation from PageSpeed and later AMP project
+- Use placeholder to improve perceived load speed. LQIP - the technique used by Facebook and Medium. Solid color placeholder - the technique used by Google, Twitter and Pinterest.
+- Overlay icons - to indicate the state of the image and give the user control over it. The technique used by Twitter.
+- Use WebP format, if it is supported by the browser. Recommendation from PageSpeed
+- Use image size according to the screen size. The idea comes from `srcset` and `@media` queries
 
 ## Other Solutions
 
