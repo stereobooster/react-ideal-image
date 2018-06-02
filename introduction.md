@@ -369,5 +369,5 @@ What is missing:
 If you want to give it a try:
 
 ```
-npm install react-ideal-image
+npm install react-ideal-image react-waypoint --save
 ```

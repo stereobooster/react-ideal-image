@@ -47,10 +47,12 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install react-ideal-image
+npm install react-ideal-image react-waypoint --save
 ```
 
 ## Usage
+
+Example for create-react-app based project
 
 ```js
 import React from 'react'
