@@ -44,7 +44,7 @@ load () {
   img.src = this.props.src
 }
 render() {
-  if (this.state.loaded) {
+  if (!this.state.loaded) {
     return (<svg width={this.props.width} height={this.props.height} />)
   } else {
     return (<img {...this.props} />)
