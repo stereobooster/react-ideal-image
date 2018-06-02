@@ -183,21 +183,6 @@ Use component like this:
 />
 ```
 
-Compare jpeg and WebP sizes
-
-```
-   825769 andre-spieker-238-unsplash-3500.jpg
-   406620 andre-spieker-238-unsplash-3500.webp
-   180825 andre-spieker-238-unsplash-1440.jpg
-   112456 andre-spieker-238-unsplash-1440.webp
-   292352 andre-spieker-238-unsplash-1920.jpg
-   173682 andre-spieker-238-unsplash-1920.webp
-    63236 andre-spieker-238-unsplash-750.jpg
-    45802 andre-spieker-238-unsplash-750.webp
-    19106 andre-spieker-238-unsplash-360.jpg
-    15718 andre-spieker-238-unsplash-360.webp
-```
-
 ### Slow network
 
 If the network is slow it makes no sense to auto-download image (as soon as it appears on the screen), because it will take a long time to load even more time if the browser tries to download more than one image simultaneously.
