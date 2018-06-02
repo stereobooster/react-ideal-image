@@ -52,7 +52,7 @@ npm install react-ideal-image react-waypoint --save
 
 ## Usage
 
-Example for create-react-app based project
+Example for create-react-app (you need v2 for macros) based project
 
 ```js
 import React from 'react'
