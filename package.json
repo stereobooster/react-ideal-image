@@ -25,7 +25,9 @@
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "react-intersection-observer": "^5.0.5"
+  },
   "peerDependencies": {
     "prop-types": ">=15",
     "react": ">=0.14.x",
@@ -46,7 +48,6 @@
     "react-styleguidist": "7.0.14",
     "react-test-renderer": "16.3.2",
     "react-testing-library": "3.1.3",
-    "react-waypoint": "8.0.1",
     "webpack": "4.8.3"
   },
   "eslintConfig": {
