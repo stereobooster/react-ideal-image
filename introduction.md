@@ -2,7 +2,7 @@
 
 TL;DR. This started as an exercise - how to build ideal React image component. The focus was more on UX and browser capabilities, rather than React code. I created react component and published it to npm, but it has no tests and not battle tested in the wild, use it at your own risk.
 
-[Online example](https://stereobooster.github.io/react-ideal-image-experiments/) | [HN discussion](https://news.ycombinator.com/item?id=17210378) | [Guide To Async Components](https://github.com/stereobooster/guide-to-async-components)
+[Online example](https://stereobooster.github.io/react-ideal-image-experiments/) | [HN discussion](https://news.ycombinator.com/item?id=17210378) | [Guide To Async Components](https://github.com/stereobooster/guide-to-async-components) | [IdealImage vs img](https://github.com/stereobooster/react-ideal-image/blob/master/other/idealimage-vs-img.md)
 
 ## Lazy loading
 
@@ -120,6 +120,14 @@ render() {
    }
 }
 ```
+
+**Pic 7.1** Load progress of `img` with "responsive style" in Android (0.1s interval)
+
+![](other/introduction/filmstrip-img-android-0.1.png)
+
+**Pic 7.2.** Load progress of `img` with "responsive style" in iOS (0.5s interval)
+
+![](other/introduction/filmstrip-img-ios-0.1.png)
 
 ### `srcset`
 
