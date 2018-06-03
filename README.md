@@ -12,7 +12,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -89,10 +89,9 @@ const App = () => (
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") |
-| :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") |
+| :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
@@ -128,5 +127,5 @@ Icons - [Apache License 2.0](https://github.com/google/material-design-icons/blo
 [github-star]: https://github.com/stereobooster/react-ideal-image/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-ideal-image%20by%20%40stereobooster%20https%3A%2F%2Fgithub.com%2Fstereobooster%2Freact-ideal-image%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/stereobooster/react-ideal-image.svg?style=social
-[emojis]: https://github.com/stereobooster/all-contributors#emoji-key
-[all-contributors]: https://github.com/stereobooster/all-contributors
+[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
+[all-contributors]: https://github.com/kentcdodds/all-contributors

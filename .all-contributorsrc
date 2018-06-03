@@ -18,6 +18,24 @@
         "infra",
         "test"
       ]
+    },
+    {
+      "login": "sompylasar",
+      "name": "Ivan Babak",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/498274?s=460&v=4",
+      "profile": "https://github.com/sompylasar",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "palerdot",
+      "name": "Arun Kumar",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4299398?s=460&v=4",
+      "profile": "https://github.com/palerdot",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
