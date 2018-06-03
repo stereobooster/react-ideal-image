@@ -129,9 +129,9 @@ render() {
 
 ![](other/introduction/filmstrip-img-ios-0.1.png)
 
-### `srcset`
+### `srcSet`
 
-This feature is about reimplementing `srcset` property of [responsive image](https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/). It would be nice to use image based on the size of the screen, to minimize traffic for the images on small devices.
+This feature is about reimplementing `srcSet` property of [responsive image](https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcSet/). It would be nice to use image based on the size of the screen, to minimize traffic for the images on small devices.
 
 To do this we will need:
 
@@ -148,7 +148,7 @@ See exact implementation in the code (`guessMaxImageWidth`). Our component will 
   height={100}
   placeholder={{lqip: ''}}
   {...props}
-  srcset={[
+  srcSet={[
     {width: 100, src: 'cute-dog-100.jpg'},
     {width: 200, src: 'cute-dog-200.jpg'},
   ]}
@@ -184,7 +184,7 @@ Use component like this:
 ```js
 <IdealImage
   {...props}
-  srcset={[
+  srcSet={[
     {width: 100, src: 'cute-dog-100.jpg'},
     {width: 100, src: 'cute-dog-100.webp'},
   ]}
@@ -284,7 +284,7 @@ For users with disabled JavaScript or for search bots component will render the 
 <noscript>
   <img
     src={props.src}
-    srcset={props.srcset}
+    srcSet={props.srcSet}
     alt={props.alt}
     width={props.width}
     height={props.height}

@@ -31,7 +31,7 @@ const defaultShouldAutoDownload = ({
       return false
     case '3g':
       if (downlink && size && threshold) {
-        return size * 8 / (downlink * 1000) + rtt < threshold
+        return (size * 8) / (downlink * 1000) + rtt < threshold
       }
       return false
     case '4g':
@@ -100,7 +100,7 @@ const defaultGetIcon = state => {
 export default class IdealImage extends Component {
   constructor(props) {
     super(props)
-    // TODO: validate props.srcset
+    // TODO: validate props.srcSet
     this.state = {
       loadState: initial,
       connection: nativeConnection
@@ -124,7 +124,7 @@ export default class IdealImage extends Component {
     /** function to generate src based on width and format */
     getUrl: PropTypes.func,
     /** array of sources */
-    srcset: PropTypes.arrayOf(
+    srcSet: PropTypes.arrayOf(
       PropTypes.shape({
         width: PropTypes.number.isRequired,
         src: PropTypes.string,
@@ -285,9 +285,9 @@ export default class IdealImage extends Component {
     if (this.state.inViewport) return
     this.setState({inViewport: true})
     const pickedSrc = selectSrc({
-      srcset: this.props.srcset,
+      srcSet: this.props.srcSet,
       maxImageWidth:
-        this.props.srcset.length > 1
+        this.props.srcSet.length > 1
           ? guessMaxImageWidth(this.state.dimensions)
           : 0,
       supportsWebp,
