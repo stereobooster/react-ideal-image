@@ -151,7 +151,7 @@ Also possible to reimplement `sizes` param with [css-mediaquery](https://github.
 
 ## Adaptive
 
-Most likely you haven't heard this term applied to the images, because I made it up. Adaptive image - an image which adapts to the environment, for example, if the browser supports WebP use it if the network to slow stop auto download images if the browser is offline communicate to the user that download of the image is not possible at the moment.
+Most likely you haven't heard this term applied to the images, because I made it up. Adaptive image - an image which adapts to the environment, for example, if the browser supports WebP use it if the network is too slow stop auto download images if the browser is offline communicate to the user that download of the image is not possible at the moment.
 
 ### WebP
 
