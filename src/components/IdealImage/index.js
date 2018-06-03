@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Waypoint from 'react-waypoint'
+import Observer from 'react-intersection-observer'
 import Media from '../Media'
 import {icons, loadStates} from '../constants'
 import {xhrLoader, imageLoader, timeout, combineCancel} from '../loaders'
@@ -309,11 +309,19 @@ export default class IdealImage extends Component {
     }
   }
 
+  handleChange = inView => {
+    if (inView) {
+      this.onEnter()
+    } else {
+      this.onLeave()
+    }
+  }
+
   render() {
     const icon = this.props.getIcon(this.state)
     const message = this.props.getMessage(icon, this.state)
     return (
-      <Waypoint onEnter={this.onEnter} onLeave={this.onLeave}>
+      <Observer oChange={this.handleChange}>
         <Media
           {...this.props}
           {...fallbackParams(this.props)}
@@ -323,7 +331,7 @@ export default class IdealImage extends Component {
           onDimensions={dimensions => this.setState({dimensions})}
           message={message}
         />
-      </Waypoint>
+      </Observer>
     )
   }
 }

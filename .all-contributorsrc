@@ -18,6 +18,17 @@
         "infra",
         "test"
       ]
+    },
+    {
+      "login": "GeKorm",
+      "name": "George Kormaris",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6104345?v=4",
+      "profile": "http://www.gekorm.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }
