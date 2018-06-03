@@ -65,7 +65,7 @@ const lqip = lqip('./images/doggo.jpg')
 const App = () => (
   <IdealImage
     lqip={{lqip}}
-    srcset={[{src: image, width: 3500}]}
+    srcSet={[{src: image, width: 3500}]}
     alt="doggo"
     width={3500}
     height={2095}
