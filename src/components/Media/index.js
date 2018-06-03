@@ -50,7 +50,7 @@ export default class Media extends PureComponent {
     /** message to show below the icon */
     message: PropTypes.node,
     /** reference for Waypoint */
-    innerRef: PropTypes.element,
+    innerRef: PropTypes.func,
   }
 
   static defaultProps = {
@@ -104,7 +104,10 @@ export default class Media extends PureComponent {
     return props.ssr ? (
       <noscript>
         <img
-          {...compose(props.theme.img, props.theme.noscript)}
+          {...compose(
+            props.theme.img,
+            props.theme.noscript,
+          )}
           src={props.nsSrc}
           srcSet={props.nsSrcset}
           alt={props.alt}
@@ -130,7 +133,12 @@ export default class Media extends PureComponent {
     }
     return (
       <div
-        {...compose(theme.adaptive, background, props.style, props.className)}
+        {...compose(
+          theme.adaptive,
+          background,
+          props.style,
+          props.className,
+        )}
         onClick={this.props.onClick}
         onKeyPress={this.props.onClick}
         ref={this.props.innerRef}
