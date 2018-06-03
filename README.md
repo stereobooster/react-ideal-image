@@ -75,7 +75,14 @@ const App = () => (
 
 ## Other Solutions
 
-I'm not aware of any which supports all features, if you are please [make a pull request][prs] and add it here!
+- [react-progressive-image](https://github.com/FormidableLabs/react-progressive-image)
+- [react-lazyload](https://github.com/jasonslyvia/react-lazyload)
+- [react-lazy-image](https://github.com/sergiodxa/react-lazy-image)
+- [react-image](https://github.com/mbrevda/react-image)
+- [react-lazy-load](https://github.com/loktar00/react-lazy-load)
+- [react-graceful-image](https://github.com/linasmnew/react-graceful-image)
+- [react-worker-image](https://github.com/nitish24p/react-worker-image)
+- [lazy-image](https://github.com/notwaldorf/lazy-image)
 
 ## Contributors
 
