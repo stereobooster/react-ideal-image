@@ -6,7 +6,7 @@ TL;DR. This started as an exercise - how to build ideal React image component. T
 
 ## Lazy loading
 
-This is a straightforward feature - do not images which are outside of the screen. Do not need to reinvent a wheel, there is [react-waypoint](https://github.com/brigade/react-waypoint), to trigger actions in the component as soon as it appears on the screen (pseudo code):
+This is a straightforward feature - do not load images which are outside of the screen. Do not need to reinvent a wheel, there is [react-waypoint](https://github.com/brigade/react-waypoint), to trigger actions in the component as soon as it appears on the screen (pseudo code):
 
 ```js
 <Waypoint onEnter={() => this.setState({src})}>
