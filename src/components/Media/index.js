@@ -51,6 +51,10 @@ export default class Media extends PureComponent {
     message: PropTypes.node,
     /** reference for Waypoint */
     innerRef: PropTypes.func,
+    /** noscript image src */
+    nsSrc: PropTypes.string,
+    /** noscript image srcSet */
+    nsSrcSet: PropTypes.string,
   }
 
   static defaultProps = {
@@ -109,7 +113,7 @@ export default class Media extends PureComponent {
             props.theme.noscript,
           )}
           src={props.nsSrc}
-          srcSet={props.nsSrcset}
+          srcSet={props.nsSrcSet}
           alt={props.alt}
           width={props.width}
           height={props.height}
@@ -134,7 +138,7 @@ export default class Media extends PureComponent {
     return (
       <div
         {...compose(
-          theme.adaptive,
+          theme.placeholder,
           background,
           props.style,
           props.className,

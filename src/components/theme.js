@@ -1,5 +1,5 @@
 export default {
-  adaptive: {
+  placeholder: {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     position: 'relative',

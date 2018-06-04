@@ -313,7 +313,7 @@ By default, the component uses inline styles, but it is also possible to use CCS
 
 ```js
 const theme = {
-  adaptive: {
+  placeholder: {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     position: 'relative',

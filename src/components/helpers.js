@@ -120,7 +120,7 @@ export const fallbackParams = ({srcSet, getUrl}) => {
   const notWebp = srcSet.filter(x => !isWebp(x))
   const first = notWebp[0]
   return {
-    nsSrcset: notWebp
+    nsSrcSet: notWebp
       .map(x => `${getUrl ? getUrl(x) : x.src} ${x.width}w`)
       .join(','),
     nsSrc: getUrl ? getUrl(first) : first.src,

@@ -140,6 +140,24 @@ export default class IdealImage extends Component {
     getIcon: PropTypes.func,
     /** type of loader */
     loader: PropTypes.oneOf(['image', 'xhr']),
+    /** Width of the image in px */
+    width: PropTypes.number.isRequired,
+    /** Height of the image in px */
+    height: PropTypes.number.isRequired,
+    placeholder: PropTypes.oneOfType([
+      PropTypes.shape({
+        /** Solid color placeholder */
+        color: PropTypes.string.isRequired,
+      }),
+      PropTypes.shape({
+        /**
+         * [Low Quality Image Placeholder](https://github.com/zouhir/lqip)
+         * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
+         * base64 encoded image of low quality
+         */
+        lqip: PropTypes.string.isRequired,
+      }),
+    ]).isRequired,
   }
 
   static defaultProps = {
