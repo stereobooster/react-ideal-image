@@ -321,7 +321,7 @@ export default class IdealImage extends Component {
     const icon = this.props.getIcon(this.state)
     const message = this.props.getMessage(icon, this.state)
     return (
-      <Observer oChange={this.handleChange}>
+      <Observer onChange={this.handleChange}>
         <Media
           {...this.props}
           {...fallbackParams(this.props)}
