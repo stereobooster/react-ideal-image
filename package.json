@@ -21,7 +21,9 @@
     "predeploy": "styleguidist build",
     "deploy": "gh-pages -d styleguide"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
@@ -37,6 +39,7 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
+    "canvas": "1.6.11",
     "gh-pages": "1.2.0",
     "kcd-scripts": "0.39.0",
     "prop-types": "15.6.1",
@@ -51,11 +54,19 @@
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "complexity": ["error", 12],
+      "complexity": [
+        "error",
+        12
+      ],
       "no-case-declarations": "off"
     }
   },
-  "eslintIgnore": ["node_modules", "coverage", "dist", "styleguide"],
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "styleguide"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/stereobooster/react-ideal-image.git"
