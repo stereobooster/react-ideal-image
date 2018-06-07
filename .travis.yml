@@ -6,7 +6,9 @@ cache:
 notifications:
   email: false
 node_js: '8'
-install: npm install
+install:
+  - sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+  - npm install
 script: npm run validate
 after_success: kcd-scripts travis-after-success
 branches:
