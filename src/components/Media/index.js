@@ -62,10 +62,6 @@ export default class Media extends PureComponent {
     iconSize: 64,
   }
 
-  state = {
-    showPlaceholder: true,
-  }
-
   componentDidMount() {
     if (this.props.onDimensions && this.dimensionElement)
       this.props.onDimensions({
@@ -89,17 +85,10 @@ export default class Media extends PureComponent {
     ])
   }
 
-  onLoad = () => {
-    this.setState({
-      showPlaceholder: false,
-    })
-  }
-
   renderImage(props) {
     return props.icon === loaded ? (
       <img
         {...compose(props.theme.img)}
-        onLoad={this.onLoad}
         src={props.src}
         alt={props.alt}
         width={props.width}
@@ -108,7 +97,6 @@ export default class Media extends PureComponent {
     ) : (
       <svg
         {...compose(props.theme.img)}
-        onLoad={this.onLoad}
         width={props.width}
         height={props.height}
         ref={ref => (this.dimensionElement = ref)}
@@ -138,7 +126,9 @@ export default class Media extends PureComponent {
     const props = this.props
     const {placeholder, theme} = props
     let background
-    if (placeholder.lqip) {
+    if (props.icon === loaded) {
+      background = {}
+    } else if (placeholder.lqip) {
       background = {
         backgroundImage: `url("${placeholder.lqip}")`,
       }
@@ -151,7 +141,7 @@ export default class Media extends PureComponent {
       <div
         {...compose(
           theme.placeholder,
-          this.state.showPlaceholder ? background : {},
+          background,
           props.style,
           props.className,
         )}
