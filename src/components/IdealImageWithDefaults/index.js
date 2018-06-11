@@ -1,4 +1,5 @@
 import React from 'react'
+import Waypoint from 'react-waypoint'
 import IdealImage from '../IdealImage'
 import icons from '../icons'
 import theme from '../theme'
@@ -7,6 +8,7 @@ const IdealImageWithDefaults = props => <IdealImage {...props} />
 
 IdealImageWithDefaults.defaultProps = {
   ...IdealImage.defaultProps,
+  VisibilityObserver: Waypoint,
   icons,
   theme,
 }
