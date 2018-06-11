@@ -126,7 +126,9 @@ export default class Media extends PureComponent {
     const props = this.props
     const {placeholder, theme} = props
     let background
-    if (placeholder.lqip) {
+    if (props.icon === loaded) {
+      background = {}
+    } else if (placeholder.lqip) {
       background = {
         backgroundImage: `url("${placeholder.lqip}")`,
       }
