@@ -72,6 +72,7 @@ export default class Media extends PureComponent {
 
   renderIcon(props) {
     const {icon, icons, iconColor: fill, iconSize: size, theme} = props
+    if (!icons) return null
     const iconToRender = icons[icon]
     if (!iconToRender) return null
     const styleOrClass = compose(

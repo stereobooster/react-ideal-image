@@ -45,6 +45,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tvthatsme",
+      "name": "Timothy Vernon",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3386714?v=4",
+      "profile": "https://github.com/tvthatsme",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "repoType": "github"
