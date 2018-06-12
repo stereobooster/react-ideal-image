@@ -83,6 +83,8 @@ const App = () => (
 - [react-graceful-image](https://github.com/linasmnew/react-graceful-image)
 - [react-worker-image](https://github.com/nitish24p/react-worker-image)
 - [lazy-image](https://github.com/notwaldorf/lazy-image)
+- [react-simple-image](https://github.com/bitjourney/react-simple-image)
+- [react-power-picture](https://github.com/tvthatsme/react-power-picture)
 
 ## Contributors
 
