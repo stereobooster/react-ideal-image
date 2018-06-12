@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Waypoint from 'react-waypoint'
 import Media from '../Media'
 import {icons, loadStates} from '../constants'
 import {xhrLoader, imageLoader, timeout, combineCancel} from '../loaders'
@@ -158,6 +157,8 @@ export default class IdealImage extends Component {
         lqip: PropTypes.string.isRequired,
       }),
     ]).isRequired,
+    /** react component to determine visibility */
+    VisibilityObserver: PropTypes.node.isRequired,
   }
 
   static defaultProps = {
@@ -328,10 +329,11 @@ export default class IdealImage extends Component {
   }
 
   render() {
+    const {VisibilityObserver} = this.props
     const icon = this.props.getIcon(this.state)
     const message = this.props.getMessage(icon, this.state)
     return (
-      <Waypoint onEnter={this.onEnter} onLeave={this.onLeave}>
+      <VisibilityObserver onEnter={this.onEnter} onLeave={this.onLeave}>
         <Media
           {...this.props}
           {...fallbackParams(this.props)}
@@ -341,7 +343,7 @@ export default class IdealImage extends Component {
           onDimensions={dimensions => this.setState({dimensions})}
           message={message}
         />
-      </Waypoint>
+      </VisibilityObserver>
     )
   }
 }
