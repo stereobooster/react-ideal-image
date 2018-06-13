@@ -1,13 +1,12 @@
 import React from 'react'
-import IdealImage from '../components/IdealImage/index'
 import renderer from 'react-test-renderer'
+import IdealImageWithDefaults from '../components/IdealImageWithDefaults/index'
 
-describe('IdealImage', () => {
+describe('IdealImageWithDefaults', () => {
   it('Renders a snapshot that is good', () => {
     const comp = renderer
       .create(
-        <IdealImage
-          theme={{}}
+        <IdealImageWithDefaults
           placeholder={{color: 'blue'}}
           srcSet={[
             {
