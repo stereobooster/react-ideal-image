@@ -27,6 +27,13 @@ export default class Media extends PureComponent {
         lqip: PropTypes.string.isRequired,
       }),
     ]).isRequired,
+    /** display icon */
+    icon: PropTypes.oneOf([load, loading, loaded, error, noicon, offline])
+      .isRequired,
+    /** Map of icons */
+    icons: PropTypes.object.isRequired,
+    /** theme object - CSS Modules or React styles */
+    theme: PropTypes.object.isRequired,
     /** Alternative text */
     alt: PropTypes.string,
     /** Color of the icon */
@@ -39,12 +46,6 @@ export default class Media extends PureComponent {
     className: PropTypes.string,
     /** On click handler */
     onClick: PropTypes.func,
-    /** display icon */
-    icon: PropTypes.oneOf([load, loading, loaded, error, noicon, offline]),
-    /** Map of icons */
-    icons: PropTypes.object,
-    /** theme object - CSS Modules or React styles */
-    theme: PropTypes.object,
     /** callback to get dimensions of the placeholder */
     onDimensions: PropTypes.func,
     /** message to show below the icon */

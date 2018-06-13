@@ -158,6 +158,10 @@ export default class IdealImage extends Component {
         lqip: PropTypes.string.isRequired,
       }),
     ]).isRequired,
+    /** Map of icons */
+    icons: PropTypes.object.isRequired,
+    /** theme object - CSS Modules or React styles */
+    theme: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
