@@ -9,8 +9,10 @@ notifications:
 node_js:
   - '8'
   - '10'
-install: yarn install
-script: yarn validate
+install:
+  - npm install -g npm
+  - npm install
+script: npm run validate
 after_success: kcd-scripts travis-after-success
 branches:
   only: master
