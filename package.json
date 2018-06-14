@@ -67,11 +67,6 @@
     "dist",
     "styleguide"
   ],
-  "jest": {
-    "setupFiles": [
-      "jest-canvas-mock"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/stereobooster/react-ideal-image.git"
