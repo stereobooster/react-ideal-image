@@ -12,7 +12,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -92,8 +92,8 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/1192452?v=4" width="100px;"/><br /><sub><b>Andrew Lisowski</b></sub>](http://hipstersmoothie.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=hipstersmoothie "Code") |
-| :---: | :---: | :---: | :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/1192452?v=4" width="100px;"/><br /><sub><b>Andrew Lisowski</b></sub>](http://hipstersmoothie.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=hipstersmoothie "Code") | [<img src="https://avatars1.githubusercontent.com/u/3386714?v=4" width="100px;"/><br /><sub><b>Timothy Vernon</b></sub>](https://github.com/tvthatsme)<br />[⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=tvthatsme "Tests") |
+| :---: | :---: | :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

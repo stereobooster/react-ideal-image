@@ -21,7 +21,9 @@
     "predeploy": "styleguidist build",
     "deploy": "gh-pages -d styleguide"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
@@ -38,12 +40,13 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "gh-pages": "1.2.0",
+    "jest-canvas-mock": "^1.0.2",
     "kcd-scripts": "0.39.0",
     "prop-types": "15.6.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-styleguidist": "7.0.17",
-    "react-test-renderer": "16.3.2",
+    "react-test-renderer": "^16.4.0",
     "react-testing-library": "3.1.4",
     "react-waypoint": "8.0.1",
     "webpack": "4.12.0"
@@ -51,11 +54,24 @@
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "complexity": ["error", 12],
+      "complexity": [
+        "error",
+        12
+      ],
       "no-case-declarations": "off"
     }
   },
-  "eslintIgnore": ["node_modules", "coverage", "dist", "styleguide"],
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "styleguide"
+  ],
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/stereobooster/react-ideal-image.git"
