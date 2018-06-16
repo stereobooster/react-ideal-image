@@ -103,7 +103,7 @@ export const selectSrc = ({srcSet, maxImageWidth, supportsWebp}) => {
   } else {
     supportedFormat = srcSet.filter(x => !isWebp(x))
     if (supportedFormat.length === 0)
-      throw new Error('Need at least one item in srcSet')
+      throw new Error('Need at least one supported format item in srcSet')
   }
   let widths = supportedFormat.filter(x => x.width >= maxImageWidth)
   if (widths.length === 0) {
