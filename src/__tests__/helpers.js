@@ -6,6 +6,13 @@ import {
 } from '../components/helpers'
 
 describe('guessMaxImageWidth', () => {
+  beforeEach(() => {
+    Object.defineProperty(window.screen, 'width', {
+      value: 100,
+      writable: true,
+    })
+  })
+
   it('Should calculate the maximum image width', () => {
     const dimensions = {
       width: 400,
@@ -17,11 +24,6 @@ describe('guessMaxImageWidth', () => {
   })
 
   it('Should calculate the maximum image width with screen changes', () => {
-    Object.defineProperty(window.screen, 'width', {
-      get: () => {
-        return 100
-      },
-    })
     window.innerWidth = 50
     const dimensions = {
       width: 400,
@@ -34,7 +36,6 @@ describe('guessMaxImageWidth', () => {
   })
 
   it('Should calculate the maximum image width with screen changes and scroll', () => {
-    // window.screen.width defined in test above.
     const body = document.getElementsByTagName('body')[0]
     Object.defineProperty(body, 'clientHeight', {
       get: () => {
