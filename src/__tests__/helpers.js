@@ -6,32 +6,40 @@ import {
 } from '../components/helpers'
 
 describe('guessMaxImageWidth', () => {
-  beforeEach(() => {
-    Object.defineProperty(window.screen, 'width', {
-      value: 100,
-      writable: true,
-    })
-  })
-
   it('Should calculate the maximum image width', () => {
     const dimensions = {
       width: 400,
       height: 100,
     }
+    const mockedWindow = {
+      screen: {
+        width: 100,
+      },
+      innerWidth: 1024,
+      innerHeight: 768,
+    }
     const expected = dimensions.width
-    const result = guessMaxImageWidth(dimensions)
+    const result = guessMaxImageWidth(dimensions, mockedWindow)
+
     expect(result).toEqual(expected)
   })
 
   it('Should calculate the maximum image width with screen changes', () => {
-    window.innerWidth = 50
     const dimensions = {
       width: 400,
       height: 100,
     }
+    const mockedWindow = {
+      screen: {
+        width: 100,
+      },
+      innerWidth: 50,
+      innerHeight: 30,
+    }
     const expected =
-      (dimensions.width / window.innerWidth) * window.screen.width
-    const result = guessMaxImageWidth(dimensions)
+      (dimensions.width / mockedWindow.innerWidth) * mockedWindow.screen.width
+    const result = guessMaxImageWidth(dimensions, mockedWindow)
+
     expect(result).toEqual(expected)
   })
 
@@ -42,14 +50,20 @@ describe('guessMaxImageWidth', () => {
         return 400
       },
     })
-    window.innerWidth = 50
-    window.innerHeight = 100
     const dimensions = {
       width: 400,
       height: 100,
     }
+    const mockedWindow = {
+      screen: {
+        width: 100,
+      },
+      innerWidth: 50,
+      innerHeight: 100,
+    }
     const expected = 450
-    const result = guessMaxImageWidth(dimensions)
+    const result = guessMaxImageWidth(dimensions, mockedWindow)
+
     expect(result).toEqual(expected)
   })
 })

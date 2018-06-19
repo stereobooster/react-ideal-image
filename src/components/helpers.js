@@ -16,17 +16,25 @@ export const nativeConnection = !ssr && !!window.navigator.connection
 // }
 // export const screenWidth = getScreenWidth()
 
-export const guessMaxImageWidth = dimensions => {
+export const guessMaxImageWidth = (dimensions, w) => {
   if (ssr) return 0
+
+  // Default to window object but don't use window as a default
+  // parameter so that this can be used on the server as well
+  if (!w) {
+    w = window
+  }
+
   const imgWidth = dimensions.width
 
-  const {screen} = window
+  const {screen} = w
   const sWidth = screen.width
   const sHeight = screen.height
 
   const {documentElement} = document
-  const windowWidth = window.innerWidth || documentElement.clientWidth
-  const windowHeight = window.innerHeight || documentElement.clientHeight
+  const windowWidth = w.innerWidth || documentElement.clientWidth
+  const windowHeight = w.innerHeight || documentElement.clientHeight
+  const devicePixelRatio = w.devicePixelRatio || 1
 
   const windowResized = sWidth > windowWidth
 
@@ -39,13 +47,12 @@ export const guessMaxImageWidth = dimensions => {
     if (isScroll && scrollWidth <= 15) {
       result = sWidth - scrollWidth
     } else {
-      // result = imgWidth / (windowWidth - scrollWidth) * (sWidth - scrollWidth)
       result = (imgWidth / windowWidth) * sWidth
     }
   } else {
     result = imgWidth
   }
-  const devicePixelRatio = window.devicePixelRatio || 1
+
   return result * devicePixelRatio
 }
 
