@@ -27,11 +27,11 @@
   "keywords": [],
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
   "peerDependencies": {
     "prop-types": ">=15",
     "react": ">=0.14.x",
-    "react-waypoint": ">=8.0.0"
+    "react-waypoint": ">=8.0.0",
+    "react-intersection-observer": ">=5.0.0"
   },
   "devDependencies": {
     "babel-loader": "7.1.4",
@@ -49,6 +49,7 @@
     "react-test-renderer": "16.4.1",
     "react-testing-library": "3.1.7",
     "react-waypoint": "8.0.2",
+    "react-intersection-observer": "5.0.5",
     "webpack": "4.12.0"
   },
   "eslintConfig": {

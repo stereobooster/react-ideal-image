@@ -1,21 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IdealImage Renders a snapshot that is good 1`] = `
-<div
-  className={undefined}
-  onClick={[Function]}
-  onKeyPress={[Function]}
-  style={
-    Object {
-      "backgroundColor": "blue",
-    }
-  }
+exports[`IdealImage Renders a snapshot with IntersectionObserver 1`] = `
+<observer
+  onEnter={[Function]}
+  onLeave={[Function]}
 >
-  <svg
+  <div
     className={undefined}
-    height={2095}
-    style={undefined}
-    width={3500}
-  />
-</div>
+    onClick={[Function]}
+    onKeyPress={[Function]}
+    style={
+      Object {
+        "backgroundColor": "blue",
+      }
+    }
+  >
+    <svg
+      className={undefined}
+      height={2095}
+      style={undefined}
+      width={3500}
+    />
+  </div>
+</observer>
+`;
+
+exports[`IdealImage Renders a snapshot with Waypoint 1`] = `
+<observer
+  onEnter={[Function]}
+  onLeave={[Function]}
+>
+  <div
+    className={undefined}
+    onClick={[Function]}
+    onKeyPress={[Function]}
+    style={
+      Object {
+        "backgroundColor": "blue",
+      }
+    }
+  >
+    <svg
+      className={undefined}
+      height={2095}
+      style={undefined}
+      width={3500}
+    />
+  </div>
+</observer>
 `;
