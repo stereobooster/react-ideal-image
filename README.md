@@ -44,11 +44,14 @@ Read the [introduction](introduction.md).
 ## Installation
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
-should be installed as one of your project's `devDependencies`:
+should be installed as one of your project's `dependencies`:
 
 ```
-npm install react-ideal-image react-waypoint --save
+npm install react-ideal-image --save
 ```
+
+> This package also depends on `react`, `prop-types`, and `react-waypoint`.
+> Please make sure you have those installed as well.
 
 ## Usage
 
