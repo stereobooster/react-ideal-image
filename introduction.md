@@ -135,7 +135,7 @@ This feature is about reimplementing `srcSet` property of [responsive image](htt
 
 To do this we will need:
 
-- Set of images resized for different devices. You can use sharp to resize images.
+- Set of images resized for different devices. You can use [sharp](https://github.com/lovell/sharp) to resize images.
 - Data about how much space image takes on the screen. This is easy because we mount placeholder before the image, so the reference to the placeholder can be used to get dimensions
 - Some heuristic based on `screen.width`, `screen.height`, `window.devicePixelRatio`, `body.clientHeight` to guess maximum image size for given device
 - Would be nice to take into account `orientationchange` events, but will not do this for now.
