@@ -47,7 +47,7 @@
     "react-dom": "16.4.1",
     "react-styleguidist": "7.0.19",
     "react-test-renderer": "16.4.1",
-    "react-testing-library": "4.0.2",
+    "react-testing-library": "4.1.0",
     "react-waypoint": "8.0.2",
     "webpack": "4.12.2"
   },
