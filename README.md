@@ -12,7 +12,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -35,6 +35,19 @@ Read the [introduction](introduction.md).
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Props](#props)
+  - [getIcon](#geticon)
+  - [getMessage](#getmessage)
+  - [getUrl](#geturl)
+  - [height](#height)
+  - [icons](#icons)
+  - [loader](#loader)
+  - [placeholder](#placeholder)
+  - [shouldAutoDownload](#shouldautodownload)
+  - [srcSet](#srcset)
+  - [theme](#theme)
+  - [threshold](#threshold)
+  - [width](#width)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
 - [LICENSE](#license)
@@ -76,6 +89,124 @@ const App = () => (
 )
 ```
 
+## Props
+
+This is the list of props that you need to pass to the component.
+
+### getIcon
+
+> `function(state: object)` | optional, default icon is provided based on state object
+
+This function decides what icon to show based on the current state of the component.
+
+### getMessage
+
+> `function(icon: string, state: object)` | optional, default message is provided based on the icon and state object.
+
+This function decided what message to show based on the icon (returned from getIcon prop) and the current state of the component.
+
+### getUrl
+
+> `function({})` | optional, no useful default
+
+This function is called as soon as the component enters the viewport and is provided with an element from `props.srcSet`.
+
+### height
+
+> `number` | required
+
+This provides the Height of the image in px.
+
+### icons
+
+> `object` | required
+
+This provides a map of the icons. By default, the component uses icons from material design, implemented as React components with the SVG element. You can customize icons
+
+```js
+const icons = {
+  load: DownloadIcon,
+  //...
+}
+```
+
+### loader
+
+> `string` | optional, defaults to 'xhr'
+
+This prop takes one of the 2 options, `xhr` and `image`. Read more about it [here](https://github.com/stereobooster/react-ideal-image/blob/master/introduction.md#cancel-download).
+
+### placeholder
+
+> `object` | required
+
+This takes one of the 2 objects
+
+```js
+// To add a solid color placeholder
+{
+  color: ''
+}
+```
+
+or
+
+```js
+/**
+ * To add a low quality image
+ * [Low Quality Image Placeholder](https://github.com/zouhir/lqip)
+ * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
+ * base64 encoded image of low quality
+ */
+{
+  lqip: ''
+}
+```
+
+Read more about it [here](https://github.com/stereobooster/react-ideal-image/blob/master/introduction.md#lqip).
+
+### shouldAutoDownload
+
+> `function({})` | optional, default function is provided which decides based on the device network.
+
+This function decides if image should be downloaded automatically. The default function returns `false` for a `2g` network,
+for a `3g` network it decides based on `props.threshold` and for a `4g` network it returns `true` by default.
+
+### srcSet
+
+> `array[{}]` | required
+
+This provides an array of sources of different format and size of the image. Read more about it [here](https://github.com/stereobooster/react-ideal-image/blob/master/introduction.md#srcset).
+
+### theme
+
+> `object` | required
+
+This provides a theme to the component. By default, the component uses inline styles, but it is also possible to use CSS modules and override all styles.
+
+```js
+const theme = {
+  placeholder: {
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    position: 'relative',
+  },
+  // ...
+}
+```
+
+### threshold
+
+> `number` | optional
+
+Tells how much to wait in milliseconds until consider the download to be slow.
+
+### width
+
+> `number` | required
+
+Width of the image in px.
+
 ## Other Solutions
 
 - [react-progressive-image](https://github.com/FormidableLabs/react-progressive-image)
@@ -95,8 +226,8 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/1192452?v=4" width="100px;"/><br /><sub><b>Andrew Lisowski</b></sub>](http://hipstersmoothie.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=hipstersmoothie "Code") | [<img src="https://avatars1.githubusercontent.com/u/3386714?v=4" width="100px;"/><br /><sub><b>Timothy Vernon</b></sub>](https://github.com/tvthatsme)<br />[⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=tvthatsme "Tests") |
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/1192452?v=4" width="100px;"/><br /><sub><b>Andrew Lisowski</b></sub>](http://hipstersmoothie.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=hipstersmoothie "Code") | [<img src="https://avatars1.githubusercontent.com/u/3386714?v=4" width="100px;"/><br /><sub><b>Timothy Vernon</b></sub>](https://github.com/tvthatsme)<br />[⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=tvthatsme "Tests") | [<img src="https://avatars0.githubusercontent.com/u/5151881?v=4" width="100px;"/><br /><sub><b>vishalShinde</b></sub>](http://vs1682.github.io)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=vs1682 "Documentation") |
+| :---: | :---: | :---: | :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
