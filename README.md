@@ -103,19 +103,19 @@ This function decides what icon to show based on the current state of the compon
 
 > `function(icon: string, state: object)` | optional, default message is provided based on the icon and state object.
 
-This function decided what message to show based on the icon (returned from getIcon prop) and the current state of the component.
+This function decides what message to show based on the icon (returned from getIcon prop) and the current state of the component.
 
 ### getUrl
 
 > `function({})` | optional, no useful default
 
-This function is called as soon as the component enters the viewport and is provided with an element from `props.srcSet`.
+This function is called as soon as the component enters the viewport and is used to generate urls based on width and format if `props.srcSet` doesn't provide src field.
 
 ### height
 
 > `number` | required
 
-This provides the Height of the image in px.
+The Height of the image in px.
 
 ### icons
 
@@ -174,9 +174,19 @@ for a `3g` network it decides based on `props.threshold` and for a `4g` network 
 
 ### srcSet
 
-> `array[{}]` | required
+> `array[srcType: object]` | required
 
 This provides an array of sources of different format and size of the image. Read more about it [here](https://github.com/stereobooster/react-ideal-image/blob/master/introduction.md#srcset).
+The `srcType` has below structure
+
+```js
+srcType = {
+  width: number, // required
+  src: string,
+  size: number,
+  format: string, // one of the 'jpeg' or 'webp'
+}
+```
 
 ### theme
 
