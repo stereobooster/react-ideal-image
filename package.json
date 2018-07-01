@@ -3,6 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "Adaptive image component",
   "main": "dist/index.js",
+  "typings": "index.d.ts",
   "engines": {
     "node": "> 4",
     "npm": "> 3"
@@ -34,6 +35,7 @@
     "react-waypoint": ">=8.0.0"
   },
   "devDependencies": {
+    "@types/react": "^16.4.6",
     "babel-loader": "7.1.4",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
