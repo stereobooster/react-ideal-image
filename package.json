@@ -14,7 +14,8 @@
     "lint": "kcd-scripts lint",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate",
+    "test:ts": "tsc --noEmit -p ./tsconfig.json",
+    "validate": "kcd-scripts validate test:ts",
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit",
     "styleguide": "styleguidist server",
@@ -51,6 +52,7 @@
     "react-test-renderer": "16.4.1",
     "react-testing-library": "4.1.0",
     "react-waypoint": "8.0.2",
+    "typescript": "^2.9.2",
     "webpack": "4.14.0"
   },
   "eslintConfig": {
