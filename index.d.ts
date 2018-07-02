@@ -3,6 +3,14 @@ declare module 'react-ideal-image' {
 
   export type LoadingState = 'initial' | 'loading' | 'loaded' | 'error'
 
+  export type IconKey =
+    | 'load'
+    | 'loading'
+    | 'loaded'
+    | 'error'
+    | 'noicon'
+    | 'offline'
+
   export interface SrcType {
     width: number
     src?: string
@@ -21,12 +29,12 @@ declare module 'react-ideal-image' {
      * This function decides what message to show based on the icon (returned from getIcon prop) and
      * the current state of the component.
      */
-    getMessage?: (icon: string, state: LoadingState) => string
+    getMessage?: (icon: IconKey, state: LoadingState) => string
     /**
      * This function is called as soon as the component enters the viewport and is used to generate urls
      * based on width and format if props.srcSet doesn't provide src field.
      */
-    getUrl?: () => string
+    getUrl?: (srcType: SrcType) => string
     /**
      * The Height of the image in px.
      */
@@ -35,7 +43,7 @@ declare module 'react-ideal-image' {
      * This provides a map of the icons. By default, the component uses icons from material design,
      * implemented as React components with the SVG element. You can customize icons
      */
-    icons: {[key: string]: ComponentType}
+    icons: Partial<Record<IconKey, ComponentType>>
     /**
      * This prop takes one of the 2 options, xhr and image.
      * Read more about it:
