@@ -15,7 +15,7 @@
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
     "test:ts": "tsc --noEmit -p ./tsconfig.json",
-    "validate": "kcd-scripts validate test:ts",
+    "validate": "kcd-scripts validate",
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit",
     "styleguide": "styleguidist server",
