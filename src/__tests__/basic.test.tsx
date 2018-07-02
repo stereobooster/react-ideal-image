@@ -13,7 +13,7 @@ export default class Application extends React.Component<Props, State> {
         placeholder={{color: '#FFFFFF'}}
         shouldAutoDownload={() => true}
         loader="image"
-        getUrl={srcType => srcType.src}
+        getUrl={srcType => (srcType.src ? srcType.src : '')}
         getMessage={(icon, state) => `${icon} ${state}`}
         getIcon={state => {
           if (state === 'error') return 'error'
