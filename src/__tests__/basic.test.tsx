@@ -1,6 +1,5 @@
 import * as React from 'react'
-import IdealImage from '../'
-import icons from '../components/icons'
+import IdealImage from '../../'
 
 interface Props {}
 interface State {}
@@ -14,11 +13,14 @@ export default class Application extends React.Component<Props, State> {
         placeholder={{color: '#FFFFFF'}}
         shouldAutoDownload={() => true}
         loader="image"
-        getUrl={srcType => `some-src-${srcType}.jpg`}
+        getUrl={srcType => srcType.src}
         getMessage={(icon, state) => `${icon} ${state}`}
-        getIcon={state => state}
+        getIcon={state => {
+          if (state === 'error') return 'error'
+          else return 'loading'
+        }}
         threshold={3000}
-        icons={icons}
+        icons={{noicon: () => null}}
         height={3500}
         width={3500}
       />

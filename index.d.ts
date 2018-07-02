@@ -23,7 +23,7 @@ export interface ImageProps {
   /**
    * This function decides what icon to show based on the current state of the component.
    */
-  getIcon?: (state: LoadingState) => string
+  getIcon?: (state: LoadingState) => IconKey
   /**
    * This function decides what message to show based on the icon (returned from getIcon prop) and
    * the current state of the component.
@@ -58,7 +58,14 @@ export interface ImageProps {
    * returns false for a 2g network, for a 3g network it decides based on props.threshold
    * and for a 4g network it returns true by default.
    */
-  shouldAutoDownload?: () => boolean
+  shouldAutoDownload?: (
+    options: {
+      connection?: 'slow-2g' | '2g' | '3g' | '4g'
+      size?: number
+      threshold?: number
+      possiblySlowNetwork?: boolean
+    },
+  ) => boolean
   /**
    * This provides an array of sources of different format and size of the image.
    * Read more about it:
