@@ -229,6 +229,7 @@ Width of the image in px.
 - [lazy-image](https://github.com/notwaldorf/lazy-image)
 - [react-simple-image](https://github.com/bitjourney/react-simple-image)
 - [react-power-picture](https://github.com/tvthatsme/react-power-picture)
+- [react-shimmer](https://github.com/gokcan/react-shimmer)
 
 ## Contributors
 
