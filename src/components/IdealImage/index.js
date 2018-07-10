@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component, cloneElement} from 'react'
 import PropTypes from 'prop-types'
-import Waypoint from 'react-waypoint'
 import Media from '../Media'
 import {icons, loadStates} from '../constants'
 import {xhrLoader, imageLoader, timeout, combineCancel} from '../loaders'
@@ -162,6 +161,10 @@ export default class IdealImage extends Component {
     icons: PropTypes.object.isRequired,
     /** theme object - CSS Modules or React styles */
     theme: PropTypes.object.isRequired,
+    /** visibility observer component, like react-waypoint */
+    observer: PropTypes.func,
+    /** visibility observer component, like react-waypoint */
+    children: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
   }
 
   static defaultProps = {
@@ -320,8 +323,10 @@ export default class IdealImage extends Component {
       ...this.state,
       size: pickedSrc.size,
     })
-    this.setState({pickedSrc, shouldAutoDownload, url})
-    if (shouldAutoDownload) this.load(false)
+    this.setState(
+      {pickedSrc, shouldAutoDownload, url},
+      shouldAutoDownload ? () => this.load(false) : undefined,
+    )
   }
 
   onLeave = () => {
@@ -332,20 +337,41 @@ export default class IdealImage extends Component {
   }
 
   render() {
+    const {children, observer} = this.props
     const icon = this.props.getIcon(this.state)
     const message = this.props.getMessage(icon, this.state)
-    return (
-      <Waypoint onEnter={this.onEnter} onLeave={this.onLeave}>
-        <Media
-          {...this.props}
-          {...fallbackParams(this.props)}
-          onClick={this.onClick}
-          icon={icon}
-          src={this.state.url || ''}
-          onDimensions={dimensions => this.setState({dimensions})}
-          message={message}
-        />
-      </Waypoint>
+    const observerMethod = observer || children
+    const media = (
+      <Media
+        {...this.props}
+        {...fallbackParams(this.props)}
+        onClick={this.onClick}
+        icon={icon}
+        src={this.state.url || ''}
+        onDimensions={dimensions =>
+          this.setState(
+            {dimensions},
+            observerMethod ? undefined : this.onEnter,
+          )
+        }
+        message={message}
+      />
     )
+
+    if (observer || typeof children === 'function') {
+      return (
+        <observerMethod onEnter={this.onEnter} onLeave={this.onLeave}>
+          {media}
+        </observerMethod>
+      )
+    } else if (children) {
+      return cloneElement(
+        children,
+        {onEnter: this.onEnter, onLeave: this.onLeave},
+        media,
+      )
+    } else {
+      return media
+    }
   }
 }

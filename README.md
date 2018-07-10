@@ -12,7 +12,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -48,6 +48,8 @@ Read the [introduction](introduction.md).
   - [theme](#theme)
   - [threshold](#threshold)
   - [width](#width)
+  - [observer](#observer)
+  - [children](#children)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
 - [LICENSE](#license)
@@ -73,6 +75,7 @@ Example for create-react-app (you need v2 for macros) based project
 ```js
 import React from 'react'
 import lqip from 'lqip.macro'
+import Waypoint from 'react-waypoint'
 import IdealImage from 'react-ideal-image'
 
 import image from './images/doggo.jpg'
@@ -85,6 +88,7 @@ const App = () => (
     alt="doggo"
     width={3500}
     height={2095}
+    observer={Waypoint}
   />
 )
 ```
@@ -217,6 +221,33 @@ Tells how much to wait in milliseconds until consider the download to be slow.
 
 Width of the image in px.
 
+### observer
+
+> `function({onEnter, onLeave, children})` | optional
+
+A visibility observer component, like react-waypoint, used for lazy-loading.
+
+### children
+
+> `function({onEnter, onLeave, children}) | React.Element` | optional
+
+Observer, used instead of the `observer` prop. Can either be a render prop or a React element
+
+```js
+<IdealImage
+    placeholder={{lqip}}
+    srcSet={[{src: image, width: 3500}]}
+    alt="doggo"
+    width={3500}
+    height={2095}
+    observer={Waypoint}
+>
+  <Waypoint scrollableAncestor="window" /> // onEnter and onLeave are passed automatically
+</IdealImage>
+```
+
+If neither `observer` nor `children` is passed, the image will be treated as visible in the viewport
+
 ## Other Solutions
 
 - [react-progressive-image](https://github.com/FormidableLabs/react-progressive-image)
@@ -239,7 +270,7 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- prettier-ignore -->
 | [<img src="https://avatars3.githubusercontent.com/u/179534?s=460&v=4" width="100px;"/><br /><sub><b>stereobooster</b></sub>](https://github.com/stereobooster)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=stereobooster "Tests") | [<img src="https://avatars1.githubusercontent.com/u/498274?s=460&v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://github.com/sompylasar)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=sompylasar "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4299398?s=460&v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/palerdot)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=palerdot "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/1192452?v=4" width="100px;"/><br /><sub><b>Andrew Lisowski</b></sub>](http://hipstersmoothie.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=hipstersmoothie "Code") | [<img src="https://avatars1.githubusercontent.com/u/3386714?v=4" width="100px;"/><br /><sub><b>Timothy Vernon</b></sub>](https://github.com/tvthatsme)<br />[⚠️](https://github.com/stereobooster/react-ideal-image/commits?author=tvthatsme "Tests") | [<img src="https://avatars0.githubusercontent.com/u/5151881?v=4" width="100px;"/><br /><sub><b>vishalShinde</b></sub>](http://vs1682.github.io)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=vs1682 "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/5207796?v=4" width="100px;"/><br /><sub><b>Evgeniy Kumachev</b></sub>](https://github.com/EvgeniyKumachev)<br />[📖](https://github.com/stereobooster/react-ideal-image/commits?author=EvgeniyKumachev "Documentation") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-
+| [<img src="https://avatars3.githubusercontent.com/u/6104345?v=4" width="100px;"/><br /><sub><b>George Kormaris</b></sub>](http://www.gekorm.com)<br />[💻](https://github.com/stereobooster/react-ideal-image/commits?author=GeKorm "Code") [📖](https://github.com/stereobooster/react-ideal-image/commits?author=GeKorm "Documentation") [🤔](#ideas-GeKorm "Ideas, Planning, & Feedback") |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
