@@ -53,7 +53,7 @@
     "react-testing-library": "4.1.2",
     "react-waypoint": "8.0.2",
     "typescript": "2.9.2",
-    "webpack": "4.15.1"
+    "webpack": "4.16.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
