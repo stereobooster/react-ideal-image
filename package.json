@@ -48,7 +48,7 @@
     "prop-types": "15.6.2",
     "react": "16.4.1",
     "react-dom": "16.4.1",
-    "react-styleguidist": "7.0.20",
+    "react-styleguidist": "7.1.0",
     "react-test-renderer": "16.4.1",
     "react-testing-library": "4.1.2",
     "react-waypoint": "8.0.3",
