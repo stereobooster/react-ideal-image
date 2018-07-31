@@ -230,6 +230,7 @@ Width of the image in px.
 - [react-simple-image](https://github.com/bitjourney/react-simple-image)
 - [react-power-picture](https://github.com/tvthatsme/react-power-picture)
 - [react-shimmer](https://github.com/gokcan/react-shimmer)
+- [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/)
 
 ## Contributors
 
