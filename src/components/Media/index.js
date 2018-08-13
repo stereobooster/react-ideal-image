@@ -66,8 +66,12 @@ export default class Media extends PureComponent {
   componentDidMount() {
     if (this.props.onDimensions && this.dimensionElement)
       this.props.onDimensions({
-        width: this.dimensionElement.clientWidth,
-        height: this.dimensionElement.clientHeight,
+        width:
+          this.dimensionElement.clientWidth ||
+          this.dimensionElement.parentNode.clientWidth,
+        height:
+          this.dimensionElement.clientHeight ||
+          this.dimensionElement.parentNode.clientHeight,
       })
   }
 
