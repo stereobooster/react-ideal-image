@@ -65,6 +65,8 @@ export default class Media extends PureComponent {
 
   componentDidMount() {
     if (this.props.onDimensions && this.dimensionElement)
+      /* Firefox returns 0 for both clientWidth and clientHeight.
+      To fix this we can check the parentNode's clientWidth and clientHeight as a fallback. */
       this.props.onDimensions({
         width:
           this.dimensionElement.clientWidth ||
