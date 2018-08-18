@@ -231,6 +231,7 @@ Width of the image in px.
 - [react-power-picture](https://github.com/tvthatsme/react-power-picture)
 - [react-shimmer](https://github.com/gokcan/react-shimmer)
 - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/)
+- [react-async-elements `<Img>`](https://github.com/palmerhq/react-async-elements#img)
 
 ## Contributors
 
