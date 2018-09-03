@@ -50,7 +50,7 @@
     "react-dom": "16.4.1",
     "react-styleguidist": "7.3.4",
     "react-test-renderer": "16.4.1",
-    "react-testing-library": "4.1.9",
+    "react-testing-library": "5.0.0",
     "react-waypoint": "8.0.3",
     "typescript": "2.9.2",
     "webpack": "4.17.1"
