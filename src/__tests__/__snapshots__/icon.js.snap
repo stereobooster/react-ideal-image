@@ -2,7 +2,6 @@
 
 exports[`Download icon Should render a snapshot that is good 1`] = `
 <svg
-  className={undefined}
   height={24}
   viewBox="0 0 24 24"
   width={24}
@@ -21,7 +20,6 @@ exports[`Download icon Should render a snapshot that is good 1`] = `
 
 exports[`Loading icon Should render a snapshot that is good 1`] = `
 <svg
-  className={undefined}
   height={24}
   viewBox="0 0 24 24"
   width={24}
@@ -40,7 +38,6 @@ exports[`Loading icon Should render a snapshot that is good 1`] = `
 
 exports[`Offline icon Should render a snapshot that is good 1`] = `
 <svg
-  className={undefined}
   height={24}
   viewBox="0 0 24 24"
   width={24}
@@ -59,7 +56,6 @@ exports[`Offline icon Should render a snapshot that is good 1`] = `
 
 exports[`Warning icon Should render a snapshot that is good 1`] = `
 <svg
-  className={undefined}
   height={24}
   viewBox="0 0 24 24"
   width={24}

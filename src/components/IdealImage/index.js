@@ -310,14 +310,14 @@ export default class IdealImage extends Component {
       srcSet: this.props.srcSet,
       maxImageWidth:
         this.props.srcSet.length > 1
-          ? guessMaxImageWidth(this.state.dimensions)
+          ? guessMaxImageWidth(this.state.dimensions) // eslint-disable-line react/no-access-state-in-setstate
           : 0,
       supportsWebp,
     })
     const {getUrl} = this.props
     const url = getUrl ? getUrl(pickedSrc) : pickedSrc.src
     const shouldAutoDownload = this.props.shouldAutoDownload({
-      ...this.state,
+      ...this.state, // eslint-disable-line react/no-access-state-in-setstate
       size: pickedSrc.size,
     })
     this.setState({pickedSrc, shouldAutoDownload, url})
