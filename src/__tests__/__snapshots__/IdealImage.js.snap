@@ -2,7 +2,6 @@
 
 exports[`IdealImage Renders a snapshot that is good 1`] = `
 <div
-  className={undefined}
   onClick={[Function]}
   onKeyPress={[Function]}
   style={
@@ -12,9 +11,7 @@ exports[`IdealImage Renders a snapshot that is good 1`] = `
   }
 >
   <svg
-    className={undefined}
     height={2095}
-    style={undefined}
     width={3500}
   />
 </div>
