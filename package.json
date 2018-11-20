@@ -50,7 +50,7 @@
     "react-styleguidist": "8.0.2",
     "react-test-renderer": "16.6.0",
     "react-testing-library": "5.2.3",
-    "react-waypoint": "8.0.3",
+    "react-waypoint": "8.1.0",
     "typescript": "3.1.5",
     "webpack": "4.24.0"
   },
