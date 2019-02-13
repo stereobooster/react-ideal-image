@@ -44,7 +44,7 @@
     "gh-pages": "2.0.1",
     "jest-canvas-mock": "1.1.0",
     "kcd-scripts": "0.45.0",
-    "prop-types": "15.6.2",
+    "prop-types": "15.7.2",
     "react": "16.6.0",
     "react-dom": "16.6.0",
     "react-styleguidist": "8.0.2",
