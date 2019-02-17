@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "typings": "index.d.ts",
   "engines": {
-    "node": "> 4",
-    "npm": "> 3"
+    "node": "> 8",
+    "npm": "> 6"
   },
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",
@@ -31,7 +31,7 @@
   "license": "MIT",
   "peerDependencies": {
     "prop-types": ">=15",
-    "react": ">=0.14.x",
+    "react": ">=16.8.x",
     "react-waypoint": ">=8.0.0"
   },
   "devDependencies": {
@@ -61,7 +61,9 @@
         "error",
         12
       ],
-      "no-case-declarations": "off"
+      "no-case-declarations": "off",
+      "max-lines-per-function": "off",
+      "react/prop-types": "off"
     }
   },
   "eslintIgnore": [

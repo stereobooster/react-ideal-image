@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import Waypoint from 'react-waypoint'
 import Media from '../Media'
@@ -97,86 +97,40 @@ const defaultGetIcon = state => {
   }
 }
 
-export default class IdealImage extends Component {
-  constructor(props) {
-    super(props)
-    // TODO: validate props.srcSet
-    this.state = {
-      loadState: initial,
-      connection: nativeConnection
-        ? {
-            downlink: navigator.connection.downlink, // megabits per second
-            rtt: navigator.connection.rtt, // ms
-            effectiveType: navigator.connection.effectiveType, // 'slow-2g', '2g', '3g', or '4g'
-          }
-        : null,
-      onLine: true,
-      overThreshold: false,
-      inViewport: false,
-      userTriggered: false,
-      possiblySlowNetwork: false,
+const IdealImage = props => {
+  // TODO: validate props.srcSet
+  const [state, setState] = useState({
+    loadState: initial,
+    connection: nativeConnection
+      ? {
+          downlink: navigator.connection.downlink, // megabits per second
+          rtt: navigator.connection.rtt, // ms
+          effectiveType: navigator.connection.effectiveType, // 'slow-2g', '2g', '3g', or '4g'
+        }
+      : null,
+    onLine: true,
+    overThreshold: false,
+    inViewport: false,
+    userTriggered: false,
+    possiblySlowNetwork: false,
+  })
+  const loaderRef = useRef(null)
+
+  const clear = () => {
+    if (loaderRef.current) {
+      loaderRef.current.cancel()
+      loaderRef.current = null
     }
   }
 
-  static propTypes = {
-    /** how much to wait in ms until concider download to slow */
-    threshold: PropTypes.number,
-    /** function to generate src based on width and format */
-    getUrl: PropTypes.func,
-    /** array of sources */
-    srcSet: PropTypes.arrayOf(
-      PropTypes.shape({
-        width: PropTypes.number.isRequired,
-        src: PropTypes.string,
-        size: PropTypes.number,
-        format: PropTypes.oneOf(['jpeg', 'webp']),
-      }),
-    ).isRequired,
-    /** function which decides if image should be downloaded */
-    shouldAutoDownload: PropTypes.func,
-    /** function which decides what message to show */
-    getMessage: PropTypes.func,
-    /** function which decides what icon to show */
-    getIcon: PropTypes.func,
-    /** type of loader */
-    loader: PropTypes.oneOf(['image', 'xhr']),
-    /** Width of the image in px */
-    width: PropTypes.number.isRequired,
-    /** Height of the image in px */
-    height: PropTypes.number.isRequired,
-    placeholder: PropTypes.oneOfType([
-      PropTypes.shape({
-        /** Solid color placeholder */
-        color: PropTypes.string.isRequired,
-      }),
-      PropTypes.shape({
-        /**
-         * [Low Quality Image Placeholder](https://github.com/zouhir/lqip)
-         * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
-         * base64 encoded image of low quality
-         */
-        lqip: PropTypes.string.isRequired,
-      }),
-    ]).isRequired,
-    /** Map of icons */
-    icons: PropTypes.object.isRequired,
-    /** theme object - CSS Modules or React styles */
-    theme: PropTypes.object.isRequired,
-  }
+  let updateConnection, updateOnlineStatus, possiblySlowNetworkListener
 
-  static defaultProps = {
-    shouldAutoDownload: defaultShouldAutoDownload,
-    getMessage: defaultGetMessage,
-    getIcon: defaultGetIcon,
-    loader: 'xhr',
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     if (nativeConnection) {
-      this.updateConnection = () => {
+      updateConnection = () => {
         if (!navigator.onLine) return
-        if (this.state.loadState === initial) {
-          this.setState({
+        if (state.loadState === initial) {
+          setState({
             connection: {
               effectiveType: navigator.connection.effectiveType,
               downlink: navigator.connection.downlink,
@@ -185,77 +139,42 @@ export default class IdealImage extends Component {
           })
         }
       }
-      navigator.connection.addEventListener('onchange', this.updateConnection)
-    } else if (this.props.threshold) {
-      this.possiblySlowNetworkListener = e => {
-        if (this.state.loadState !== initial) return
+      navigator.connection.addEventListener('onchange', updateConnection)
+    } else if (props.threshold) {
+      possiblySlowNetworkListener = e => {
+        if (state.loadState !== initial) return
         const {possiblySlowNetwork} = e.detail
-        if (!this.state.possiblySlowNetwork && possiblySlowNetwork) {
-          this.setState({possiblySlowNetwork})
+        if (!state.possiblySlowNetwork && possiblySlowNetwork) {
+          setState({possiblySlowNetwork})
         }
       }
       window.document.addEventListener(
         'possiblySlowNetwork',
-        this.possiblySlowNetworkListener,
+        possiblySlowNetworkListener,
       )
     }
-    this.updateOnlineStatus = () => this.setState({onLine: navigator.onLine})
-    this.updateOnlineStatus()
-    window.addEventListener('online', this.updateOnlineStatus)
-    window.addEventListener('offline', this.updateOnlineStatus)
-  }
+    updateOnlineStatus = () => setState({onLine: navigator.onLine})
+    updateOnlineStatus()
+    window.addEventListener('online', updateOnlineStatus)
+    window.addEventListener('offline', updateOnlineStatus)
 
-  componentWillUnmount() {
-    this.clear()
-    if (nativeConnection) {
-      navigator.connection.removeEventListener(
-        'onchange',
-        this.updateConnection,
-      )
-    } else if (this.props.threshold) {
-      window.document.removeEventListener(
-        'possiblySlowNetwork',
-        this.possiblySlowNetworkListener,
-      )
+    return () => {
+      clear()
+      if (nativeConnection) {
+        navigator.connection.removeEventListener('onchange', updateConnection)
+      } else if (props.threshold) {
+        window.document.removeEventListener(
+          'possiblySlowNetwork',
+          possiblySlowNetworkListener,
+        )
+      }
+      window.removeEventListener('online', updateOnlineStatus)
+      window.removeEventListener('offline', updateOnlineStatus)
     }
-    window.removeEventListener('online', this.updateOnlineStatus)
-    window.removeEventListener('offline', this.updateOnlineStatus)
-  }
+  })
 
-  onClick = () => {
-    const {loadState, onLine, overThreshold} = this.state
-    if (!onLine) return
-    switch (loadState) {
-      case loading:
-        if (overThreshold) this.cancel(true)
-        return
-      case loaded:
-        // nothing
-        return
-      case initial:
-      case error:
-        this.load(true)
-        return
-      default:
-        throw new Error(`Wrong state: ${loadState}`)
-    }
-  }
-
-  clear() {
-    if (this.loader) {
-      this.loader.cancel()
-      this.loader = undefined
-    }
-  }
-
-  cancel(userTriggered) {
-    if (loading !== this.state.loadState) return
-    this.clear()
-    this.loadStateChange(initial, userTriggered)
-  }
-
-  loadStateChange(loadState, userTriggered, loadInfo = null) {
-    this.setState({
+  const loadStateChange = (loadState, userTriggered, loadInfo = null) => {
+    setState({
       loadState,
       overThreshold: false,
       userTriggered: !!userTriggered,
@@ -263,89 +182,166 @@ export default class IdealImage extends Component {
     })
   }
 
-  load = userTriggered => {
-    const {loadState, url} = this.state
-    if (ssr || loaded === loadState || loading === loadState) return
-    this.loadStateChange(loading, userTriggered)
+  const cancel = userTriggered => {
+    if (loading !== state.loadState) return
+    clear()
+    loadStateChange(initial, userTriggered)
+  }
 
-    const {threshold} = this.props
-    const loader =
-      this.props.loader === 'xhr' ? xhrLoader(url) : imageLoader(url)
+  const load = userTriggered => {
+    const {loadState, url} = state
+    if (ssr || loaded === loadState || loading === loadState) return
+    loadStateChange(loading, userTriggered)
+
+    const {threshold} = props
+    const loader = props.loader === 'xhr' ? xhrLoader(url) : imageLoader(url)
     loader
       .then(() => {
-        this.clear()
-        this.loadStateChange(loaded, false)
+        clear()
+        loadStateChange(loaded, false)
       })
       .catch(e => {
-        this.clear()
+        clear()
         if (e.status === 404) {
-          this.loadStateChange(error, false, 404)
+          loadStateChange(error, false, 404)
         } else {
-          this.loadStateChange(error, false)
+          loadStateChange(error, false)
         }
       })
 
     if (threshold) {
       const timeoutLoader = timeout(threshold)
       timeoutLoader.then(() => {
-        if (!this.loader) return
+        if (!loader) return
         window.document.dispatchEvent(
           new CustomEvent('possiblySlowNetwork', {
             detail: {possiblySlowNetwork: true},
           }),
         )
-        this.setState({overThreshold: true})
-        if (!this.state.userTriggered) this.cancel(true)
+        setState({overThreshold: true})
+        if (!state.userTriggered) cancel(true)
       })
-      this.loader = combineCancel(loader, timeoutLoader)
+      loaderRef.current = combineCancel(loader, timeoutLoader)
     } else {
-      this.loader = loader
+      loaderRef.current = loader
     }
   }
 
-  onEnter = () => {
-    if (this.state.inViewport) return
-    this.setState({inViewport: true})
+  const onClick = () => {
+    const {loadState, onLine, overThreshold} = state
+    if (!onLine) return
+    switch (loadState) {
+      case loading:
+        if (overThreshold) cancel(true)
+        return
+      case loaded:
+        // nothing
+        return
+      case initial:
+      case error:
+        load(true)
+        return
+      default:
+        throw new Error(`Wrong state: ${loadState}`)
+    }
+  }
+
+  const onEnter = () => {
+    if (state.inViewport) return
+    setState({inViewport: true})
     const pickedSrc = selectSrc({
-      srcSet: this.props.srcSet,
+      srcSet: props.srcSet,
       maxImageWidth:
-        this.props.srcSet.length > 1
-          ? guessMaxImageWidth(this.state.dimensions) // eslint-disable-line react/no-access-state-in-setstate
+        props.srcSet.length > 1
+          ? guessMaxImageWidth(state.dimensions) // eslint-disable-line react/no-access-state-in-setstate
           : 0,
       supportsWebp,
     })
-    const {getUrl} = this.props
+    const {getUrl} = props
     const url = getUrl ? getUrl(pickedSrc) : pickedSrc.src
-    const shouldAutoDownload = this.props.shouldAutoDownload({
-      ...this.state, // eslint-disable-line react/no-access-state-in-setstate
+    const shouldAutoDownload = props.shouldAutoDownload({
+      ...state, // eslint-disable-line react/no-access-state-in-setstate
       size: pickedSrc.size,
     })
-    this.setState({pickedSrc, shouldAutoDownload, url})
-    if (shouldAutoDownload) this.load(false)
+    setState({pickedSrc, shouldAutoDownload, url})
+    if (shouldAutoDownload) load(false)
   }
 
-  onLeave = () => {
-    if (this.state.loadState === loading && !this.state.userTriggered) {
-      this.setState({inViewport: false})
-      this.cancel(false)
+  const onLeave = () => {
+    if (state.loadState === loading && !state.userTriggered) {
+      setState({inViewport: false})
+      cancel(false)
     }
   }
 
-  render() {
-    const icon = this.props.getIcon(this.state)
-    const message = this.props.getMessage(icon, this.state)
-    return (
-      <Waypoint onEnter={this.onEnter} onLeave={this.onLeave}>
-        <Media
-          {...this.props}
-          {...fallbackParams(this.props)}
-          onClick={this.onClick}
-          icon={icon}
-          src={this.state.url || ''}
-          onDimensions={dimensions => this.setState({dimensions})}
-          message={message}
-        />
-      </Waypoint>
-    )
-  }
+  const icon = props.getIcon(state)
+  const message = props.getMessage(icon, state)
+  return (
+    <Waypoint onEnter={onEnter} onLeave={onLeave}>
+      <Media
+        {...props}
+        {...fallbackParams(props)}
+        onClick={onClick}
+        icon={icon}
+        src={state.url || ''}
+        onDimensions={dimensions => setState({dimensions})}
+        message={message}
+      />
+    </Waypoint>
+  )
 }
+
+IdealImage.propTypes = {
+  /** how much to wait in ms until concider download to slow */
+  threshold: PropTypes.number,
+  /** function to generate src based on width and format */
+  getUrl: PropTypes.func,
+  /** array of sources */
+  srcSet: PropTypes.arrayOf(
+    PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      src: PropTypes.string,
+      size: PropTypes.number,
+      format: PropTypes.oneOf(['jpeg', 'webp']),
+    }),
+  ).isRequired,
+  /** function which decides if image should be downloaded */
+  shouldAutoDownload: PropTypes.func,
+  /** function which decides what message to show */
+  getMessage: PropTypes.func,
+  /** function which decides what icon to show */
+  getIcon: PropTypes.func,
+  /** type of loader */
+  loader: PropTypes.oneOf(['image', 'xhr']),
+  /** Width of the image in px */
+  width: PropTypes.number.isRequired,
+  /** Height of the image in px */
+  height: PropTypes.number.isRequired,
+  placeholder: PropTypes.oneOfType([
+    PropTypes.shape({
+      /** Solid color placeholder */
+      color: PropTypes.string.isRequired,
+    }),
+    PropTypes.shape({
+      /**
+       * [Low Quality Image Placeholder](https://github.com/zouhir/lqip)
+       * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
+       * base64 encoded image of low quality
+       */
+      lqip: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
+  /** Map of icons */
+  icons: PropTypes.object.isRequired,
+  /** theme object - CSS Modules or React styles */
+  theme: PropTypes.object.isRequired,
+}
+
+IdealImage.defaultProps = {
+  shouldAutoDownload: defaultShouldAutoDownload,
+  getMessage: defaultGetMessage,
+  getIcon: defaultGetIcon,
+  loader: 'xhr',
+}
+
+export default IdealImage
