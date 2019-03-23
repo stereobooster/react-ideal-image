@@ -17,7 +17,7 @@ export interface SrcType {
   format?: 'webp' | 'jpeg'
 }
 
-type ThemeKey = 'placeholder' | 'img' | 'icon' | 'noscript'
+type ThemeKey = 'placeholder' | 'placeholder--loading' | 'img' | 'icon' | 'noscript'
 
 export interface ImageProps {
   /**

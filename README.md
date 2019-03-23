@@ -201,6 +201,9 @@ const theme = {
     backgroundRepeat: 'no-repeat',
     position: 'relative',
   },
+  'placeholder--loading': {
+    filter: 'blur(3px)',
+  },
   // ...
 }
 ```

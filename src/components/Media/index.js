@@ -56,11 +56,17 @@ export default class Media extends PureComponent {
     nsSrc: PropTypes.string,
     /** noscript image srcSet */
     nsSrcSet: PropTypes.string,
+    /** Server Side Rendering mode flag */
+    ssr: PropTypes.bool,
   }
 
   static defaultProps = {
     iconColor: '#fff',
     iconSize: 64,
+  }
+
+  isLoaded() {
+    return this.props.icon === loaded;
   }
 
   componentDidMount() {
@@ -77,8 +83,8 @@ export default class Media extends PureComponent {
       })
   }
 
-  renderIcon(props) {
-    const {icon, icons, iconColor: fill, iconSize: size, theme} = props
+  renderIcon() {
+    const {icon, icons, iconColor: fill, iconSize: size, theme} = this.props
     const iconToRender = icons[icon]
     if (!iconToRender) return null
     const styleOrClass = compose(
@@ -92,48 +98,47 @@ export default class Media extends PureComponent {
     ])
   }
 
-  renderImage(props) {
-    return props.icon === loaded ? (
+  renderImage() {
+    return this.isLoaded() ? (
       <img
-        {...compose(props.theme.img)}
-        src={props.src}
-        alt={props.alt}
-        width={props.width}
-        height={props.height}
+        {...compose(this.props.theme.img)}
+        src={this.props.src}
+        alt={this.props.alt}
+        width={this.props.width}
+        height={this.props.height}
       />
     ) : (
       <svg
-        {...compose(props.theme.img)}
-        width={props.width}
-        height={props.height}
+        {...compose(this.props.theme.img)}
+        width={this.props.width}
+        height={this.props.height}
         ref={ref => (this.dimensionElement = ref)}
       />
     )
   }
 
-  renderNoscript(props) {
-    return props.ssr ? (
+  renderNoscript() {
+    return this.props.ssr ? (
       <noscript>
         <img
           {...compose(
-            props.theme.img,
-            props.theme.noscript,
+            this.props.theme.img,
+            this.props.theme.noscript,
           )}
-          src={props.nsSrc}
-          srcSet={props.nsSrcSet}
-          alt={props.alt}
-          width={props.width}
-          height={props.height}
+          src={this.props.nsSrc}
+          srcSet={this.props.nsSrcSet}
+          alt={this.props.alt}
+          width={this.props.width}
+          height={this.props.height}
         />
       </noscript>
     ) : null
   }
 
   render() {
-    const props = this.props
-    const {placeholder, theme} = props
+    const {placeholder, theme} = this.props
     let background
-    if (props.icon === loaded) {
+    if (this.isLoaded()) {
       background = {}
     } else if (placeholder.lqip) {
       background = {
@@ -148,17 +153,18 @@ export default class Media extends PureComponent {
       <div
         {...compose(
           theme.placeholder,
+          !this.isLoaded() && theme['placeholder--loading'],
           background,
-          props.style,
-          props.className,
+          this.props.style,
+          this.props.className,
         )}
         onClick={this.props.onClick}
         onKeyPress={this.props.onClick}
         ref={this.props.innerRef}
       >
-        {this.renderImage(props)}
-        {this.renderNoscript(props)}
-        {this.renderIcon(props)}
+        {this.renderImage()}
+        {this.renderNoscript()}
+        {this.renderIcon()}
       </div>
     )
   }

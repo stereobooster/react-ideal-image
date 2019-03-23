@@ -31,7 +31,7 @@ describe('FallbackParams', () => {
   it('Should return an object when run in the node environment', () => {
     const result = fallbackParams(props)
     expect(result).not.toEqual({})
-    expect(props.getUrl).toHaveBeenCalled()
+    expect(props.getUrl).toHaveBeenCalledWith({format: 'jpeg'})
     expect(result.ssr).toEqual(true)
   })
 })

@@ -8,7 +8,15 @@ export default class Application extends React.Component<Props, State> {
   render() {
     return (
       <IdealImage
-        theme={{placeholder: {filter: 'blur(3px)'}}}
+        theme={{
+            placeholder: {
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
+            },
+            'placeholder--loading': {
+                filter: 'blur(5px)'
+            }
+        }}
         srcSet={[{src: 'some-src.jpg', width: 3500}]}
         placeholder={{color: '#FFFFFF'}}
         shouldAutoDownload={() => true}

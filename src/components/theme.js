@@ -4,6 +4,9 @@ export default {
     backgroundRepeat: 'no-repeat',
     position: 'relative',
   },
+  'placeholder--loading': {
+    filter: 'blur(4px)',
+  },
   img: {
     width: '100%',
     height: 'auto',
