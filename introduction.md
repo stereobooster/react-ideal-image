@@ -195,7 +195,7 @@ Use component like this:
 
 If the network is slow it makes no sense to auto-download image (as soon as it appears on the screen), because it will take a long time to load even more time if the browser tries to download more than one image simultaneously.
 
-Instead, we can let the user decide if they want to download image or not. There should be an icon over placeholder, so the user can click it to start the download, and click again to cancel the download. As soon as the download starts there should be no icon, but if it takes to long some indicator of loading state should appear to inform the user that it is still working.
+Instead, we can let the user decide if they want to download image or not. There should be an icon over placeholder, so the user can click it to start the download, and click again to cancel the download. As soon as the download starts there should be no icon, but if it takes too long some indicator of loading state should appear to inform the user that it is still working.
 
 | load                             | no icon                            | loading                             |
 | -------------------------------- | ---------------------------------- | ----------------------------------- |
@@ -213,7 +213,7 @@ For other browsers, we can try to guess if the download of the image takes too m
 <IdealImage {...props} threshold={1000 /* ms */} />
 ```
 
-If image takes to long to download and the load was initiated by "Lazy loading" feature then:
+If image takes too long to download and the load was initiated by "Lazy loading" feature then:
 
 - load process will be canceled
 - the component will show control, so the user can initiate the download of the image manually
