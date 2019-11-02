@@ -76,11 +76,11 @@ import lqip from 'lqip.macro'
 import IdealImage from 'react-ideal-image'
 
 import image from './images/doggo.jpg'
-const lqip = lqip('./images/doggo.jpg')
+const placeholder = lqip('./images/doggo.jpg')
 
 const App = () => (
   <IdealImage
-    placeholder={{lqip}}
+    placeholder={{lqip: placeholder}}
     srcSet={[{src: image, width: 3500}]}
     alt="doggo"
     width={3500}
@@ -129,6 +129,7 @@ const icons = {
   //...
 }
 ```
+See [default icons](https://github.com/stereobooster/react-ideal-image/blob/master/src/components/icons.js).
 
 ### loader
 
@@ -155,7 +156,7 @@ or
 /**
  * To add a low quality image
  * [Low Quality Image Placeholder](https://github.com/zouhir/lqip)
- * [SVG-Based Image Placeholder](https://github.com/technopagan/sqip)
+ * [SVG-Based Image Placeholder](https://github.com/axe312ger/sqip)
  * base64 encoded image of low quality
  */
 {
