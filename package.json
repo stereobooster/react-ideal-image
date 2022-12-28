@@ -41,7 +41,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.0.0",
     "@babel/preset-env": "7.1.0",
     "@babel/preset-react": "7.0.0",
-    "gh-pages": "2.0.1",
+    "gh-pages": "3.2.1",
     "jest-canvas-mock": "1.1.0",
     "kcd-scripts": "0.45.0",
     "prop-types": "15.6.2",
