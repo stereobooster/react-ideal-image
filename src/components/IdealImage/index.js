@@ -222,6 +222,16 @@ export default class IdealImage extends Component {
     window.removeEventListener('offline', this.updateOnlineStatus)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // TODO(noah): this fixes the problem
+    // ^ for some reason when this.state.url is changed this.load is triggered
+    // ^ thus only the placeholder is shown and the real img is never fetched
+    if (prevState.url !== this.state.url) {
+      console.info('\n\n state updated')
+      this.load(false)
+    }
+  }
+
   onClick = () => {
     const {loadState, onLine, overThreshold} = this.state
     if (!onLine) return
@@ -243,18 +253,21 @@ export default class IdealImage extends Component {
 
   clear() {
     if (this.loader) {
+      console.info('\n\n loader cancel')
       this.loader.cancel()
       this.loader = undefined
     }
   }
 
   cancel(userTriggered) {
+    console.info('\n\n cancel called', userTriggered, initial)
     if (loading !== this.state.loadState) return
     this.clear()
     this.loadStateChange(initial, userTriggered)
   }
 
   loadStateChange(loadState, userTriggered, loadInfo = null) {
+    console.info('\n\n load state change', loadState, userTriggered, loadInfo)
     this.setState({
       loadState,
       overThreshold: false,
@@ -265,18 +278,31 @@ export default class IdealImage extends Component {
 
   load = userTriggered => {
     const {loadState, url} = this.state
-    if (ssr || loaded === loadState || loading === loadState) return
+    console.info(
+      '\n\n load',
+      userTriggered,
+      [loaded, loadState],
+      [loading, loadState],
+      this.state,
+    )
+    // TODO(noah): this is the fkn problem
+    // ^ when we call load in componentDidUpdate loading === loadState
+    // if (ssr || loaded === loadState || loading === loadState) return
     this.loadStateChange(loading, userTriggered)
 
+    console.info('\n\n wtf is url', this.state.url, this.state)
     const {threshold} = this.props
     const loader =
       this.props.loader === 'xhr' ? xhrLoader(url) : imageLoader(url)
+
     loader
       .then(() => {
+        console.info('\n\n loader then', loaded)
         this.clear()
         this.loadStateChange(loaded, false)
       })
       .catch(e => {
+        console.info('\n\n loader error', e)
         this.clear()
         if (e.status === 404) {
           this.loadStateChange(error, false, 404)
@@ -305,6 +331,7 @@ export default class IdealImage extends Component {
 
   onEnter = () => {
     if (this.state.inViewport) return
+    console.info('\n\n in onEnter')
     this.setState({inViewport: true})
     const pickedSrc = selectSrc({
       srcSet: this.props.srcSet,
@@ -314,12 +341,16 @@ export default class IdealImage extends Component {
           : 0,
       supportsWebp,
     })
+
     const {getUrl} = this.props
     const url = getUrl ? getUrl(pickedSrc) : pickedSrc.src
+
     const shouldAutoDownload = this.props.shouldAutoDownload({
       ...this.state, // eslint-disable-line react/no-access-state-in-setstate
       size: pickedSrc.size,
     })
+
+    console.info('\n\n setting state', pickedSrc, shouldAutoDownload, url)
     this.setState({pickedSrc, shouldAutoDownload, url})
     if (shouldAutoDownload) this.load(false)
   }
@@ -332,6 +363,7 @@ export default class IdealImage extends Component {
   }
 
   render() {
+    console.info('\n\n\n render state', this.state.url)
     const icon = this.props.getIcon(this.state)
     const message = this.props.getMessage(icon, this.state)
     return (
