@@ -4,24 +4,21 @@
   "description": "Adaptive image component",
   "main": "dist/index.js",
   "typings": "index.d.ts",
-  "engines": {
-    "node": "> 4",
-    "npm": "> 3"
-  },
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",
     "build": "kcd-scripts build",
+    "check:upgrades": "bunx ncu -u",
+    "deploy": "gh-pages -d styleguide",
     "lint": "kcd-scripts lint",
-    "test": "kcd-scripts test",
-    "test:update": "npm test -- --updateSnapshot --coverage",
-    "test:ts": "tsc --noEmit -p ./tsconfig.json",
-    "validate": "npm run test:ts && kcd-scripts validate",
-    "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
     "predeploy": "styleguidist build",
-    "deploy": "gh-pages -d styleguide"
+    "setup": "bun install && bun run validate -s",
+    "styleguide:build": "styleguidist build",
+    "styleguide": "styleguidist server",
+    "test:ts": "tsc --noEmit -p ./tsconfig.json",
+    "test:update": "bun test -- --updateSnapshot --coverage",
+    "test": "kcd-scripts test",
+    "validate": "bun run test:ts && kcd-scripts validate"
   },
   "files": [
     "dist"
@@ -30,29 +27,21 @@
   "author": "stereobooster <stereobooster@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "prop-types": ">=15",
-    "react": ">=0.14.x",
-    "react-waypoint": ">=8.0.0"
+    "react": ">=0.18.x",
+    "react-waypoint": ">=10.0.0"
   },
   "devDependencies": {
-    "@types/react": "16.4.18",
-    "babel-loader": "7.1.5",
-    "@babel/plugin-proposal-class-properties": "7.1.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/preset-env": "7.1.0",
-    "@babel/preset-react": "7.0.0",
-    "gh-pages": "2.0.1",
-    "jest-canvas-mock": "1.1.0",
-    "kcd-scripts": "0.45.0",
-    "prop-types": "15.6.2",
-    "react": "16.6.0",
-    "react-dom": "16.6.0",
-    "react-styleguidist": "8.0.2",
-    "react-test-renderer": "16.6.0",
-    "react-testing-library": "5.2.3",
-    "react-waypoint": "8.0.3",
-    "typescript": "3.1.5",
-    "webpack": "4.24.0"
+    "@types/react": "18.2.6",
+    "bun-types": "^0.5.8",
+    "gh-pages": "5.0.0",
+    "kcd-scripts": "13.0.0",
+    "npm-check-updates": "16.10.12",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-styleguidist": "13.1.1",
+    "react-waypoint": "10.3.0",
+    "typescript": "^5.0.4",
+    "webpack": "5.82.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
