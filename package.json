@@ -32,7 +32,7 @@
   "peerDependencies": {
     "prop-types": ">=15",
     "react": ">=0.14.x",
-    "react-waypoint": ">=8.0.0"
+    "react-waypoint": ">=10.0.0"
   },
   "devDependencies": {
     "@types/react": "16.4.18",
