@@ -1,65 +1,73 @@
-import React, {useEffect, useState, type FC} from 'react'
-import compose from '../composeStyle'
-import {icons as defaultIcons} from '../constants'
+import { useEffect, useState, useRef, type FC } from 'react'
 
-const {load, loading, loaded, error, noicon, offline} = defaultIcons
+import compose from '../composeStyle'
+import defaultIcons, { ICONS }  from '../icons'
+import defaultTheme from '../theme'
 
 const Media: FC<MediaProps> = ({
   iconColor = '#fff',
   iconSize = 64,
-  ...props,
+  icons = defaultIcons,
+  theme = defaultTheme,
+  ...props
 }) => {
-  const [dimensionElement, setDimensionElement] = useState<SVGSVGElement | null>(null)
-  const renderIcon = (useProps) {
-    const {icon, icons, iconColor: fill, iconSize: size, theme} = useProps
-    const iconToRender = icons[icon]
+  const dimensionElement = useRef<SVGSVGElement>(null)
 
-    if (!iconToRender) return null
+  const Icon = ({ ...useProps }) => {
+    const { icon, iconColor: fill, iconSize: size, theme } = useProps
+    const Icon = (useProps.icons || icons)[icon]
+
+    if (!Icon) return null
 
     const styleOrClass = compose(
-      {width: size + 100, height: size, color: fill},
+      { width: size + 100, height: size, color: fill },
       theme.icon,
     )
 
-    return React.createElement('div', styleOrClass, [
-      React.createElement(iconToRender, {fill, size, key: 'icon'}),
-      React.createElement('br', {key: 'br'}),
-      useProps.message,
-    ])
-  }
-
-  const renderImage = (useProps) => {
-    return useProps.icon === loaded ? (
-      <img
-        {...compose(useProps.theme.img)}
-        src={useProps.src}
-        alt={useProps.alt}
-        width={useProps.width}
-        height={useProps.height}
-      />
-    ) : (
-      <svg
-        {...compose(useProps.theme.img)}
-        width={useProps.width}
-        height={useProps.height}
-        ref={ref => (setDimensionElement(ref))}
-      />
+    return (
+      <div {...styleOrClass}>
+        <Icon fill={fill} size={size} key={'icon'} />
+        <br key='br' />
+        <span key="message">{useProps.message}</span>
+      </div>
     )
   }
 
-  const renderNoscript = (props) => {
-    return props.ssr ? (
+  const Image = ({...useProps}) => {
+    if (useProps.icon === ICONS.loaded) {
+      const imageProps = compose(useProps.theme.img)
+      return (
+        <img
+          {...imageProps}
+          src={useProps.src}
+          alt={useProps.alt}
+          width={useProps.width}
+          height={useProps.height}
+        />
+      )
+    } else {
+      const withoutImageProps = compose(useProps.theme.img ?? {});
+      return (
+        <svg
+          {...withoutImageProps}
+          width={useProps.width}
+          height={useProps.height}
+          ref={dimensionElement}
+        />
+      )
+    }
+  }
+
+  const Noscript = ({...useProps}) => {
+    return useProps.ssr ? (
       <noscript>
         <img
-          {...compose(
-            props.theme.img,
-            props.theme.noscript,
-          )}
-          src={props.nsSrc}
-          srcSet={props.nsSrcSet}
-          alt={props.alt}
-          width={props.width}
-          height={props.height}
+          {...compose(useProps.theme.img, useProps.theme.noscript)}
+          src={useProps.src}
+          srcSet={useProps.srcSet}
+          alt={useProps.alt}
+          width={useProps.width}
+          height={useProps.height}
         />
       </noscript>
     ) : null
@@ -82,37 +90,41 @@ const Media: FC<MediaProps> = ({
   const useProps = {
     iconColor,
     iconSize,
+    icons,
+    theme,
     ...props
   }
-  const {placeholder, theme} = useProps
+
   let background
-  if (useProps.icon === loaded) {
+  if (useProps.icon === ICONS.loaded) {
     background = {}
-  } else if (placeholder.lqip) {
+  } else if (useProps.placeholder.lqip) {
     background = {
-      backgroundImage: `url("${placeholder.lqip}")`,
+      backgroundImage: `url("${useProps.placeholder.lqip}")`,
     }
   } else {
     background = {
-      backgroundColor: placeholder.color,
+      backgroundColor: useProps.placeholder.color,
     }
   }
 
+  const composedProps = compose(
+      useProps.theme.placeholder,
+      background,
+      useProps.style,
+      useProps.className,
+    )
+
   return (
     <div
-      {...compose(
-        theme.placeholder,
-        background,
-        useProps.style,
-        useProps.className,
-      )}
+      {...composedProps}
       onClick={useProps.onClick}
-      onKeyPress={useProps.onClick}
+      onKeyDown={useProps.onClick}
       ref={useProps.innerRef}
     >
-      {renderImage(useProps)}
-      {renderNoscript(useProps)}
-      {renderIcon(useProps)}
+      <Image {...useProps} key="image" />
+      <Noscript {...useProps} key="noscript" />
+      <Icon {...useProps} key="icon" />
     </div>
   )
 }

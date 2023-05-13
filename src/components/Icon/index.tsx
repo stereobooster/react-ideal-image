@@ -1,11 +1,11 @@
-import React, { type FC } from 'react';
+import React, {type FC} from 'react'
 
 export interface IconProps {
-  path: string;
+  path: string
   //
-  className?: string;
-  fill?: string;
-  size?: number;
+  className?: string
+  fill?: string
+  size?: number
 }
 
 const Icon: FC<IconProps> = ({size = 24, fill = '#000', className, path}) => (
@@ -16,8 +16,8 @@ const Icon: FC<IconProps> = ({size = 24, fill = '#000', className, path}) => (
     viewBox="0 0 24 24"
     className={className}
   >
-    <path d="M0 0h24v24H0z" fill="none" />
-    <path fill={fill} d={path} />
+    <path d="M0 0h24v24H0z" fill="none" key="path1" />
+    <path fill={fill} d={path} key="path2" />
   </svg>
 )
 

@@ -1,0 +1,100 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IdealImageWithDefaults Renders a snapshot that is good 1`] = `
+{
+  [Symbol($$typeof)]: Symbol(react.test.json),
+  "children": [
+    {
+      [Symbol($$typeof)]: Symbol(react.test.json),
+      "children": null,
+      "props": {
+        "className": undefined,
+        "height": 2095,
+        "style": {
+          "height": "auto",
+          "marginBottom": "-4px",
+          "maxWidth": "100%",
+          "width": "100%",
+        },
+        "width": 3500,
+      },
+      "type": "svg",
+    },
+    {
+      [Symbol($$typeof)]: Symbol(react.test.json),
+      "children": [
+        {
+          [Symbol($$typeof)]: Symbol(react.test.json),
+          "children": null,
+          "props": {
+            "alt": undefined,
+            "className": undefined,
+            "height": 2095,
+            "src": "some-src.jpg",
+            "srcSet": "some-src.jpg 3500w",
+            "style": {
+              "height": "auto",
+              "left": 0,
+              "marginBottom": "-4px",
+              "maxWidth": "100%",
+              "position": "absolute",
+              "top": 0,
+              "width": "100%",
+            },
+            "width": 3500,
+          },
+          "type": "img",
+        },
+      ],
+      "props": {},
+      "type": "noscript",
+    },
+    {
+      [Symbol($$typeof)]: Symbol(react.test.json),
+      "children": [
+        {
+          [Symbol($$typeof)]: Symbol(react.test.json),
+          "children": null,
+          "props": {
+            "fill": "#fff",
+            "size": 64,
+          },
+          "type": "noicon",
+        },
+        {
+          [Symbol($$typeof)]: Symbol(react.test.json),
+          "children": null,
+          "props": {},
+          "type": "br",
+        },
+      ],
+      "props": {
+        "className": undefined,
+        "style": {
+          "color": "#fff",
+          "height": 64,
+          "left": "50%",
+          "position": "absolute",
+          "textAlign": "center",
+          "top": "50%",
+          "transform": "translate(-50%, -50%)",
+          "width": 164,
+        },
+      },
+      "type": "div",
+    },
+  ],
+  "props": {
+    "className": undefined,
+    "onClick": [Function],
+    "onKeyPress": [Function],
+    "style": {
+      "backgroundColor": "blue",
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": "cover",
+      "position": "relative",
+    },
+  },
+  "type": "div",
+}
+`;

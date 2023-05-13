@@ -1,6 +1,5 @@
 node_modules
 coverage
-dist
 styleguide
 .opt-in
 .opt-out
@@ -12,3 +11,7 @@ styleguide
 package-lock.json
 yarn.lock
 yarn-error.log
+
+# cosmos
+cosmos.imports.ts
+cosmos

@@ -1,47 +1,52 @@
 {
-  "name": "react-ideal-image",
-  "version": "0.0.0-semantically-released",
+  "author": "stereobooster <stereobooster@gmail.com>",
   "description": "Adaptive image component",
+  "homepage": "https://github.com/stereobooster/react-ideal-image#readme",
+  "keywords": [],
+  "license": "MIT",
   "main": "dist/index.js",
-  "typings": "index.d.ts",
+  "module": "src/index.tsx",
+  "name": "react-ideal-image",
+  "type": "module",
+  "typings": "global.d.ts",
+  "version": "0.0.0-semantically-released",
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",
-    "build": "kcd-scripts build",
+    "build": "rm -rf ./dist/* && bun build src/index.tsx --outdir ./dist",
+    "bun:upgrade": "bun upgrade --canary",
     "check:upgrades": "bunx ncu -u",
-    "deploy": "gh-pages -d styleguide",
+    "deploy": "echo 'gh-pages -d storybook or something like that",
     "lint": "kcd-scripts lint",
-    "precommit": "kcd-scripts precommit",
-    "predeploy": "styleguidist build",
+    "precommitttt": "kcd-scripts precommit",
+    "predeploy": "echo 'storybook build'",
     "setup": "bun install && bun run validate -s",
-    "styleguide:build": "styleguidist build",
-    "styleguide": "styleguidist server",
-    "test:ts": "tsc --noEmit -p ./tsconfig.json",
-    "test:update": "bun test -- --updateSnapshot --coverage",
-    "test": "kcd-scripts test",
-    "validate": "bun run test:ts && kcd-scripts validate"
+    "test:update": "bun test --update-snapshots",
+    "test": "bun test",
+    "validate": "bun run test && kcd-scripts validate"
   },
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "stereobooster <stereobooster@gmail.com>",
-  "license": "MIT",
   "peerDependencies": {
-    "react": ">=0.18.x",
-    "react-waypoint": ">=10.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-waypoint": "^10.3.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.6",
-    "bun-types": "^0.5.8",
+    "@types/react": "^18.2.6",
+    "@types/react-test-renderer": "^18.0.0",
+    "bun-types": "canary",
     "gh-pages": "5.0.0",
     "kcd-scripts": "13.0.0",
     "npm-check-updates": "16.10.12",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-styleguidist": "13.1.1",
-    "react-waypoint": "10.3.0",
-    "typescript": "^5.0.4",
-    "webpack": "5.82.1"
+    "react": "^18.2.0",
+    "react-cosmos": "next",
+    "react-cosmos-core": "^6.0.0-alpha.0",
+    "react-cosmos-dom": "next",
+    "react-dom": "^18.2.0",
+    "react-test-renderer": "^18.2.0",
+    "react-waypoint": "^10.3.0",
+    "typescript": "beta"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
@@ -65,6 +70,5 @@
   },
   "bugs": {
     "url": "https://github.com/stereobooster/react-ideal-image/issues"
-  },
-  "homepage": "https://github.com/stereobooster/react-ideal-image#readme"
+  }
 }

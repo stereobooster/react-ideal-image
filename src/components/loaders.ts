@@ -58,7 +58,7 @@ export const imageLoader = src => {
 // Caveat: XHR loader can cause errors because of 'Access-Control-Allow-Origin'
 // Caveat: we still need imageLoader to do actual decoding,
 // but if images are uncachable this will lead to two requests
-export const xhrLoader = (url, options) => {
+export const xhrLoader = (url, options = {}) => {
   let controller = new UnfetchAbortController()
   const signal = controller.signal
   const result = new Promise((resolve, reject) =>
