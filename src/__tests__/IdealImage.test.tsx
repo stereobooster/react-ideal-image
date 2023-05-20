@@ -1,7 +1,6 @@
 import { expect, describe, test } from "bun:test";
-
-import React from "react";
 import renderer from "react-test-renderer";
+
 import IdealImage from "components/IdealImage";
 
 describe("IdealImage", () => {

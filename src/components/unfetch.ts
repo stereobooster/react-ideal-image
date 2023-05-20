@@ -9,7 +9,7 @@ export class UnfetchAbortController {
 // - ponyfill intead of polyfill
 // - add support for AbortController
 export const unfetch = (url, options) => {
-  options = options || {};
+  options ||= {};
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
 
@@ -29,11 +29,11 @@ export const unfetch = (url, options) => {
     request.onerror = reject;
 
     if (options.signal)
-      options.signal.onabort = () => {
+      {options.signal.onabort = () => {
         // eslint-disable-next-line no-multi-assign
         request.onerror = request.onload = undefined;
         request.abort();
-      };
+      };}
 
     request.send(options.body);
 

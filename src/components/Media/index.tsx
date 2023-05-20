@@ -26,7 +26,7 @@ const Media: FC<MediaProps> = ({
 
     return (
       <div {...styleOrClass}>
-        <Icon fill={fill} size={size} key={"icon"} />
+        <Icon fill={fill} size={size} key="icon" />
         <br key="br" />
         <span key="message">{useProps.message}</span>
       </div>
@@ -63,8 +63,8 @@ const Media: FC<MediaProps> = ({
       <noscript>
         <img
           {...compose(useProps.theme.img, useProps.theme.noscript)}
-          src={useProps.src}
-          srcSet={useProps.srcSet}
+          src={useProps.nsSrc}
+          srcSet={useProps.nsSrcSet}
           alt={useProps.alt}
           width={useProps.width}
           height={useProps.height}
@@ -77,14 +77,14 @@ const Media: FC<MediaProps> = ({
     if (props.onDimensions && dimensionElement)
       /* Firefox returns 0 for both clientWidth and clientHeight.
       To fix this we can check the parentNode's clientWidth and clientHeight as a fallback. */
-      props.onDimensions({
+      {props.onDimensions({
         width:
           dimensionElement.clientWidth ||
           dimensionElement.parentNode?.clientWidth,
         height:
           dimensionElement.clientHeight ||
           dimensionElement.parentNode?.clientHeight,
-      });
+      });}
   }, []);
 
   const useProps = {

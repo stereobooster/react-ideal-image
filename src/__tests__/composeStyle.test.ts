@@ -1,7 +1,8 @@
+import { expect, describe, test } from "bun:test";
 import compose from "components/composeStyle";
 
 describe("composeStyle", () => {
-  it("Should combine object classes into one className string", () => {
+  test("Should combine object classes into one className string", () => {
     const theme = {
       base: "base",
       element: "base__element",
@@ -10,7 +11,7 @@ describe("composeStyle", () => {
     expect(result.className).toEqual(`${theme.base} ${theme.element}`);
   });
 
-  it("Should return a styles object unmodified", () => {
+  test("Should return a styles object unmodified", () => {
     const style = {
       color: "blue",
       margin: "1em 0",
@@ -20,7 +21,7 @@ describe("composeStyle", () => {
     expect(result.style).toEqual(expected);
   });
 
-  it("Should throw an error if given a parameter not an object or string", () => {
+  test("Should throw an error if given a parameter not an object or string", () => {
     const number = 1;
     try {
       compose(number);

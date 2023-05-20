@@ -121,7 +121,7 @@ const IdealImage: FC<ImageProps> = ({
     });
     setImgState({
       ...imgState,
-      state: loadState, // TODO(noah): rename to status
+      state: loadState,
       userTriggered: !!userTriggered,
       loadInfo,
     });
@@ -131,9 +131,9 @@ const IdealImage: FC<ImageProps> = ({
     if (
       !imgState.url ||
       ssr ||
-      [loadStates.loaded, loadStates.loaded].includes(imgState.state)
+      [loadStates.loading, loadStates.loaded].includes(imgState.state)
     )
-      return;
+      {return;}
 
     loadStateChange(loadStates.loading, userTriggered);
 
@@ -179,7 +179,7 @@ const IdealImage: FC<ImageProps> = ({
     if (imgState.inViewport) return;
 
     const pickedSrc = selectSrc({
-      srcSet: srcSet,
+      srcSet,
       maxImageWidth:
         srcSet.length > 1
           ? guessMaxImageWidth(dimensions) // eslint-disable-line react/no-access-state-in-setstate
@@ -213,12 +213,12 @@ const IdealImage: FC<ImageProps> = ({
 
   useEffect(() => {
     if (nativeConnection)
-      navigator.connection.addEventListener("onchange", updateConnection);
+      {navigator.connection.addEventListener("onchange", updateConnection);}
     else if (threshold)
-      window.document.addEventListener(
+      {window.document.addEventListener(
         "possiblySlowNetwork",
         possiblySlowNetworkListener
-      );
+      );}
     updateOnlineStatus();
     window.addEventListener("online", updateOnlineStatus);
     window.addEventListener("offline", updateOnlineStatus);
@@ -226,12 +226,12 @@ const IdealImage: FC<ImageProps> = ({
     return () => {
       clear();
       if (nativeConnection)
-        navigator.connection.removeEventListener("onchange", updateConnection);
+        {navigator.connection.removeEventListener("onchange", updateConnection);}
       else if (threshold)
-        window.document.removeEventListener(
+        {window.document.removeEventListener(
           "possiblySlowNetwork",
           possiblySlowNetworkListener
-        );
+        );}
       window.removeEventListener("online", updateOnlineStatus);
       window.removeEventListener("offline", updateOnlineStatus);
     };
@@ -253,27 +253,22 @@ const IdealImage: FC<ImageProps> = ({
     networkState,
   });
 
-  const message = getMessage(icon, imgState);
-  const useProps = {
-    height,
-    icons,
-    placeholder,
-    srcSet,
-    theme,
-    threshold,
-    width,
-  };
-
   return (
     <Waypoint onEnter={onEnter} onLeave={onLeave}>
       <Media
-        {...useProps}
         {...fallbackParams({ srcSet, getUrl })}
-        onClick={onClick}
+        height={height}
         icon={icon}
+        icons={icons}
+        message={getMessage(icon, imgState)}
+        onClick={onClick}
+        onDimensions={setDimensions}
+        placeholder={placeholder}
         src={imgState.url}
-        onDimensions={(dimensions) => setDimensions(dimensions)}
-        message={message}
+        srcSet={srcSet}
+        theme={theme}
+        threshold={threshold}
+        width={width}
       />
     </Waypoint>
   );

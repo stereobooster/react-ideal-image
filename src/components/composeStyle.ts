@@ -21,7 +21,7 @@ export default (...stylesOrClasses) => {
   let style;
   for (const obj of stylesOrClasses) {
     if (obj instanceof Object) {
-      Object.assign(style || (style = {}), obj);
+      Object.assign((style ||= {}), obj);
     } else if (obj === undefined || obj === false) {
       // ignore
     } else if (typeof obj === "string") {
