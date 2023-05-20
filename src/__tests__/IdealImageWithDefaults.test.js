@@ -1,29 +1,29 @@
-import {expect, describe, test} from 'bun:test'
-import React from 'react'
-import renderer from 'react-test-renderer'
+import { expect, describe, test } from "bun:test";
+import React from "react";
+import renderer from "react-test-renderer";
 
-import IdealImageWithDefaults from 'components/IdealImageWithDefaults'
+import IdealImageWithDefaults from "components/IdealImageWithDefaults";
 
-describe('IdealImageWithDefaults', () => {
+describe("IdealImageWithDefaults", () => {
   // TODO(noah): @see https://github.com/oven-sh/bun/issues/198
-  test.skip('Renders a snapshot that is good', () => {
+  test.skip("Renders a snapshot that is good", () => {
     const comp = renderer
       .create(
         <IdealImageWithDefaults
-          placeholder={{color: 'blue'}}
+          placeholder={{ color: "blue" }}
           srcSet={[
             {
-              src: 'some-src.jpg',
+              src: "some-src.jpg",
               width: 3500,
             },
           ]}
           alt="doggo"
           width={3500}
           height={2095}
-        />,
+        />
       )
-      .toJSON()
+      .toJSON();
 
-    expect(comp).toMatchSnapshot()
-  })
-})
+    expect(comp).toMatchSnapshot();
+  });
+});

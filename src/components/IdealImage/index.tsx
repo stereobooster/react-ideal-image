@@ -1,9 +1,9 @@
-import {useState, useEffect, type FC} from 'react'
-import {Waypoint} from 'react-waypoint'
+import { useState, useEffect, type FC } from "react";
+import { Waypoint } from "react-waypoint";
 
-import Media from '../Media'
-import {loadStates} from '../constants'
-import {xhrLoader, imageLoader, timeout, combineCancel} from '../loaders'
+import Media from "../Media";
+import { loadStates } from "../constants";
+import { xhrLoader, imageLoader, timeout, combineCancel } from "../loaders";
 import {
   guessMaxImageWidth,
   supportsWebp,
@@ -11,8 +11,12 @@ import {
   selectSrc,
   fallbackParams,
   ssr,
-} from '../helpers'
-import { defaultShouldAutoDownload, defaultGetMessage, defaultGetIcon } from './defaults';
+} from "../helpers";
+import {
+  defaultShouldAutoDownload,
+  defaultGetMessage,
+  defaultGetIcon,
+} from "./defaults";
 
 const IdealImage: FC<ImageProps> = ({
   height,
@@ -25,21 +29,21 @@ const IdealImage: FC<ImageProps> = ({
   getIcon = defaultGetIcon,
   getMessage = defaultGetMessage,
   getUrl,
-  loader = 'xhr',
+  loader = "xhr",
   threshold,
-  shouldAutoDownload = defaultShouldAutoDownload
+  shouldAutoDownload = defaultShouldAutoDownload,
 }) => {
-  const [withLoader, setLoader] = useState<null | Record<string, any>>()
-  const [dimensions, setDimensions] = useState({})
+  const [withLoader, setLoader] = useState<null | Record<string, any>>();
+  const [dimensions, setDimensions] = useState({});
   const [imgState, setImgState] = useState({
     inViewport: false,
     loadInfo: 0,
     pickedSrc: {},
     shouldAutoDownload: false,
     state: loadStates.initial,
-    url: '',
+    url: "",
     userTriggered: false,
-  })
+  });
   const [networkState, setNetworkState] = useState({
     onLine: true,
     overThreshold: false,
@@ -51,10 +55,10 @@ const IdealImage: FC<ImageProps> = ({
           effectiveType: navigator.connection.effectiveType, // 'slow-2g', '2g', '3g', or '4g'
         }
       : undefined,
-  })
+  });
 
   const updateConnection = () => {
-    if (!navigator.onLine) return
+    if (!navigator.onLine) return;
     if (imgState.state === loadStates.initial) {
       setNetworkState({
         ...networkState,
@@ -63,107 +67,113 @@ const IdealImage: FC<ImageProps> = ({
           downlink: navigator.connection.downlink,
           rtt: navigator.connection.rtt,
         },
-      })
+      });
     }
-  }
+  };
 
-  const possiblySlowNetworkListener = e => {
-    if (imgState.state !== loadStates.initial) return
+  const possiblySlowNetworkListener = (e) => {
+    if (imgState.state !== loadStates.initial) return;
 
-    const {possiblySlowNetwork} = e.detail
+    const { possiblySlowNetwork } = e.detail;
     if (!networkState.possiblySlowNetwork && possiblySlowNetwork) {
-      setNetworkState({ ...networkState, possiblySlowNetwork})
+      setNetworkState({ ...networkState, possiblySlowNetwork });
     }
-  }
+  };
 
   const updateOnlineStatus = () => {
-    setNetworkState({ ...networkState, onLine: navigator.onLine})
-  }
+    setNetworkState({ ...networkState, onLine: navigator.onLine });
+  };
 
   const onClick = () => {
-    if (!networkState.onLine) return
+    if (!networkState.onLine) return;
     switch (imgState.state) {
       case loadStates.loading:
-        if (networkState.overThreshold) cancel(true)
-        break
+        if (networkState.overThreshold) cancel(true);
+        break;
       case loadStates.initial:
       case loadStates.error:
-        load(true)
-        break
+        load(true);
+        break;
       case loadStates.loaded:
-        break
+        break;
       default:
-        throw new Error(`Wrong state: ${imgState.state}`)
+        throw new Error(`Wrong state: ${imgState.state}`);
     }
-  }
+  };
 
   const clear = () => {
     if (withLoader) {
-      withLoader.cancel()
-      setLoader(null)
+      withLoader.cancel();
+      setLoader(null);
     }
-  }
+  };
 
-  const cancel = userTriggered => {
-    if (loadStates.loading !== imgState.state) return
-    clear()
-    loadStateChange(loadStates.initial, userTriggered)
-  }
+  const cancel = (userTriggered) => {
+    if (loadStates.loading !== imgState.state) return;
+    clear();
+    loadStateChange(loadStates.initial, userTriggered);
+  };
 
   const loadStateChange = (loadState, userTriggered, loadInfo = 0) => {
     setNetworkState({
       ...networkState,
       overThreshold: false,
-    })
+    });
     setImgState({
       ...imgState,
       state: loadState, // TODO(noah): rename to status
       userTriggered: !!userTriggered,
       loadInfo,
-    })
-  }
+    });
+  };
 
-  const load = userTriggered => {
-    if (!imgState.url || ssr || [loadStates.loaded, loadStates.loaded].includes(imgState.state)) return;
+  const load = (userTriggered) => {
+    if (
+      !imgState.url ||
+      ssr ||
+      [loadStates.loaded, loadStates.loaded].includes(imgState.state)
+    )
+      return;
 
-    loadStateChange(loadStates.loading, userTriggered)
+    loadStateChange(loadStates.loading, userTriggered);
 
-    const newLoader = loader === 'xhr' ? xhrLoader(imgState.url) : imageLoader(imgState.url)
+    const newLoader =
+      loader === "xhr" ? xhrLoader(imgState.url) : imageLoader(imgState.url);
 
     newLoader
       .then(() => {
-        clear()
-        loadStateChange(loadStates.loaded, false)
+        clear();
+        loadStateChange(loadStates.loaded, false);
       })
-      .catch(e => {
-        clear()
+      .catch((e) => {
+        clear();
         if (e.status === 404) {
-          loadStateChange(loadStates.error, false, 404)
+          loadStateChange(loadStates.error, false, 404);
         } else {
-          loadStateChange(loadStates.error, false)
+          loadStateChange(loadStates.error, false);
         }
-      })
-
-    if (threshold) {
-      const timeoutLoader = timeout(threshold)
-
-      timeoutLoader.then(() => {
-        if (!withLoader) return
-        window.document.dispatchEvent(
-          new CustomEvent('possiblySlowNetwork', {
-            detail: { possiblySlowNetwork: true },
-          }),
-        )
-        setNetworkState({ ...networkState, overThreshold: true })
-        if (!imgState.userTriggered) cancel(true)
       });
 
-      const combinedLoader = combineCancel(newLoader, timeoutLoader)
-      setLoader(combinedLoader)
+    if (threshold) {
+      const timeoutLoader = timeout(threshold);
+
+      timeoutLoader.then(() => {
+        if (!withLoader) return;
+        window.document.dispatchEvent(
+          new CustomEvent("possiblySlowNetwork", {
+            detail: { possiblySlowNetwork: true },
+          })
+        );
+        setNetworkState({ ...networkState, overThreshold: true });
+        if (!imgState.userTriggered) cancel(true);
+      });
+
+      const combinedLoader = combineCancel(newLoader, timeoutLoader);
+      setLoader(combinedLoader);
     } else {
-      setLoader(newLoader)
+      setLoader(newLoader);
     }
-  }
+  };
 
   const onEnter = () => {
     if (imgState.inViewport) return;
@@ -175,72 +185,75 @@ const IdealImage: FC<ImageProps> = ({
           ? guessMaxImageWidth(dimensions) // eslint-disable-line react/no-access-state-in-setstate
           : 0,
       supportsWebp,
-    })
+    });
 
-    const url =  getUrl ? getUrl(pickedSrc) : pickedSrc.src
+    const url = getUrl ? getUrl(pickedSrc) : pickedSrc.src;
 
     const autoDownload = shouldAutoDownload({
       ...networkState,
       size: pickedSrc.width,
       threshold,
-    })
+    });
 
     setImgState({
       ...imgState,
       url,
       inViewport: true,
       pickedSrc,
-      shouldAutoDownload: autoDownload
+      shouldAutoDownload: autoDownload,
     });
-  }
+  };
 
   const onLeave = () => {
     if (imgState.state === loadStates.loading && !imgState.userTriggered) {
-      setImgState({ ...imgState, inViewport: false})
-      cancel(false)
+      setImgState({ ...imgState, inViewport: false });
+      cancel(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (nativeConnection)
-      navigator.connection.addEventListener('onchange', updateConnection)
+      navigator.connection.addEventListener("onchange", updateConnection);
     else if (threshold)
       window.document.addEventListener(
-        'possiblySlowNetwork',
-        possiblySlowNetworkListener,
-      )
-    updateOnlineStatus()
-    window.addEventListener('online', updateOnlineStatus)
-    window.addEventListener('offline', updateOnlineStatus)
+        "possiblySlowNetwork",
+        possiblySlowNetworkListener
+      );
+    updateOnlineStatus();
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
 
     return () => {
-      clear()
+      clear();
       if (nativeConnection)
-        navigator.connection.removeEventListener('onchange', updateConnection)
+        navigator.connection.removeEventListener("onchange", updateConnection);
       else if (threshold)
         window.document.removeEventListener(
-          'possiblySlowNetwork',
-          possiblySlowNetworkListener,
-        )
-      window.removeEventListener('online', updateOnlineStatus)
-      window.removeEventListener('offline', updateOnlineStatus)
-    }
-  }, [])
+          "possiblySlowNetwork",
+          possiblySlowNetworkListener
+        );
+      window.removeEventListener("online", updateOnlineStatus);
+      window.removeEventListener("offline", updateOnlineStatus);
+    };
+  }, []);
 
   useEffect(() => {
-    if (imgState.url && ![loadStates.loaded, loadStates.loading].includes(imgState.state)) {
+    if (
+      imgState.url &&
+      ![loadStates.loaded, loadStates.loading].includes(imgState.state)
+    ) {
       if (imgState.inViewport || imgState.shouldAutoDownload) {
-        load(false)
+        load(false);
       }
     }
-  }, [imgState])
+  }, [imgState]);
 
   const icon = getIcon({
     imgState,
-    networkState
+    networkState,
   });
 
-  const message = getMessage(icon, imgState)
+  const message = getMessage(icon, imgState);
   const useProps = {
     height,
     icons,
@@ -249,7 +262,7 @@ const IdealImage: FC<ImageProps> = ({
     theme,
     threshold,
     width,
-  }
+  };
 
   return (
     <Waypoint onEnter={onEnter} onLeave={onLeave}>
@@ -259,11 +272,11 @@ const IdealImage: FC<ImageProps> = ({
         onClick={onClick}
         icon={icon}
         src={imgState.url}
-        onDimensions={dimensions => setDimensions(dimensions)}
+        onDimensions={(dimensions) => setDimensions(dimensions)}
         message={message}
       />
     </Waypoint>
-  )
-}
+  );
+};
 
-export default IdealImage
+export default IdealImage;

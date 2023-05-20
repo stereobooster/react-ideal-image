@@ -1,41 +1,41 @@
-import { useEffect, useState, useRef, type FC } from 'react'
+import { useEffect, useState, useRef, type FC } from "react";
 
-import compose from '../composeStyle'
-import defaultIcons, { ICONS }  from '../icons'
-import defaultTheme from '../theme'
+import compose from "../composeStyle";
+import defaultIcons, { ICONS } from "../icons";
+import defaultTheme from "../theme";
 
 const Media: FC<MediaProps> = ({
-  iconColor = '#fff',
+  iconColor = "#fff",
   iconSize = 64,
   icons = defaultIcons,
   theme = defaultTheme,
   ...props
 }) => {
-  const dimensionElement = useRef<SVGSVGElement>(null)
+  const dimensionElement = useRef<SVGSVGElement>(null);
 
   const Icon = ({ ...useProps }) => {
-    const { icon, iconColor: fill, iconSize: size, theme } = useProps
-    const Icon = (useProps.icons || icons)[icon]
+    const { icon, iconColor: fill, iconSize: size, theme } = useProps;
+    const Icon = (useProps.icons || icons)[icon];
 
-    if (!Icon) return null
+    if (!Icon) return null;
 
     const styleOrClass = compose(
       { width: size + 100, height: size, color: fill },
-      theme.icon,
-    )
+      theme.icon
+    );
 
     return (
       <div {...styleOrClass}>
-        <Icon fill={fill} size={size} key={'icon'} />
-        <br key='br' />
+        <Icon fill={fill} size={size} key={"icon"} />
+        <br key="br" />
         <span key="message">{useProps.message}</span>
       </div>
-    )
-  }
+    );
+  };
 
-  const Image = ({...useProps}) => {
+  const Image = ({ ...useProps }) => {
     if (useProps.icon === ICONS.loaded) {
-      const imageProps = compose(useProps.theme.img)
+      const imageProps = compose(useProps.theme.img);
       return (
         <img
           {...imageProps}
@@ -44,7 +44,7 @@ const Media: FC<MediaProps> = ({
           width={useProps.width}
           height={useProps.height}
         />
-      )
+      );
     } else {
       const withoutImageProps = compose(useProps.theme.img ?? {});
       return (
@@ -54,11 +54,11 @@ const Media: FC<MediaProps> = ({
           height={useProps.height}
           ref={dimensionElement}
         />
-      )
+      );
     }
-  }
+  };
 
-  const Noscript = ({...useProps}) => {
+  const Noscript = ({ ...useProps }) => {
     return useProps.ssr ? (
       <noscript>
         <img
@@ -70,8 +70,8 @@ const Media: FC<MediaProps> = ({
           height={useProps.height}
         />
       </noscript>
-    ) : null
-  }
+    ) : null;
+  };
 
   useEffect(() => {
     if (props.onDimensions && dimensionElement)
@@ -84,36 +84,36 @@ const Media: FC<MediaProps> = ({
         height:
           dimensionElement.clientHeight ||
           dimensionElement.parentNode?.clientHeight,
-      })
-  }, [])
+      });
+  }, []);
 
   const useProps = {
     iconColor,
     iconSize,
     icons,
     theme,
-    ...props
-  }
+    ...props,
+  };
 
-  let background
+  let background;
   if (useProps.icon === ICONS.loaded) {
-    background = {}
+    background = {};
   } else if (useProps.placeholder.lqip) {
     background = {
       backgroundImage: `url("${useProps.placeholder.lqip}")`,
-    }
+    };
   } else {
     background = {
       backgroundColor: useProps.placeholder.color,
-    }
+    };
   }
 
   const composedProps = compose(
-      useProps.theme.placeholder,
-      background,
-      useProps.style,
-      useProps.className,
-    )
+    useProps.theme.placeholder,
+    background,
+    useProps.style,
+    useProps.className
+  );
 
   return (
     <div
@@ -126,8 +126,7 @@ const Media: FC<MediaProps> = ({
       <Noscript {...useProps} key="noscript" />
       <Icon {...useProps} key="icon" />
     </div>
-  )
-}
-
+  );
+};
 
 export default Media;

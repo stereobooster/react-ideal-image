@@ -1,7 +1,7 @@
 export const ssr =
-  typeof window === 'undefined' || window.navigator.userAgent === 'ReactSnap'
+  typeof window === "undefined" || window.navigator.userAgent === "ReactSnap";
 
-export const nativeConnection = !ssr && !!window.navigator.connection
+export const nativeConnection = !ssr && !!window.navigator.connection;
 
 // export const getScreenWidth = () => {
 //   if (ssr) return 0
@@ -17,52 +17,52 @@ export const nativeConnection = !ssr && !!window.navigator.connection
 // export const screenWidth = getScreenWidth()
 
 export const guessMaxImageWidth = (dimensions, w?) => {
-  if (ssr) return 0
+  if (ssr) return 0;
 
   // Default to window object but don't use window as a default
   // parameter so that this can be used on the server as well
   if (!w) {
-    w = window
+    w = window;
   }
 
-  const imgWidth = dimensions.width
+  const imgWidth = dimensions.width;
 
-  const {screen} = w
-  const sWidth = screen.width
-  const sHeight = screen.height
+  const { screen } = w;
+  const sWidth = screen.width;
+  const sHeight = screen.height;
 
-  const {documentElement} = document
-  const windowWidth = w.innerWidth || documentElement.clientWidth
-  const windowHeight = w.innerHeight || documentElement.clientHeight
-  const devicePixelRatio = w.devicePixelRatio || 1
+  const { documentElement } = document;
+  const windowWidth = w.innerWidth || documentElement.clientWidth;
+  const windowHeight = w.innerHeight || documentElement.clientHeight;
+  const devicePixelRatio = w.devicePixelRatio || 1;
 
-  const windowResized = sWidth > windowWidth
+  const windowResized = sWidth > windowWidth;
 
-  let result
+  let result;
   if (windowResized) {
-    const body = document.getElementsByTagName('body')[0]
-    const scrollWidth = windowWidth - imgWidth
+    const body = document.getElementsByTagName("body")[0];
+    const scrollWidth = windowWidth - imgWidth;
     const isScroll =
-      body.clientHeight > windowHeight || body.clientHeight > sHeight
+      body.clientHeight > windowHeight || body.clientHeight > sHeight;
     if (isScroll && scrollWidth <= 15) {
-      result = sWidth - scrollWidth
+      result = sWidth - scrollWidth;
     } else {
-      result = (imgWidth / windowWidth) * sWidth
+      result = (imgWidth / windowWidth) * sWidth;
     }
   } else {
-    result = imgWidth
+    result = imgWidth;
   }
 
-  return result * devicePixelRatio
-}
+  return result * devicePixelRatio;
+};
 
-export const bytesToSize = bytes => {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-  if (bytes === 0) return 'n/a'
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
-  if (i === 0) return `${bytes} ${sizes[i]}`
-  return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
-}
+export const bytesToSize = (bytes) => {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+  if (bytes === 0) return "n/a";
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+  if (i === 0) return `${bytes} ${sizes[i]}`;
+  return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+};
 
 // async function supportsWebp() {
 //   if (typeof createImageBitmap === 'undefined' || typeof fetch === 'undefined')
@@ -84,62 +84,62 @@ export const bytesToSize = bytes => {
 // }
 
 const detectWebpSupport = () => {
-  if (ssr) return false
-  const elem = document.createElement('canvas')
-  if (elem.getContext && elem.getContext('2d')) {
+  if (ssr) return false;
+  const elem = document.createElement("canvas");
+  if (elem.getContext && elem.getContext("2d")) {
     // was able or not to get WebP representation
-    return elem.toDataURL('image/webp').indexOf('data:image/webp') === 0
+    return elem.toDataURL("image/webp").indexOf("data:image/webp") === 0;
   } else {
     // very old browser like IE 8, canvas not supported
-    return false
+    return false;
   }
-}
+};
 
-export const supportsWebp = detectWebpSupport()
+export const supportsWebp = detectWebpSupport();
 
-const isWebp = x =>
-  x.format === 'webp' || (x.src && x.src.match(/\.webp($|\?.*)/i))
+const isWebp = (x) =>
+  x.format === "webp" || (x.src && x.src.match(/\.webp($|\?.*)/i));
 
 // eslint-disable-next-line no-shadow
-export const selectSrc = ({srcSet, maxImageWidth, supportsWebp}) => {
-  if (srcSet.length === 0) throw new Error('Need at least one item in srcSet')
-  let supportedFormat, width
+export const selectSrc = ({ srcSet, maxImageWidth, supportsWebp }) => {
+  if (srcSet.length === 0) throw new Error("Need at least one item in srcSet");
+  let supportedFormat, width;
   if (supportsWebp) {
-    supportedFormat = srcSet.filter(isWebp)
-    if (supportedFormat.length === 0) supportedFormat = srcSet
+    supportedFormat = srcSet.filter(isWebp);
+    if (supportedFormat.length === 0) supportedFormat = srcSet;
   } else {
-    supportedFormat = srcSet.filter(x => !isWebp(x))
+    supportedFormat = srcSet.filter((x) => !isWebp(x));
     if (supportedFormat.length === 0)
-      throw new Error('Need at least one supported format item in srcSet')
+      throw new Error("Need at least one supported format item in srcSet");
   }
-  let widths = supportedFormat.filter(x => x.width >= maxImageWidth)
+  let widths = supportedFormat.filter((x) => x.width >= maxImageWidth);
   if (widths.length === 0) {
-    widths = supportedFormat
+    widths = supportedFormat;
     width = Math.max.apply(
       null,
-      widths.map(x => x.width),
-    )
+      widths.map((x) => x.width)
+    );
   } else {
     width = Math.min.apply(
       null,
-      widths.map(x => x.width),
-    )
+      widths.map((x) => x.width)
+    );
   }
-  return supportedFormat.filter(x => x.width === width)[0]
-}
+  return supportedFormat.filter((x) => x.width === width)[0];
+};
 
-export const fallbackParams = ({srcSet, getUrl}) => {
-  const notWebp = srcSet.filter(x => !isWebp(x))
-  const first = notWebp[0]
+export const fallbackParams = ({ srcSet, getUrl }) => {
+  const notWebp = srcSet.filter((x) => !isWebp(x));
+  const first = notWebp[0];
 
   // TODO(noah): required to pass test
-  if (!ssr || !first) return {}
+  if (!ssr || !first) return {};
 
   return {
     nsSrcSet: notWebp
-      .map(x => `${getUrl ? getUrl(x) : x.src} ${x.width}w`)
-      .join(','),
+      .map((x) => `${getUrl ? getUrl(x) : x.src} ${x.width}w`)
+      .join(","),
     nsSrc: getUrl ? getUrl(first) : first.src,
     ssr,
-  }
-}
+  };
+};

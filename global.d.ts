@@ -3,35 +3,6 @@ import {
 } from 'react'
 
 declare global {
-  // @see https://stackoverflow.com/questions/38383676/error-ts2339-property-connection-does-not-exist-on-type-navigator
-  interface Navigator extends NavigatorNetworkInformation {}
-  interface WorkerNavigator extends NavigatorNetworkInformation {}
-  interface NavigatorNetworkInformation {
-    readonly connection: NetworkInformation
-  }
-  type Megabit = number
-  type Millisecond = number
-  type EffectiveConnectionType = '2g' | '3g' | '4g' | 'slow-2g'
-  type ConnectionType =
-    | 'bluetooth'
-    | 'cellular'
-    | 'ethernet'
-    | 'mixed'
-    | 'none'
-    | 'other'
-    | 'unknown'
-    | 'wifi'
-    | 'wimax'
-  interface NetworkInformation extends EventTarget {
-    readonly type?: ConnectionType
-    readonly effectiveType?: EffectiveConnectionType
-    readonly downlinkMax?: Megabit
-    readonly downlink?: Megabit
-    readonly rtt?: Millisecond
-    readonly saveData?: boolean
-    onchange?: EventListener
-  }
-
   type LoadingState = 'initial' | 'loading' | 'loaded' | 'error'
 
   type IconKey =

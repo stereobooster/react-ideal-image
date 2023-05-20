@@ -1,8 +1,8 @@
-import * as React from 'react'
-import IdealImage from '../../IdealImage'
-import img from './freeimage3072×2304.jpg'
+import * as React from "react";
+import IdealImage from "../../IdealImage";
+import img from "./freeimage3072×2304.jpg";
 
-export default <div>I am a fixture</div>
+export default <div>I am a fixture</div>;
 // export default (
 //   <IdealImage
 //     placeholder={{color: 'black'}}

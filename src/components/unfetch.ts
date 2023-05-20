@@ -1,7 +1,7 @@
 export class UnfetchAbortController {
   constructor() {
-    this.signal = {onabort: () => {}}
-    this.abort = () => this.signal.onabort()
+    this.signal = { onabort: () => {} };
+    this.abort = () => this.signal.onabort();
   }
 }
 
@@ -9,48 +9,48 @@ export class UnfetchAbortController {
 // - ponyfill intead of polyfill
 // - add support for AbortController
 export const unfetch = (url, options) => {
-  options = options || {}
+  options = options || {};
   return new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest()
+    const request = new XMLHttpRequest();
 
-    request.open(options.method || 'get', url, true)
+    request.open(options.method || "get", url, true);
 
     // eslint-disable-next-line guard-for-in
     for (const i in options.headers) {
-      request.setRequestHeader(i, options.headers[i])
+      request.setRequestHeader(i, options.headers[i]);
     }
 
-    request.withCredentials = options.credentials === 'include'
+    request.withCredentials = options.credentials === "include";
 
     request.onload = () => {
-      resolve(response())
-    }
+      resolve(response());
+    };
 
-    request.onerror = reject
+    request.onerror = reject;
 
     if (options.signal)
       options.signal.onabort = () => {
         // eslint-disable-next-line no-multi-assign
-        request.onerror = request.onload = undefined
-        request.abort()
-      }
+        request.onerror = request.onload = undefined;
+        request.abort();
+      };
 
-    request.send(options.body)
+    request.send(options.body);
 
     function response() {
-      const keys = []
-      const all = []
-      const headers = {}
-      let header
+      const keys = [];
+      const all = [];
+      const headers = {};
+      let header;
 
       request
         .getAllResponseHeaders()
         .replace(/^(.*?):\s*?([\s\S]*?)$/gm, (m, key, value) => {
-          keys.push((key = key.toLowerCase()))
-          all.push([key, value])
-          header = headers[key]
-          headers[key] = header ? `${header},${value}` : value
-        })
+          keys.push((key = key.toLowerCase()));
+          all.push([key, value]);
+          header = headers[key];
+          headers[key] = header ? `${header},${value}` : value;
+        });
 
       return {
         // eslint-disable-next-line no-bitwise
@@ -65,10 +65,10 @@ export const unfetch = (url, options) => {
         headers: {
           keys: () => keys,
           entries: () => all,
-          get: n => headers[n.toLowerCase()],
-          has: n => n.toLowerCase() in headers,
+          get: (n) => headers[n.toLowerCase()],
+          has: (n) => n.toLowerCase() in headers,
         },
-      }
+      };
     }
-  })
-}
+  });
+};

@@ -7,7 +7,6 @@
     "assumeChangesOnlyAffectDirectDependencies": true,
     "baseUrl": "src",
     "checkJs": false,
-    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "downlevelIteration": true,
@@ -36,7 +35,7 @@
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "target": "esnext",
     "types": ["bun-types"],
     "useUnknownInCatchVariables": true

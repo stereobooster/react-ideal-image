@@ -1,3 +1,3 @@
-import IdealImage from './components/IdealImageWithDefaults'
+import IdealImage from "./components/IdealImageWithDefaults";
 
-export default IdealImage
+export default IdealImage;
