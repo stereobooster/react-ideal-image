@@ -1,6 +1,7 @@
 // @see https://github.com/kentcdodds/kcd-scripts/blob/main/src/config/prettierrc.js
+// TODO(noah): use this isntead: https://github.com/noahehall/nodeproto/blob/develop/packages/configs/prettier-config/index.js
 export default {
-  arrowPafdrens: "avoid",
+  arrowParens: "avoid",
   bracketSameLine: false,
   bracketSpacing: false,
   embeddedLanguageFormatting: "auto",

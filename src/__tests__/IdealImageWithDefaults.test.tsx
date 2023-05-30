@@ -1,7 +1,7 @@
 import { expect, describe, test } from "bun:test";
 import renderer from "react-test-renderer";
 
-import IdealImageWithDefaults from "components/IdealImageWithDefaults";
+import IdealImageWithDefaults from "IdealImageWithDefaults";
 
 describe("IdealImageWithDefaults", () => {
   // TODO(noah): @see https://github.com/oven-sh/bun/issues/198

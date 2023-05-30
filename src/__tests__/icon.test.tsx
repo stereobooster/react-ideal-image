@@ -1,10 +1,10 @@
 import { expect, describe, test } from "bun:test";
 import renderer from "react-test-renderer";
 
-import Download from "components/Icon/Download";
-import Loading from "components/Icon/Loading";
-import Offline from "components/Icon/Offline";
-import Warning from "components/Icon/Warning";
+import Download from "Icon/Download";
+import Loading from "Icon/Loading";
+import Offline from "Icon/Offline";
+import Warning from "Icon/Warning";
 
 const snapshotTestDescription = "Should render a snapshot that is good";
 

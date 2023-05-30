@@ -21,7 +21,7 @@
     "module": "esnext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
-    "noEmit": false,
+    "noEmit": true,
     "noErrorTruncation": false,
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
