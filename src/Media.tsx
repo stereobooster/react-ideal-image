@@ -20,14 +20,14 @@ export interface MediaInterface {
   icon: IconType;
   loadState: LoadStates;
   message: ReactNode;
-  width: number;
+  width: number | string;
   theme: Theme;
   onDimensions: Function;
   srcSet: SrcSet;
   //
   className?: string;
   getUrl?: GetUrl;
-  height?: number;
+  height?: number | string;
   iconColor?: string;
   iconSize?: number;
   onClick?: MouseEventHandler;

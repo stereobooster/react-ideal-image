@@ -1,6 +1,6 @@
 import { useMemo, type FC, type CSSProperties } from "react";
 
-import type { GetUrl, SrcType, SrcSet } from "types";
+import type { GetUrl, SrcSet } from "types";
 
 import { theme } from "theme";
 import { ssr } from "idealImageUtils";
@@ -10,9 +10,9 @@ const defaultStyle = { ...theme.img, ...theme.noscript };
 export interface NoscriptInterface {
   srcSet: SrcSet;
   alt: string;
-  width: number;
+  width: number | string;
   //
-  height?: number;
+  height?: number | string;
   getUrl?: GetUrl;
   style?: CSSProperties;
 }

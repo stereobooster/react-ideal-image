@@ -39,8 +39,6 @@ export const timeout = (threshold): Cancelable => {
     timerId = setTimeout(resolve, threshold);
   });
   result.cancel = () => {
-    // there is a bug with cancel somewhere in the code
-    // if (!timerId) throw new Error('Already canceled')
     clearTimeout(timerId);
     timerId = undefined;
   };
@@ -57,7 +55,9 @@ export const imageLoader = (src: string): Cancelable => {
     img.src = src;
   });
   result.cancel = () => {
-    if (!img) throw new Error("Already canceled");
+    if (!img) {
+      throw new Error("Already canceled");
+    }
     // eslint-disable-next-line no-multi-assign
     img.onload = img.onabort = img.onerror = undefined;
     img.src = "";
@@ -88,7 +88,9 @@ export const xhrLoader = (
     }, reject)
   );
   result.cancel = () => {
-    if (!controller) throw new Error("Already canceled");
+    if (!controller) {
+      throw new Error("Already canceled");
+    }
     controller.abort();
     controller = undefined;
   };

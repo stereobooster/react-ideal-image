@@ -1,3 +1,6 @@
+// TODO(noah): move all the shared types in here
+// ^ check idealimage, media, and image that shiz is getting out of hand
+
 import type { RefObject } from "react";
 
 export type SvgRef = RefObject<SVGSVGElement>;

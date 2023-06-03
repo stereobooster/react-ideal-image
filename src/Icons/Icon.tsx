@@ -7,8 +7,6 @@ import {
   type ComponentType,
 } from "react";
 
-import { theme } from "theme";
-
 export interface IconInterface extends SVGProps<SVGSVGElement> {
   path?: string;
   fill?: string;
@@ -53,7 +51,7 @@ export const IconWrapper = memo(function IconWrapper({
   ...iconProps
 }: IconWrapperInterface) {
   return !MyIcon ? null : (
-    <div {...theme.icon} {...style}>
+    <div {...style}>
       <MyIcon {...iconProps} />
       <br />
       {message ? <span key="message">{message}</span> : null}

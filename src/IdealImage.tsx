@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, type FC } from "react";
-import { Waypoint } from "react-waypoint";
+import { motion, type MotionProps } from "framer-motion";
 
 import type { SrcSet, GetUrl } from "types";
 
@@ -27,14 +27,15 @@ import {
 export interface IdealImageInterface {
   alt: string;
   srcSet: SrcSet;
-  width: number;
+  width: number | string;
   //
   getIcon?: typeof defaultGetIcon;
   getMessage?: typeof defaultGetMessage;
   getUrl?: GetUrl;
-  height?: number;
+  height?: number | string;
   icons?: IconMap;
   loader?: "xhr" | "image";
+  motionProps?: MotionProps;
   placeholder?: string;
   shouldAutoDownload?: typeof defaultShouldAutoDownload;
   theme?: Partial<Theme>;
@@ -52,6 +53,7 @@ export const IdealImage: FC<IdealImageInterface> = ({
   height,
   icons = {},
   loader = "xhr",
+  motionProps = {},
   placeholder = "black",
   shouldAutoDownload = defaultShouldAutoDownload,
   theme = {},
@@ -60,7 +62,17 @@ export const IdealImage: FC<IdealImageInterface> = ({
   const useIcons = {
     ...iconMap,
     ...icons,
-  } as Required<IconMap>;
+  };
+
+  const useMotionProps = useMemo(
+    () => ({
+      initial: { opacity: 0 },
+      whileInView: { opacity: 1 },
+      viewport: { once: true },
+      ...motionProps,
+    }),
+    [motionProps]
+  );
 
   const useTheme = useMemo(() => {
     return {
@@ -72,7 +84,6 @@ export const IdealImage: FC<IdealImageInterface> = ({
   const [withLoader, setLoader] = useState<null | Cancelable>();
   const [dimensions, setDimensions] = useState({});
   const [imgState, setImgState] = useState({
-    inViewport: false,
     loadInfo: 0,
     pickedSrc: {},
     shouldAutoDownload: false,
@@ -240,9 +251,8 @@ export const IdealImage: FC<IdealImageInterface> = ({
     ]
   );
 
-  // TODO(noah): should be framer-motion hook
-  const onEnter = () => {
-    if (imgState.inViewport) return;
+  const onEnter = (e: IntersectionObserverEntry | null) => {
+    if (imgState.state === iconKeys.Loaded) return;
 
     const pickedSrc = selectSrc({
       srcSet,
@@ -257,24 +267,21 @@ export const IdealImage: FC<IdealImageInterface> = ({
         threshold,
       }),
       url: getUrl ? getUrl(pickedSrc) : pickedSrc.src,
-      inViewport: true,
       pickedSrc,
     }));
   };
 
-  // TODO(noah): should be framer-motion hook
-  const onLeave = () => {
-    if (
-      imgState.inViewport &&
-      imgState.state === loadStates.Loading &&
-      !imgState.userTriggered
-    ) {
-      setImgState((prevState) => ({ ...prevState, inViewport: false }));
+  const onLeave = (e: IntersectionObserverEntry | null) => {
+    if (imgState.state === iconKeys.Loaded) return;
+
+    if (imgState.state === loadStates.Loading && !imgState.userTriggered) {
       cancel(false);
     }
   };
 
   useEffect(() => {
+    if (imgState.state === iconKeys.Loaded) return;
+
     if (nativeConnection()) {
       navigator.connection.addEventListener("onchange", updateConnection);
     } else if (threshold) {
@@ -289,7 +296,6 @@ export const IdealImage: FC<IdealImageInterface> = ({
     window.addEventListener("offline", updateOnlineStatus, { passive: true });
 
     return () => {
-      clear();
       if (nativeConnection()) {
         navigator.connection.removeEventListener("onchange", updateConnection);
       } else if (threshold) {
@@ -308,7 +314,7 @@ export const IdealImage: FC<IdealImageInterface> = ({
       imgState.url &&
       ![iconKeys.Loaded, iconKeys.Loading].includes(imgState.state)
     ) {
-      if (imgState.inViewport || imgState.shouldAutoDownload) {
+      if (imgState.shouldAutoDownload) {
         load(false);
       }
     }
@@ -321,7 +327,11 @@ export const IdealImage: FC<IdealImageInterface> = ({
   });
 
   return (
-    <Waypoint onEnter={onEnter} onLeave={onLeave}>
+    <motion.div
+      onViewportEnter={onEnter}
+      onViewportLeave={onLeave}
+      {...useMotionProps}
+    >
       <Media
         alt={alt}
         getUrl={getUrl}
@@ -337,6 +347,6 @@ export const IdealImage: FC<IdealImageInterface> = ({
         theme={useTheme}
         width={width}
       />
-    </Waypoint>
+    </motion.div>
   );
 };

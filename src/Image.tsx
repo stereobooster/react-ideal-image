@@ -9,9 +9,9 @@ export interface ImageInterface {
   loadState: LoadStates;
   ref: SvgRef;
   theme: Theme;
-  width: number;
+  width: number | string;
   //
-  height?: number;
+  height?: number | string;
   src?: string;
 }
 export const Image = forwardRef(function Image(
@@ -27,7 +27,7 @@ export const Image = forwardRef(function Image(
   svgRef
 ) {
   const imageProps = useMemo(() => {
-    const baseProps = { ...theme.img, width, height, alt };
+    const baseProps = { width, height, alt };
 
     return src && loadState === loadStates.Loaded
       ? {

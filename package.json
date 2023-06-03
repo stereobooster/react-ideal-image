@@ -1,16 +1,19 @@
 {
-  "name": "react-idealer-image",
-  "version": "0.0.0-semantically-released",
   "author": "stereobooster <stereobooster@gmail.com>",
-  "main": "dist/index.js",
-  "module": "src/index.tsx",
+  "description": "forked from stereobooster",
+  "keywords": [],
+  "license": "MIT",
+  "module": "src/index.ts",
+  "name": "react-idealer-image",
+  "type": "module",
+  "version": "1.0.0",
   "devDependencies": {
-    "@types/react": "18.2.6",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "18.2.8",
+    "@types/react-dom": "18.2.4",
     "@types/react-test-renderer": "18.0.0",
     "barrels": "1.6.6",
     "bun-types": "canary",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-jsx-a11y": "6.7.1",
@@ -21,28 +24,21 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
-    "react-waypoint": "10.3.0",
     "typescript": "beta"
   },
   "peerDependencies": {
-    "react": "18.x",
+    "framer-motion": "10.x",
     "react-dom": "18.x",
-    "react-waypoint": "10.x"
+    "react": "18.x"
   },
-  "description": "forked from stereobooster",
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "license": "MIT",
   "scripts": {
     "barrels": "bunx barrelsby --config ./barrels.json",
-    "build": "rm -rf ./dist/* && bun build src/index.ts --outdir ./dist",
     "lint": "bunx eslint src --fix --resolve-plugins-relative-to .",
     "pretty": "bunx prettier --write 'src/**/*.(ts|tsx)'",
     "test:types": "bunx tsc",
     "upgrade:deps": "bunx ncu -u && bun install"
-  },
-  "type": "module",
-  "typings": "global.d.ts"
+  }
 }
