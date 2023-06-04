@@ -11,17 +11,25 @@
 - framer-motion replaces react-waypoint
 
 ```sh
-bun add github:noahehall/react-idealer-image
+bun add \
+  github:noahehall/react-idealer-image \
+  framer-motion \
+  react \
+  react-dom
 ```
 
 ```ts
 import { IdealImage } from "react-idealer-image";
 
 const App = () => (
+  /** check the component source for the full api */
   <IdealImage
-    motionProps={} /* see framer-motion docs */
+    /* see framer-motion docs */
+    /* motionProps={} */
     alt="ideal image"
+    // you should also add specific width & height set to numbers
     srcSet={[{ src: "some/image.webp" }]}
+    // prefer passing width && height set to numbers
     width={"100%"}
   />
 );

@@ -83,7 +83,7 @@ export const Media: FC<MediaInterface> = ({
   }, [onDimensions]);
 
   return (
-    <div style={useStyle} onClick={onClick}>
+    <div className="media" style={useStyle} onClick={onClick}>
       <Image
         motionProps={motionProps}
         alt={alt}
