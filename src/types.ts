@@ -2,14 +2,22 @@
 // ^ check idealimage, media, and image that shiz is getting out of hand
 
 import type { RefObject } from "react";
+import type { MotionProps } from "framer-motion";
+
+import type { Theme } from "./theme";
 
 export type SvgRef = RefObject<SVGSVGElement>;
 
-export interface SrcType {
-  width: number;
+type BaseProps = {
+  width: string | number;
+  //
+  height?: string | number;
+  theme?: Theme;
+};
+
+export interface SrcType extends BaseProps {
   src: string;
   //
-  height?: number;
   size?: number;
   format?: string; // we dont care: but @see https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
 }
@@ -17,3 +25,9 @@ export interface SrcType {
 export type SrcSet = SrcType[];
 
 export type GetUrl = (x: SrcType) => string;
+
+export type IdealImageProps = BaseProps & {
+  alt: string;
+  srcSet: SrcSet;
+  motionProps?: MotionProps;
+};

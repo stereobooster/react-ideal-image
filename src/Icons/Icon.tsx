@@ -51,7 +51,7 @@ export const IconWrapper = memo(function IconWrapper({
   ...iconProps
 }: IconWrapperInterface) {
   return !MyIcon ? null : (
-    <div {...style}>
+    <div style={style}>
       <MyIcon {...iconProps} />
       <br />
       {message ? <span key="message">{message}</span> : null}

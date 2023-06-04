@@ -76,19 +76,22 @@ export const selectSrc = ({ srcSet, maxImageWidth }): SrcType => {
 
 export interface AutodownloadInterface {
   connection?: Partial<NetworkInformation>;
+  inViewport?: boolean;
   possiblySlowNetwork?: boolean;
-  size?: number;
+  size?: number | string;
   threshold?: number;
   [x: string]: any;
 }
 export const defaultShouldAutoDownload = ({
   connection,
+  inViewport = false,
+  possiblySlowNetwork,
   size,
   threshold = 0, // TODO(noah): find a reasonable threshold number
-  possiblySlowNetwork,
 }: AutodownloadInterface) => {
-  if (possiblySlowNetwork) return false;
-  if (!connection) return true; // fallback to always auto download
+  if (!connection || inViewport)
+    return true; // fallback to always auto download
+  else if (possiblySlowNetwork || typeof size !== "number") return false;
 
   const { downlink, rtt = 0, effectiveType } = connection;
   switch (effectiveType) {
@@ -115,6 +118,7 @@ export const defaultGetMessage = (
       return null;
     case iconKeys.Loading:
       return "Loading...";
+    case iconKeys.Initial:
     case iconKeys.Load:
       // we can show `alt` here
       if (imgState.size) {

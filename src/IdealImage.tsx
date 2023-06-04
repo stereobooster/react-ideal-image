@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback, type FC } from "react";
-import { motion, type MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 
-import type { SrcSet, GetUrl } from "types";
+import type { GetUrl, IdealImageProps } from "types";
 
-import { theme as defaultTheme, type Theme } from "theme";
+import { theme as defaultTheme } from "theme";
 import { Media } from "./Media";
 import { iconKeys, iconMap, type IconMap } from "Icons";
 import {
@@ -24,10 +24,7 @@ import {
   ssr,
 } from "./idealImageUtils";
 
-export interface IdealImageInterface {
-  alt: string;
-  srcSet: SrcSet;
-  width: number | string;
+export interface IdealImageInterface extends IdealImageProps {
   //
   getIcon?: typeof defaultGetIcon;
   getMessage?: typeof defaultGetMessage;
@@ -35,11 +32,10 @@ export interface IdealImageInterface {
   height?: number | string;
   icons?: IconMap;
   loader?: "xhr" | "image";
-  motionProps?: MotionProps;
   placeholder?: string;
   shouldAutoDownload?: typeof defaultShouldAutoDownload;
-  theme?: Partial<Theme>;
   threshold?: number;
+  className?: string;
 }
 
 export const IdealImage: FC<IdealImageInterface> = ({
@@ -47,6 +43,7 @@ export const IdealImage: FC<IdealImageInterface> = ({
   width,
   alt,
   //
+  className = "id-img",
   getIcon = defaultGetIcon,
   getMessage = defaultGetMessage,
   getUrl,
@@ -64,22 +61,22 @@ export const IdealImage: FC<IdealImageInterface> = ({
     ...icons,
   };
 
-  const useMotionProps = useMemo(
+  const useTheme = useMemo(
     () => ({
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-      viewport: { once: true },
-      ...motionProps,
-    }),
-    [motionProps]
-  );
-
-  const useTheme = useMemo(() => {
-    return {
       ...defaultTheme,
       ...theme,
-    } as Theme;
-  }, [theme]);
+    }),
+    [theme]
+  );
+
+  const useStyle = useMemo(
+    () => ({
+      width,
+      height,
+      ...theme.wrapper,
+    }),
+    [theme, width, height]
+  );
 
   const [withLoader, setLoader] = useState<null | Cancelable>();
   const [dimensions, setDimensions] = useState({});
@@ -265,6 +262,7 @@ export const IdealImage: FC<IdealImageInterface> = ({
         ...networkState,
         size: pickedSrc.width,
         threshold,
+        inViewport: true,
       }),
       url: getUrl ? getUrl(pickedSrc) : pickedSrc.src,
       pickedSrc,
@@ -320,19 +318,25 @@ export const IdealImage: FC<IdealImageInterface> = ({
     }
   }, [imgState, load]);
 
-  const icon = getIcon({
-    imgState,
-    networkState,
-    icons: useIcons,
-  });
+  const icon = useMemo(
+    () =>
+      getIcon({
+        imgState,
+        networkState,
+        icons: useIcons,
+      }),
+    [useIcons, imgState, networkState]
+  );
 
   return (
     <motion.div
+      className={className}
       onViewportEnter={onEnter}
       onViewportLeave={onLeave}
-      {...useMotionProps}
+      style={useStyle}
     >
       <Media
+        motionProps={motionProps}
         alt={alt}
         getUrl={getUrl}
         height={height}

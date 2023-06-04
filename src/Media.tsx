@@ -6,34 +6,26 @@ import {
   type ReactNode,
   type MouseEventHandler,
 } from "react";
-
-import type { SvgRef, SrcSet, GetUrl } from "types";
-import type { Theme } from "theme";
+import { SetRequired } from "type-fest";
+import type { SvgRef, GetUrl, IdealImageProps } from "types";
 
 import { IconWrapper, type IconType } from "Icons";
 import { Image } from "Image";
 import { Noscript } from "Noscript";
-import { loadStates, type LoadStates } from "loaders";
+import { type LoadStates } from "loaders";
 
-export interface MediaInterface {
-  alt: string;
+export interface MediaInterface extends SetRequired<IdealImageProps, "theme"> {
   icon: IconType;
   loadState: LoadStates;
   message: ReactNode;
-  width: number | string;
-  theme: Theme;
   onDimensions: Function;
-  srcSet: SrcSet;
   //
-  className?: string;
   getUrl?: GetUrl;
-  height?: number | string;
   iconColor?: string;
   iconSize?: number;
   onClick?: MouseEventHandler;
   placeholder?: string;
   src?: string;
-  style?: Record<string, any>;
 }
 
 export const Media: FC<MediaInterface> = ({
@@ -46,35 +38,32 @@ export const Media: FC<MediaInterface> = ({
   srcSet,
   placeholder,
   //
-  className = "",
   getUrl,
   iconColor = "#fff",
   iconSize = 64,
   message = "",
+  motionProps = {},
   onClick,
   onDimensions,
   src = "",
-  style = {},
 }) => {
   const useIconStyle = useMemo(
     () => ({
       width: iconSize + 100,
       height: iconSize,
       color: iconColor,
+      ...theme.icon,
     }),
-    [iconSize, iconColor]
+    [iconSize, iconColor, theme]
   );
 
-  const useDivStyles = useMemo(() => {
-    const background =
-      loadState === loadStates.Loaded ? {} : { backgroundColor: placeholder };
-
-    return {
-      ...background,
+  const useStyle = useMemo(
+    () => ({
       ...theme.placeholder,
-      ...style,
-    };
-  }, [loadState, theme, style, placeholder]);
+      backgroundColor: placeholder,
+    }),
+    [theme, placeholder]
+  );
 
   const SvgRef: SvgRef = useRef(null);
 
@@ -94,8 +83,9 @@ export const Media: FC<MediaInterface> = ({
   }, [onDimensions]);
 
   return (
-    <div className={className} style={useDivStyles} onClick={onClick}>
+    <div style={useStyle} onClick={onClick}>
       <Image
+        motionProps={motionProps}
         alt={alt}
         height={height}
         loadState={loadState}
@@ -109,13 +99,13 @@ export const Media: FC<MediaInterface> = ({
         getUrl={getUrl}
         height={height}
         srcSet={srcSet}
-        style={useDivStyles}
+        style={theme.noscript}
         width={width}
       />
       <IconWrapper
-        MyIcon={icon}
-        message={message}
         fill={iconColor}
+        message={message}
+        MyIcon={icon}
         size={iconSize}
         style={useIconStyle}
       />

@@ -3,6 +3,7 @@ import { type CSSProperties } from "react";
 export type Theme = Record<string, CSSProperties>;
 
 export const theme: Theme = {
+  wrapper: {},
   placeholder: {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -12,8 +13,6 @@ export const theme: Theme = {
     width: "100%",
     height: "auto",
     maxWidth: "100%",
-    /* TODO: fix bug in styles */
-    marginBottom: "-4px",
   },
   icon: {
     position: "absolute",
