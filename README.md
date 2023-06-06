@@ -27,7 +27,7 @@ const App = () => (
     /* see framer-motion docs */
     /* motionProps={} */
     alt="ideal image"
-    // you should also add specific width & height set to numbers
+    // you could include specific width & height set to numbers
     srcSet={[{ src: "some/image.webp" }]}
     // prefer passing width && height set to numbers
     width={"100%"}

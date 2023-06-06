@@ -56,11 +56,6 @@ export const IdealImage: FC<IdealImageInterface> = ({
   theme = {},
   threshold,
 }) => {
-  const useIcons = {
-    ...iconMap,
-    ...icons,
-  };
-
   const useTheme = useMemo(
     () => ({
       ...defaultTheme,
@@ -323,13 +318,17 @@ export const IdealImage: FC<IdealImageInterface> = ({
       getIcon({
         imgState,
         networkState,
-        icons: useIcons,
+        icons: {
+          ...iconMap,
+          ...icons,
+        },
       }),
-    [useIcons, imgState, networkState]
+    [icons, imgState, networkState, getIcon]
   );
 
   return (
     <motion.div
+      layout
       className={className}
       onViewportEnter={onEnter}
       onViewportLeave={onLeave}
