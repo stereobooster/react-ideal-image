@@ -28,9 +28,9 @@
     "typescript": "beta"
   },
   "peerDependencies": {
-    "framer-motion": "10.x",
-    "react-dom": "18.x",
-    "react": "18.x"
+    "framer-motion": "^10.1",
+    "react-dom": "^18.2",
+    "react": "^18.2"
   },
   "files": [
     "dist"
