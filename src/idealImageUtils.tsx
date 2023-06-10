@@ -116,9 +116,9 @@ export const defaultGetMessage = (
     case iconKeys.NoIcon:
     case iconKeys.Loaded:
       return null;
+    case iconKeys.Initial:
     case iconKeys.Loading:
       return "Loading...";
-    case iconKeys.Initial:
     case iconKeys.Load:
       // we can show `alt` here
       if (imgState.size) {
