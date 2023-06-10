@@ -28,6 +28,7 @@ export type GetUrl = (x: SrcType) => string;
 
 export type IdealImageProps = BaseProps & {
   alt: string;
-  srcSet: SrcSet;
   motionProps?: MotionProps;
+  placeholder?: string;
+  srcSet: SrcSet;
 };

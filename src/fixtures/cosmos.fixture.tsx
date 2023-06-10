@@ -1,4 +1,3 @@
-import * as React from "react";
 import { IdealImage } from "IdealImage";
 import cosmosImg from "./img/cosmos.png";
 

@@ -43,4 +43,5 @@ const App = () => (
 bun install
 bun run cosmos
 # open localhost:5000
+# set network throttling to something really slow
 ```

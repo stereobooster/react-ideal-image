@@ -17,6 +17,7 @@ export const Image = forwardRef(function Image(
     alt,
     height,
     loadState,
+    placeholder,
     theme,
     width,
     //
@@ -38,19 +39,25 @@ export const Image = forwardRef(function Image(
   );
   const imageProps = useMemo(() => {
     const baseProps = { width, height, alt };
-    const style = { ...theme.img, width, height };
+    const imgStyle = { ...theme.img, width, height };
+    const placeholderStyle = {
+      ...theme.placeholder,
+      width,
+      height,
+      backgroundColor: placeholder,
+    };
     return src && loadState === loadStates.Loaded
       ? {
           ...baseProps,
           src,
-          style,
+          style: imgStyle,
         }
       : {
           ...baseProps,
           ref: svgRef,
-          style,
+          style: placeholderStyle,
         };
-  }, [loadState, src, alt, width, height, svgRef, theme]);
+  }, [loadState, src, alt, width, height, svgRef, theme, placeholder]);
 
   return loadState === loadStates.Loaded ? (
     <AnimatePresence>

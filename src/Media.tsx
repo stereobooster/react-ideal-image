@@ -57,14 +57,6 @@ export const Media: FC<MediaInterface> = ({
     [iconSize, iconColor, theme]
   );
 
-  const useStyle = useMemo(
-    () => ({
-      ...theme.placeholder,
-      backgroundColor: placeholder,
-    }),
-    [theme, placeholder]
-  );
-
   const SvgRef: SvgRef = useRef(null);
 
   useEffect(() => {
@@ -83,12 +75,13 @@ export const Media: FC<MediaInterface> = ({
   }, [onDimensions]);
 
   return (
-    <div className="media" style={useStyle} onClick={onClick}>
+    <div className="media" onClick={onClick}>
       <Image
-        motionProps={motionProps}
         alt={alt}
         height={height}
         loadState={loadState}
+        motionProps={motionProps}
+        placeholder={placeholder}
         ref={SvgRef}
         src={src}
         theme={theme}
