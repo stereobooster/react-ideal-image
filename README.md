@@ -34,3 +34,13 @@ const App = () => (
   />
 );
 ```
+
+## Contributing
+
+```sh
+
+# clone repo
+bun install
+bun run cosmos
+# open localhost:5000
+```

@@ -8,22 +8,25 @@
   "type": "module",
   "version": "1.0.0",
   "devDependencies": {
-    "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
     "@types/react-test-renderer": "18.0.0",
+    "@types/react": "18.2.9",
     "barrels": "1.6.6",
     "bun-types": "canary",
-    "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-react": "7.32.2",
+    "eslint": "8.42.0",
     "framer-motion": "10.12.16",
     "npm-check-updates": "16.10.12",
     "prettier": "2.8.8",
-    "react": "18.2.0",
+    "react-cosmos-core": "^6.0.0-alpha.0",
+    "react-cosmos-dom": "next",
+    "react-cosmos": "next",
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
+    "react": "18.2.0",
     "type-fest": "3.11.1",
     "typescript": "beta"
   },
@@ -33,9 +36,12 @@
     "react": "^18.2"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "scripts": {
+    "cosmos": "bun run cosmos:start & bun run cosmos:bun",
+    "cosmos:bun": "bun --watch cosmos.bunserver.ts",
+    "cosmos:start": "cosmos --expose-imports",
     "barrels": "bunx barrelsby --config ./barrels.json",
     "lint": "bunx eslint src --fix --resolve-plugins-relative-to .",
     "pretty": "bunx prettier --write 'src/**/*.(ts|tsx)'",

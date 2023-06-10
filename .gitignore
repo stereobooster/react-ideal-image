@@ -14,4 +14,4 @@ yarn-error.log
 
 # cosmos
 cosmos.imports.ts
-cosmos
+build/
