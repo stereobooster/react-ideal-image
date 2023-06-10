@@ -88,7 +88,7 @@ async function serveFromDir(config: {
   return null;
 }
 export default {
-  port: 5050,
+  port: cosmosConfig.rendererUrl.split(":").pop(),
   hostname: "0.0.0.0",
   async fetch(req) {
     const reqPath = new URL(req.url).pathname;
