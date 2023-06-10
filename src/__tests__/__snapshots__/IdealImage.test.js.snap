@@ -1,0 +1,50 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IdealImage Renders a snapshot that is good 1`] = `
+{
+  [Symbol($$typeof)]: Symbol(react.test.json),
+  "children": [
+    {
+      [Symbol($$typeof)]: Symbol(react.test.json),
+      "children": null,
+      "props": {
+        "className": undefined,
+        "height": 2095,
+        "style": {},
+        "width": 3500,
+      },
+      "type": "svg",
+    },
+    {
+      [Symbol($$typeof)]: Symbol(react.test.json),
+      "children": [
+        {
+          [Symbol($$typeof)]: Symbol(react.test.json),
+          "children": null,
+          "props": {
+            "alt": undefined,
+            "className": undefined,
+            "height": 2095,
+            "src": "some-src.jpg",
+            "srcSet": "some-src.jpg 3500w",
+            "style": {},
+            "width": 3500,
+          },
+          "type": "img",
+        },
+      ],
+      "props": {},
+      "type": "noscript",
+    },
+  ],
+  "props": {
+    "className": undefined,
+    "onClick": [Function],
+    "onKeyPress": [Function],
+    "style": {
+      "backgroundColor": "blue",
+    },
+  },
+  "type": "div",
+}
+`;

@@ -1,81 +1,51 @@
 {
-  "name": "react-ideal-image",
-  "version": "0.0.0-semantically-released",
-  "description": "Adaptive image component",
-  "main": "dist/index.js",
-  "typings": "index.d.ts",
-  "engines": {
-    "node": "> 4",
-    "npm": "> 3"
+  "author": "stereobooster <stereobooster@gmail.com>",
+  "description": "forked from stereobooster",
+  "keywords": [],
+  "license": "MIT",
+  "module": "src/index.ts",
+  "name": "react-idealer-image",
+  "type": "module",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/react-dom": "18.2.4",
+    "@types/react-test-renderer": "18.0.0",
+    "@types/react": "18.2.9",
+    "barrels": "1.6.6",
+    "bun-types": "canary",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-config-react-app": "7.0.1",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint": "8.42.0",
+    "framer-motion": "10.12.16",
+    "npm-check-updates": "16.10.12",
+    "prettier": "2.8.8",
+    "react-cosmos-core": "^6.0.0-alpha.0",
+    "react-cosmos-dom": "next",
+    "react-cosmos": "next",
+    "react-dom": "18.2.0",
+    "react-test-renderer": "18.2.0",
+    "react": "18.2.0",
+    "type-fest": "3.11.1",
+    "typescript": "beta"
   },
-  "scripts": {
-    "add-contributor": "kcd-scripts contributors add",
-    "build": "kcd-scripts build",
-    "lint": "kcd-scripts lint",
-    "test": "kcd-scripts test",
-    "test:update": "npm test -- --updateSnapshot --coverage",
-    "test:ts": "tsc --noEmit -p ./tsconfig.json",
-    "validate": "npm run test:ts && kcd-scripts validate",
-    "setup": "npm install && npm run validate -s",
-    "precommit": "kcd-scripts precommit",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
-    "predeploy": "styleguidist build",
-    "deploy": "gh-pages -d styleguide"
+  "peerDependencies": {
+    "framer-motion": "^10.1",
+    "react-dom": "^18.2",
+    "react": "^18.2"
   },
   "files": [
-    "dist"
+    "src"
   ],
-  "keywords": [],
-  "author": "stereobooster <stereobooster@gmail.com>",
-  "license": "MIT",
-  "peerDependencies": {
-    "prop-types": ">=15",
-    "react": ">=0.14.x",
-    "react-waypoint": ">=8.0.0"
-  },
-  "devDependencies": {
-    "@types/react": "16.4.18",
-    "babel-loader": "7.1.5",
-    "@babel/plugin-proposal-class-properties": "7.1.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/preset-env": "7.1.0",
-    "@babel/preset-react": "7.0.0",
-    "gh-pages": "2.0.1",
-    "jest-canvas-mock": "1.1.0",
-    "kcd-scripts": "0.45.0",
-    "prop-types": "15.6.2",
-    "react": "16.6.0",
-    "react-dom": "16.6.0",
-    "react-styleguidist": "8.0.2",
-    "react-test-renderer": "16.6.0",
-    "react-testing-library": "5.2.3",
-    "react-waypoint": "8.0.3",
-    "typescript": "3.1.5",
-    "webpack": "4.24.0"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js",
-    "rules": {
-      "complexity": [
-        "error",
-        12
-      ],
-      "no-case-declarations": "off"
-    }
-  },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage",
-    "dist",
-    "styleguide"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/stereobooster/react-ideal-image.git"
-  },
-  "bugs": {
-    "url": "https://github.com/stereobooster/react-ideal-image/issues"
-  },
-  "homepage": "https://github.com/stereobooster/react-ideal-image#readme"
+  "scripts": {
+    "cosmos": "bun run cosmos:start & bun run cosmos:bun",
+    "cosmos:bun": "bun --watch cosmos.bunserver.ts",
+    "cosmos:start": "cosmos --expose-imports",
+    "barrels": "bunx barrelsby --config ./barrels.json",
+    "lint": "bunx eslint src --fix --resolve-plugins-relative-to .",
+    "pretty": "bunx prettier --write 'src/**/*.(ts|tsx)'",
+    "test:types": "bunx tsc",
+    "upgrade:deps": "bunx ncu -u && bun install"
+  }
 }
